@@ -1,0 +1,16 @@
+Data Description
+
+The target variable is solar power.  There are 12 independent variables from the ECMWF NWP output to be used as below.
+
+078.128 Total column liquid water (tclw) - unit (kg m**-2) - Vertical integral of cloud liquid water content
+079.128 Total column ice water (tciw) - unit (kg m**-2) - Vertical integral of cloud ice water content
+134.128 surface pressure (SP) - Unit: Pa
+157.128 Relative humidity at 1000 mbar (r) -unit (%)-   Relative humidity is defined with respect to saturation of the mixed phase, i.e. with respect to saturation over ice below -23C and with respect to saturation over water above 0C. In the regime in between a quadratic interpolation is applied.
+164.128 total cloud cover (TCC) - Unit: (0-1) - Total cloud cover derived from model levels using the model's overlap assumption
+165.128 10 metre U wind component (10u) - unit  (m s**-1)
+166.128 10 metre V wind component (10V) - unit  (m s**-1)
+167.128 2 metre temperature (2T) - Unit: K
+169.128 surface solar rad down (SSRD) - Unit: J m-2 - Accumulated field
+175.128 surface thermal rad  down (STRD) - Unit: J m-2 - Accumulated field
+178.128 top net solar rad (TSR) – Unit: J m-2 - Net solar radiation at the top of the atmosphere. Accumulated field
+228.128 total precipitation (TP) - Unit: m - Convective precipitation + stratiform precipitation (CP +LSP). Accumulated field.

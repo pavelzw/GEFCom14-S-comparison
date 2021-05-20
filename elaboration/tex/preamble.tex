@@ -1,0 +1,169 @@
+% remove indentation throughout the document
+\setlength{\parindent}{0pt}
+
+\usepackage{tocbasic}
+
+%%% Doc: ftp://tug.ctan.org/pub/tex-archive/macros/latex/contrib/caption/caption.pdf
+\usepackage[tableposition=above]{caption}
+
+% Aussehen der Captions
+\captionsetup{
+   margin = 10pt,
+   font = {rm},
+   labelfont = {bf},
+   format = plain, % oder 'hang'
+   indention = 0em,  % Einruecken der Beschriftung
+   labelsep = space, %period, space, quad, newline
+   justification = RaggedRight, % justified, centering, RaggedRight
+   singlelinecheck = true, % false (true=bei einer Zeile immer zentrieren)
+   position = bottom %top
+}
+
+%%% Bugfix Workaround
+\DeclareCaptionOption{parskip}[]{}
+\DeclareCaptionOption{parindent}[]{}
+
+\usepackage{csquotes}
+\usepackage{siunitx}
+
+%% useful abreviations
+
+\newcommand\ie{i.\,e.\xspace}
+\newcommand\eg{e.\,g.\xspace}
+\newcommand\Eg{E.\,g.\xspace}
+\newcommand\NB{N.\,B.\xspace}
+\newcommand\BSc{B.\,Sc.\xspace}
+\newcommand\MSc{M.\,Sc.\xspace}
+\newcommand\PhD{Ph.\,D.\xspace}
+\newcommand\etc{etc.\xspace}
+\newcommand\cf{cf.\xspace}
+\newcommand\Cf{Cf.\xspace}
+\newcommand\etal{et\,al.\xspace}
+\newcommand\page[1]{p.\,#1}
+\newcommand\pages[1]{pp.\,#1}
+\newcommand\ham{a.\,m.\xspace}
+\newcommand\hpm{p.\,m.\xspace}
+	
+\newcommand\zB{z.\,B.\xspace}
+\newcommand\proz{\,\%\xspace}
+
+%% Useful definitions for tables --------------------------------------------------------- %% 
+
+% um Tabellenspalten mit Flattersatz zu setzen, muss \\ vor
+% (z.B.) \raggedright geschuetzt werden:
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+
+% Linksbuendig:
+\newcolumntype{v}[1]{>{\PreserveBackslash\RaggedRight\hspace{0pt}}p{#1}}
+\newcolumntype{M}[1]{>{\PreserveBackslash\RaggedRight\hspace{0pt}}m{#1}}
+\newcolumntype{Y}{>{\PreserveBackslash\RaggedLeft\hspace{0pt}}X}
+%%% Spalten fuer Mathematik
+%
+% serifenlose Matheschrift
+%\newcolumntype{s}[1]{%
+%  >{\DC@{.}{,}{#1}\mathsf\bgroup}l%
+%  <{\egroup\DV@end}%
+%}
+
+% Tabellenspaltentyp fuer den Kopf: (Farbe + Ausrichtung)
+\newcolumntype{H}[1]{>{\columncolor{tableheadcolor}}l}
+
+%%% ---|Layout der Tabellen |-------------------
+
+% Neue Umgebung fuer Tabellen:
+
+\newenvironment{Tabelle}[2][c]{%
+  \tablestylecommon
+  \begin{longtable}[#1]{#2}
+  }
+  {\end{longtable}%
+  \tablerestoresettings
+}
+
+% Groesse der Schrift in Tabellen
+\newcommand{\tablefontsize}{ \footnotesize}
+\newcommand{\tableheadfontsize}{\footnotesize}
+
+% Layout der Tabelle: Ausrichtung, Schrift, Zeilenabstand
+\newcommand\tablestylecommon{%
+  \renewcommand{\arraystretch}{1.4} % Groessere Abstaende zwischen Zeilen
+  \normalfont\normalsize            %
+  \sffamily\tablefontsize           % Serifenlose und kleine Schrift
+  \centering%                       % Tabelle zentrieren
+}
+
+\newcommand{\tablestyle}{
+  \tablestylecommon
+  %\tablealtcolored
+}
+
+% Ruecksetzten der Aenderungen
+\newcommand\tablerestoresettings{%
+  \renewcommand{\arraystretch}{1}% Abstaende wieder zuruecksetzen
+  \normalsize\rmfamily % Schrift wieder zuruecksetzen
+}
+
+% Tabellenkopf: Serifenlos+fett+schraeg+Schriftfarbe
+\newcommand\tableheads{%
+  \tableheadfontsize%
+  \sffamily\bfseries%
+  %\slshape
+  %\color{white}
+}
+
+\newcommand\tablesubheadfont{%
+  \tableheadfontsize%
+  \sffamily\bfseries%
+  \slshape
+  %\color{white}
+}
+
+\newcommand\tableheadcolor{%
+  %\rowcolor{tablesubheadcolor}
+  %\rowcolor{tableblackheadcolor}
+  \rowcolor{tableheadcolor}%
+}
+
+\newcommand\tablesubheadcolor{%
+  \rowcolor{tablesubheadcolor}
+  %\rowcolor{tableblackheadcolor}
+}
+
+\newcommand{\tableend}{\arrayrulecolor{black}\hline}
+
+% Tabellenkopf (1=Spaltentyp, 2=Text)
+% \newcommand{\tablehead}[2]{
+%   \multicolumn{1}{#1@{}}{%
+%     \raisebox{.1mm}{% Ausrichtung der Beschriftung
+%       #2%
+%     }\rule{0pt}{4mm}}% unsichtbare Linie, die die Kopfzeile hoeher macht
+% }
+
+
+\newcommand{\tablesubhead}[2]{%
+  \multicolumn{#1}{>{\columncolor{tablesubheadcolor}}l}{\tablesubheadfont #2}%
+}
+
+% Tabellenbody (=Inhalt)
+\newcommand\tablebody{%
+\tablefontsize\sffamily\upshape%
+}
+
+\newcommand\tableheadshaded{%
+  \rowcolor{tableheadcolor}%
+}
+\newcommand\tablealtcolored{%
+  \rowcolors{1}{tablerowcolor}{white!100}%
+}
+%%% --------------------------------------------
+
+\usepackage{ragged2e}
+
+%% Rotate table head
+%% http://tex.stackexchange.com/questions/98388/how-to-make-table-with-rotated-table-headers-in-latex
+%% http://tex.stackexchange.com/questions/32683/rotated-column-titles-in-tabular
+\newcommand*\rottblhead{\rotatebox{75}}
+
+\usepackage{cleveref}
+
+\newcommand\stress[1]{{\color{red}#1}} 

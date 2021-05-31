@@ -1,0 +1,25 @@
+\section{Spline Quantile Function RNNs}
+
+Gasthaus et. al proposed a method for probabilistic forecasting by modeling 
+the quantile function with monotonic regression splines. 
+The proposed SQF-RNN model combines the ability to forecast time series 
+from recurrent neural networks with the flexibility of being able to 
+model the quantile functions with linear splines. 
+The model is trained by minimizing the CRPS which can be computed effectively 
+for spline-based quantile functions.
+
+A linear spline with \(L\) pieces is of the form 
+\[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+, 
+\quad b, d \in \R^{L+1}. \]
+Since we want a monotone spline, we need to create constraints for \(b_l\) and \(d_l\).
+We want \(d_l < d_{l+1}\) for ordered knot positions. To achieve this 
+in the neural network, we set \(d_0 = 0\) and \(d_l = \sum_{j=1}^l \delta_j\), 
+where \(\delta_j \geq 0\) and \(\sum_{j=1}^L \delta_j = 1\) since the domain 
+of the quantile function is \([0, 1]\). 
+We also want monotonicity: the slope \(m_l\) between two knots is given by 
+\(m_l = \sum_{j=0}^l b_j\). We need to make sure that \(m_l \geq 0 \forall l\).
+If we set \(b_l = \beta_l - \beta_{l-1}\) and \(b_0 = \beta_0\) with \(\beta_l \geq 0 \forall l\), 
+we get \(m_l = \sum_{j=0}^l b_j = \beta_l \geq 0\).
+We can therefore model our spline with the parameter 
+\(\theta = (\gamma, \beta, \delta)\), \(\gamma \in \R, \beta \in [0,\infty)^{L}, 
+\delta \in \set{ \delta \in [0,1]^L: \sum_{j=1}^L \delta_j = 1 }\).

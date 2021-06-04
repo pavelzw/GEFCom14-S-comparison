@@ -23,3 +23,33 @@ we get \(m_l = \sum_{j=0}^l b_j = \beta_l \geq 0\).
 We can therefore model our spline with the parameter 
 \(\theta = (\gamma, \beta, \delta)\), \(\gamma \in \R, \beta \in [0,\infty)^{L}, 
 \delta \in \set{ \delta \in [0,1]^L: \sum_{j=1}^L \delta_j = 1 }\).
+
+Let \(z_{i,t} \in \R\) be the value of the \(i\)-th time series at time \(t\) and 
+\(x_{i,t} \in \R^D\) be the corresponding predictors for the time series. 
+The predictors are assumed to be available during prediction. In the 
+GEFCom14 case, these are mainly data obtained from weather forecasting. 
+
+The setup of the model is the following: 
+During training, the model takes \(x_{i,t}\) as well as \(z_{i, t-1}\) 
+and \(h_{i, t-1}\) -- the previous state of the network -- 
+as input and calculates \(h_{i,t} = r(h_{i, t-1}, z_{i, t-1}, x_{i, t})\)
+which is then used to calculate the quantile outputs 
+\(\theta_{i,t} = \theta(h_{i,t}, \phi)\).
+\(r(\cdot)\) is a multi-layer RNN with LSTM cells and \(\theta(\cdot)\) 
+is a projection layer.
+The quantiles are then used to calculate the CRPS loss and train the model.
+
+Flunkert et al. (2017) proposed DeepAR which is also a 
+probabilistic forecasting model with RNNs. It outputs the 
+parameters of a probabilistic distribution as the forecast. 
+The disadvantage of this method is that it requires the 
+specification of the probabilistic distribution that fits the data. 
+For complex problems, this is often not trivial. 
+In the DeepAR implementation, the Student's \(t\)-distribution is used. 
+This method performs noticably worse on the GEFCom14 dataset. 
+
+The CRPS is often used to evaluate a forecast model but its usage as 
+a direct loss function in the training process is rare. 
+As the CRPS is closely related to the pinball loss 
+(the CRPS is the integral over the pinball loss), this helps in 
+the GEFCom14 problem since it directly minimizes the given metric.

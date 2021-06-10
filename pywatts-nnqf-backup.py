@@ -1,5 +1,3 @@
-from itertools import product
-
 import numpy as np
 import pandas as pd
 import xarray as xr
@@ -35,6 +33,8 @@ def load_data():
     predictor_data = pd.concat(predictors_categories, axis=1)
 
     # decumulate data
+    from itertools import product
+
     for name, zoneid in product(['SSRD', 'STRD', 'TSR'], range(1, 4)):
         subtract = predictor_data[f'{name} {zoneid}'].copy()
         subtract.iloc[1:] = subtract[:-1]
@@ -99,59 +99,87 @@ def pinnball_loss(actual, prediction):
     return xr.DataArray(np.array([np.mean(loss)])).rename({'dim_0': 'pinnball loss'})
 
 
+def ___test(input):
+    print(input)
+    return input
+
+
+def merge(*quantiles):
+    print(len(quantiles))
+    for quantile in quantiles:
+        pass
+    return quantiles[0]
+
+
+def get_quantile(quantiles, p):
+    return quantiles[:, p-1]
+
+
 if __name__ == '__main__':
-    for task in range(4, 16):
-        losses = {}
-        for zone in range(1, 4):
-            print(f'Task {task} Zone {zone}')
+    task = 5
+    zone = 2
 
-            predictor_zones, train_data_zones, gefcom14_metadata = load_data()
-            x_input = predictor_zones[zone - 1]
-            y_output = train_data_zones[zone - 1]
+    predictor_zones, train_data_zones, gefcom14_metadata = load_data()
+    x_input = predictor_zones[zone - 1]
+    y_output = train_data_zones[zone - 1]
 
-            data_train = {'x_input': xr.DataArray(x_input[:-gefcom14_metadata['prediction_length']]),
-                          'y_output': xr.DataArray(y_output[:-gefcom14_metadata['prediction_length']])}
-            data_test = {'x_input': xr.DataArray(x_input[-gefcom14_metadata['prediction_length']:]),
-                         'y_output': xr.DataArray(y_output[-gefcom14_metadata['prediction_length']:])}
+    data_train = {'x_input': xr.DataArray(x_input[:-gefcom14_metadata['prediction_length']]),
+                  'y_output': xr.DataArray(y_output[:-gefcom14_metadata['prediction_length']])}
+    data_test = {'x_input': xr.DataArray(x_input[-gefcom14_metadata['prediction_length']:]),
+                 'y_output': xr.DataArray(y_output[-gefcom14_metadata['prediction_length']:])}
 
-            pipeline_train = Pipeline(path='results/nnqf/train')
+    pipeline_train = Pipeline(path='results/nnqf/train')
 
-            nnqf_output = FunctionModule(name='NNQF transformer', transform_method=nnqf_transform)(
-                x_input=pipeline_train['x_input'], y_output=pipeline_train['y_output']
-            )
+    nnqf_output = FunctionModule(name='NNQF transformer', transform_method=nnqf_transform)(
+        x_input=pipeline_train['x_input'], y_output=pipeline_train['y_output']
+    )
 
-            x_horizon_sampler = Sampler(sample_size=24)
-            x_horizon_train = x_horizon_sampler(
-                x=pipeline_train['x_input']
-            )
+    x_horizon_sampler = Sampler(sample_size=24)
+    x_horizon_train = x_horizon_sampler(
+        x=pipeline_train['x_input']
+    )
 
-            neural_network = SKLearnWrapper(module=MLPRegressor(), name='Neural Network')
-            nn_output_train = neural_network(
-                x=x_horizon_train, target=nnqf_output
-            )
+    quantile_estimators = {}
+    for p in range(1, 100):
+        quantile = FunctionModule(name=f'Quantile-{p}', transform_method=lambda x: get_quantile(x, p))(
+            x=nnqf_output
+        )
+        neural_network = SKLearnWrapper(module=MLPRegressor(), name=f'Neural Network-{p}')
+        neural_network(
+            x=x_horizon_train, target=quantile
+        )
+        quantile_estimators[str(p/100)] = neural_network
 
-            print('Training NNQF model...')
-            pipeline_train.train(data_train)
-            print('Training finished.')
+    print('Training NNQF model...')
+    pipeline_train.train(data_train)
+    print('Training finished.')
 
-            # testing
-            pipeline_test = Pipeline(path='results/nnqf/test')
-            x_horizon_test = x_horizon_sampler(
-                x=pipeline_test['x_input']
-            )
-            nn_output_test = neural_network(
-                x=x_horizon_test
-            )
-            post_processed = FunctionModule(name='Prediction', transform_method=remove_quantile_crossing)(
-                quantiles=nn_output_test,
-                callbacks=[CSVCallback(f'task{task} zone{zone}')]
-            )
-            pinnball_loss_evaluated = FunctionModule(name='Pinnball loss', transform_method=pinnball_loss)(
-                actual=pipeline_test['y_output'], prediction=post_processed,
-                callbacks=[CSVCallback(f'task{task} zone{zone}')]
-            )
+    # testing
+    pipeline_test = Pipeline(path='results/nnqf/test')
+    x_horizon_test = x_horizon_sampler(
+        x=pipeline_test['x_input']
+    )
 
-            output = pipeline_test.test(data_test)
-            losses[zone] = output['Pinnball loss'].data[0]
+    nn_outputs = {}
+    for p in range(1, 100):
+        neural_network = quantile_estimators[str(p/100)]
+        nn_output_test = neural_network(
+            x=x_horizon_test
+        )
+        nn_outputs[str(p/100)] = nn_output_test
 
-        print(f'Loss for task {task}: {round((losses[1] + losses[2] + losses[3])/3, 5)}')
+    merged = FunctionModule(name='Merged', transform_method=merge)(
+        *nn_outputs
+    )
+
+    post_processed = FunctionModule(name='Prediction', transform_method=remove_quantile_crossing)(
+        quantiles=nn_output_test,
+        callbacks=[CSVCallback(f'task{task}')]
+    )
+    pinnball_loss_evaluated = FunctionModule(name='Pinnball loss', transform_method=pinnball_loss)(
+        actual=pipeline_test['y_output'], prediction=post_processed,
+        callbacks=[CSVCallback(f'task{task}')]
+    )
+
+    output = pipeline_test.test(data_test)
+    print(output)

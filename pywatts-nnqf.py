@@ -1,12 +1,17 @@
+from itertools import product
+
 import numpy as np
+import pandas
 import pandas as pd
 import xarray as xr
+
 from nnqf import nnqf_filter
 from pywatts.callbacks import CSVCallback
 
 from pywatts.core.pipeline import Pipeline
 from pywatts.modules import Sampler
 from pywatts.wrapper import FunctionModule, SKLearnWrapper
+from sklearn.ensemble import BaggingRegressor
 from sklearn.neural_network import MLPRegressor
 
 
@@ -33,8 +38,6 @@ def load_data():
     predictor_data = pd.concat(predictors_categories, axis=1)
 
     # decumulate data
-    from itertools import product
-
     for name, zoneid in product(['SSRD', 'STRD', 'TSR'], range(1, 4)):
         subtract = predictor_data[f'{name} {zoneid}'].copy()
         subtract.iloc[1:] = subtract[:-1]
@@ -86,7 +89,7 @@ def remove_quantile_crossing(quantiles):
     return prediction
 
 
-def pinnball_loss(actual, prediction):
+def pinball_loss(actual, prediction):
     actual = np.array(actual)
     prediction = np.array(prediction)
 
@@ -96,58 +99,72 @@ def pinnball_loss(actual, prediction):
     loss = np.where(actual < prediction,
                     (1 - percentiles / 100) * (prediction - actual),
                     percentiles / 100 * (actual - prediction))
-    return xr.DataArray(np.array([np.mean(loss)])).rename({'dim_0': 'pinnball loss'})
+    return xr.DataArray(np.array([np.mean(loss)])).rename({'dim_0': 'pinball loss'})
 
 
 if __name__ == '__main__':
-    task = 5
-    zone = 2
+    results = pandas.DataFrame(columns=range(4, 16), index=['loss'])
 
-    predictor_zones, train_data_zones, gefcom14_metadata = load_data()
-    x_input = predictor_zones[zone - 1]
-    y_output = train_data_zones[zone - 1]
+    for task in range(4, 16):
+        losses = {}
+        for zone in range(1, 4):
+            print(f'Task {task} Zone {zone}')
 
-    data_train = {'x_input': xr.DataArray(x_input[:-gefcom14_metadata['prediction_length']]),
-                  'y_output': xr.DataArray(y_output[:-gefcom14_metadata['prediction_length']])}
-    data_test = {'x_input': xr.DataArray(x_input[-gefcom14_metadata['prediction_length']:]),
-                 'y_output': xr.DataArray(y_output[-gefcom14_metadata['prediction_length']:])}
+            predictor_zones, train_data_zones, gefcom14_metadata = load_data()
+            x_input = predictor_zones[zone - 1]
+            y_output = train_data_zones[zone - 1]
 
-    pipeline_train = Pipeline(path='results/nnqf/train')
+            data_train = {'x_input': xr.DataArray(x_input[:-gefcom14_metadata['prediction_length']]),
+                          'y_output': xr.DataArray(y_output[:-gefcom14_metadata['prediction_length']])}
+            data_test = {'x_input': xr.DataArray(x_input[-gefcom14_metadata['prediction_length']:]),
+                         'y_output': xr.DataArray(y_output[-gefcom14_metadata['prediction_length']:])}
 
-    nnqf_output = FunctionModule(name='NNQF transformer', transform_method=nnqf_transform)(
-        x_input=pipeline_train['x_input'], y_output=pipeline_train['y_output']
-    )
+            pipeline_train = Pipeline(path='results/nnqf/train')
 
-    x_horizon_sampler = Sampler(sample_size=24)
-    x_horizon_train = x_horizon_sampler(
-        x=pipeline_train['x_input']
-    )
+            nnqf_output = FunctionModule(name='NNQF transformer', transform_method=nnqf_transform)(
+                x_input=pipeline_train['x_input'], y_output=pipeline_train['y_output']
+            )
 
-    neural_network = SKLearnWrapper(module=MLPRegressor(), name='Neural Network')
-    nn_output_train = neural_network(
-        x=x_horizon_train, target=nnqf_output
-    )
+            x_horizon_sampler = Sampler(sample_size=24)
+            x_horizon_train = x_horizon_sampler(
+                x=pipeline_train['x_input']
+            )
 
-    print('Training NNQF model...')
-    pipeline_train.train(data_train)
-    print('Training finished.')
+            neural_network = SKLearnWrapper(module=BaggingRegressor(
+                base_estimator=MLPRegressor(
+                    hidden_layer_sizes=(100,)),
+                n_estimators=1),
+                                            name='neural network')
+            nn_output_train = neural_network(
+                x=x_horizon_train, target=nnqf_output
+            )
 
-    # testing
-    pipeline_test = Pipeline(path='results/nnqf/test')
-    x_horizon_test = x_horizon_sampler(
-        x=pipeline_test['x_input']
-    )
-    nn_output_test = neural_network(
-        x=x_horizon_test
-    )
-    post_processed = FunctionModule(name='Prediction', transform_method=remove_quantile_crossing)(
-        quantiles=nn_output_test,
-        callbacks=[CSVCallback(f'task{task}')]
-    )
-    pinnball_loss_evaluated = FunctionModule(name='Pinnball loss', transform_method=pinnball_loss)(
-        actual=pipeline_test['y_output'], prediction=post_processed,
-        callbacks=[CSVCallback(f'task{task}')]
-    )
+            print('Training NNQF model...')
+            pipeline_train.train(data_train)
+            print('Training finished.')
 
-    output = pipeline_test.test(data_test)
-    print(output)
+            # testing
+            pipeline_test = Pipeline(path='results/nnqf/test')
+            x_horizon_test = x_horizon_sampler(
+                x=pipeline_test['x_input']
+            )
+            nn_output_test = neural_network(
+                x=x_horizon_test
+            )
+            post_processed = FunctionModule(name='prediction', transform_method=remove_quantile_crossing)(
+                quantiles=nn_output_test,
+                callbacks=[CSVCallback(f'task{task} zone{zone}')]
+            )
+            pinball_loss_evaluated = FunctionModule(name='pinball loss', transform_method=pinball_loss)(
+                actual=pipeline_test['y_output'], prediction=post_processed,
+                callbacks=[CSVCallback(f'task{task} zone{zone}')]
+            )
+
+            output = pipeline_test.test(data_test)
+            losses[zone] = output['pinball loss'].data[0]
+        loss = round((losses[1] + losses[2] + losses[3])/3, 5)
+        results[task] = loss
+        print(f'---------------------------\nLoss for task {task}: {loss}\n'
+              f'---------------------------')
+    print(results)
+    results.to_csv('results/nnqf/losses.csv')

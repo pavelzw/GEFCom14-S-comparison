@@ -160,4 +160,4 @@ if __name__ == '__main__':
         print(f'---------------------------\nLoss for task {task}: {loss}\n'
               f'---------------------------')
     print(results)
-    results.to_csv('results/sqf_rnn/test/losses.csv')
+    results.to_csv('results/sqf-rnn/test/losses.csv')

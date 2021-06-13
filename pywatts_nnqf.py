@@ -103,7 +103,7 @@ def pinball_loss(actual, prediction):
 
 
 if __name__ == '__main__':
-    results = pandas.DataFrame(columns=range(4, 16), index=['loss'])
+    results = pd.DataFrame(columns=range(4, 16), index=['loss'])
 
     for task in range(4, 16):
         losses = {}
@@ -131,10 +131,10 @@ if __name__ == '__main__':
             )
 
             neural_network = SKLearnWrapper(module=BaggingRegressor(
-                base_estimator=MLPRegressor(
-                    hidden_layer_sizes=(100,)),
-                n_estimators=1),
-                                            name='neural network')
+                    base_estimator=MLPRegressor(
+                        hidden_layer_sizes=(100,)),
+                    n_estimators=1),
+                name='neural network')
             nn_output_train = neural_network(
                 x=x_horizon_train, target=nnqf_output
             )

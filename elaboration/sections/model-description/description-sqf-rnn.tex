@@ -1,12 +1,12 @@
 \section{Spline Quantile Function RNNs}
 \label{sec:sqf-rnn}
 
-Gasthaus et. al proposed a method for probabilistic forecasting by modeling 
+\Textcite{Gasthaus2019} proposed a method for probabilistic forecasting by modeling 
 the quantile function with monotonic regression splines. 
 The proposed SQF-RNN model combines the ability to forecast time series 
 from recurrent neural networks with the flexibility of being able to 
 model the quantile functions with linear splines. 
-The model is trained by minimizing the CRPS which can be computed effectively 
+The model is trained by minimizing the CRPS (\ref{ch:crps}) which can be computed effectively 
 for spline-based quantile functions.
 
 A linear spline with \(L\) pieces is of the form 
@@ -27,8 +27,7 @@ We can therefore model our spline with the parameter
 
 Let \(z_{i,t} \in \R\) be the value of the \(i\)-th time series at time \(t\) and 
 \(x_{i,t} \in \R^D\) be the corresponding predictors for the time series. 
-The predictors are assumed to be available during prediction. In the 
-GEFCom14 case, these are mainly data obtained from weather forecasting. 
+The predictors are assumed to be available during prediction. 
 
 The setup of the model is the following: 
 During training, the model takes \(x_{i,t}\) as well as \(z_{i, t-1}\) 
@@ -39,18 +38,3 @@ which is then used to calculate the quantile outputs
 \(r(\cdot)\) is a multi-layer RNN with LSTM cells and \(\theta(\cdot)\) 
 is a projection layer.
 The quantiles are then used to calculate the CRPS loss and train the model.
-
-Flunkert et al. (2017) proposed DeepAR which is also a 
-probabilistic forecasting model with RNNs. It outputs the 
-parameters of a probabilistic distribution as the forecast. 
-The disadvantage of this method is that it requires the 
-specification of the probabilistic distribution that fits the data. 
-For complex problems, this is often not trivial. 
-In the DeepAR implementation, the Student's \(t\)-distribution is used. 
-This method performs noticably worse on the GEFCom14 dataset. 
-
-The CRPS is often used to evaluate a forecast model but its usage as 
-a direct loss function in the training process is rare. 
-As the CRPS is closely related to the pinball loss 
-(the CRPS is the integral over the pinball loss), this helps in 
-the GEFCom14 problem since it directly minimizes the given metric.

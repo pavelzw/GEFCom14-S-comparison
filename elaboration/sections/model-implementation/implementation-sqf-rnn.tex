@@ -1,0 +1,18 @@
+\section{SQF-RNN}
+\label{sec:implementation-sqf-rnn}
+
+\Textcite{Salinas2017} proposed DeepAR which is also a 
+probabilistic forecasting model with RNNs. It outputs the 
+parameters of a probabilistic distribution as the forecast. 
+The disadvantage of this method is that it requires the 
+specification of the probabilistic distribution that fits the data. 
+For complex problems, this is often not trivial. 
+In the DeepAR implementation, the Student's \(t\)-distribution is used. 
+This method performs noticably worse on the GEFCom14 dataset. 
+\todo{put this paragraph under model implementation}
+
+The CRPS is often used to evaluate a forecast model but its usage as 
+a direct loss function in the training process is rare. 
+As the CRPS is closely related to the pinball loss\footnote{see \ref{ch:crps}}, 
+this helps in the GEFCom14 problem since it directly minimizes the given metric.
+\todo{put this paragraph under model implementation}

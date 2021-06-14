@@ -1,7 +1,7 @@
 \section{Nearest Neighbor Quantile Filters}
 \label{sec:nnqf}
 
-Ordiano et al. (2020) proposed a method for probabilistic 
+\Textcite{Ordiano2019} proposed a method for probabilistic 
 energy forecasting using quantile regression based on a Nearest Neighbor 
 Quantile Filter. 
 The method works as follows: first, the training set is modified 
@@ -20,14 +20,14 @@ by calculating the empirical quantile \(\tilde{y}_{(q),n}\) of
 \(\set{y_n \;|\; n\in J}\) for each \(q \in \set{0.01, \ldots, 0.99}\). 
 
 After repeating this procedure for each entry in the time series, 
-we get a vector 
+we get vectors 
 \[ \tilde{y}_{(q)} = \begin{pmatrix}
     \tilde{y}_{(q), 1} \\ 
     \vdots \\
     \tilde{y}_{(q), N}
 \end{pmatrix} \]
 that form the modified training set combined with the 
-predictors \(X = x_1, \ldots, x_N\).
+predictors \(X = (x_1, \ldots, x_N)\).
 
 With the modified training set, one can now train the regression model 
 for each quantile. Common examples are polynomial regression or 

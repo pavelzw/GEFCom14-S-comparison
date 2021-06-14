@@ -1,0 +1,11 @@
+\section{CRPS}
+\label{ch:crps}
+
+The CRPS (continuous ranked probability score) is one of the most common 
+scoring rules. It is defined as follows: 
+
+\[ \CRPS(P, y) = \int_{-\infty}^\infty \left( P(y) - \mathds{1} \{y \leq x\} \right)^2 dx. \]
+It can be proven that the CRPS can also be written as 
+\[ \CRPS(P, y) = 2 \int_0^1 l_\alpha(P^{-1}(\alpha), y) d\alpha, \]
+where \(l_\alpha\) is the pinball loss: 
+\todo{proof?}

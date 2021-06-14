@@ -1,0 +1,18 @@
+\section{Proper scoring rules}
+\label{sec:proper-scoring-rules}
+
+To measure the error of a probabilistic forecast, one usually uses a 
+proper scoring rule. 
+Let \(\mathcal{P}\) be a convex class of probability measures on the 
+measurable space \((\Omega, \mathcal{A})\).
+A \textit{scoring rule} is any extended real-valued function 
+\[ \func{S}{\mathcal{P} \times \Omega}{\overline{\R}} \]
+such that \(S(P, \cdot)\) is \(\mathcal{P}\)-quasiintegrable for all 
+\(P\in \mathcal{P}\).
+A scoring rule \(S\) is \textit{proper} relative to a convex subclass 
+\(\mathcal{P}_0 \subseteq \mathcal{P}\) if
+\[ \int_\Omega S(Q, \omega) \mathrm{d}Q(\omega) \leq \int_\Omega S(P, \omega) \mathrm{d}Q(\omega) \]
+for all \(P, Q \in \mathcal{P}_0\). It is \textit{strictly proper} 
+if equality holds iff. \(P = Q\).
+
+This property encourages honest and careful quotes by the forecaster. 

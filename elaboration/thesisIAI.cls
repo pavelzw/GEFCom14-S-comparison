@@ -28,7 +28,8 @@
 %% -----------------------
 %% | Headers and footers |
 %% -----------------------
-\RequirePackage[automark]{scrlayer-scrpage}
+% draft=false removes rulers from header and footer
+\RequirePackage[automark, draft=false]{scrlayer-scrpage}
 
 \clubpenalty=10000 %prevent orphans
 \widowpenalty=10000 %prevent widows
@@ -276,7 +277,7 @@
 
 % PDF specific packages
 \RequirePackage[hyphens]{url}
-\RequirePackage[breaklinks,colorlinks=false]{hyperref}
+\RequirePackage[breaklinks,colorlinks=false, draft=false]{hyperref}
 \newcommand\setpdf{\hypersetup{%
     pdftitle={\thethesistype},%
     pdfsubject={\@title},%

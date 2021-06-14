@@ -160,4 +160,5 @@ if __name__ == '__main__':
         print(f'---------------------------\nLoss for task {task}: {loss}\n'
               f'---------------------------')
     print(results)
+    print(f'Average loss: {round(results.mean(axis="columns").iloc[0], 5)}')
     results.to_csv('results/sqf-rnn/test/losses.csv')

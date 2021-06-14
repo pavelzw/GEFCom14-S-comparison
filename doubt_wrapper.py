@@ -43,6 +43,8 @@ class DoubtWrapper(BaseWrapper):
         """
         x = kwargs['x'].data
         target = kwargs['target'].data
+        if x.ndim == 3:
+            x = x.reshape((x.shape[0], x.shape[1] * x.shape[2]))
         self.module.fit(x, target)
         self.is_fitted = True
 
@@ -53,5 +55,7 @@ class DoubtWrapper(BaseWrapper):
         :return: the transformed output
         """
         x = kwargs['x'].data
+        if x.ndim == 3:
+            x = x.reshape((x.shape[0], x.shape[1] * x.shape[2]))
         _, predictions = self.module.predict(x, quantiles=self.quantiles)
         return xr.DataArray(predictions)

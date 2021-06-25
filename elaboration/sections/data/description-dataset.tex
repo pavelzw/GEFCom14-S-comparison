@@ -3,7 +3,7 @@
 In order to compare different energy forecasting methods, 
 \Textcite{Hong2016} organized the Global Energy Forecasting Competition 2014 (GEFCom2014), 
 a probabilistic energy forecasting competition with four tracks: 
-electric load, electric prica, wind power and solar power forecasting. 
+electric load, electric price, wind power and solar power forecasting. 
 The competition attracted 581 participants from 61 countries. 
 
 The Global Energy Forecasting Competition took place the first time in 2012. 
@@ -21,8 +21,37 @@ In this thesis, we will only look at the solar power track.
 In this track, you need to predict the power generation of three 
 solar power plants (the so called zones) in Australia. 
 The prediction should be on a rolling basis for 24 h ahead. 
-For the forecasts, you get different prediction variables shown in Table 1. 
-\todo{create table}
+For the forecasts, you get different prediction variables shown in Table \ref{table:predictors}.
+
+\begin{table}[h!]
+\caption{Predictors for the GEFCom2014-S track}
+\label{table:predictors}
+\rowcolors{2}{white}{gray!25}
+\footnotesize
+\begin{tabularx}{\textwidth}{llX}
+    \toprule
+    \tableheads Variable name & \tableheads Units & \tableheads Comments \\
+    \midrule
+    Total column liquid water (tclw) & \(\si{\kilo\gram\per\square\metre}\) & Vertical integral of cloud liquid water content \\
+    Total column ice water (tciw) & \(\si{\kilo\gram\per\square\metre}\) & Vertical integral of cloud ice water content \\
+    Surface pressure (SP) & \(\si{\pascal}\) & \\
+    Relative humidity at \(\SI{1000}{\milli\bar}\) (r) & \(\%\) & Relative humidity is defined with respect to saturation of
+                                                                  the mixed phase, i.e., with respect to saturation over ice
+                                                                  below \(\SI{-23}{\degreeCelsius}\) and with respect to saturation over water 
+                                                                  above \(\SI{0}{\degreeCelsius}\). In the regime in between, a quadratic
+                                                                  interpolation is applied. \\
+    Total cloud cover (TCC) & \(0\)-\(1\) & TCC derived from model levels using the
+                                            model's overlap assumption \\
+    \(10\)-metre \(U\) wind component (\(10u\)) & \(\si{\metre\per\second}\) & \\
+    \(10\)-metre \(V\) wind component (\(10v\)) & \(\si{\metre\per\second}\) & \\
+    \(2\)-metre temperature (\(2T\)) & \(\si{\kelvin}\) & \\
+    Surface solar rad down (SSRD) & \(\si{\joule\per\square\metre}\) & Accumulated field \\
+    Surface thermal rad down (STRD) & \(\si{\joule\per\square\metre}\) & Accumulated field \\
+    Top net solar rad (TSR) & \(\si{\joule\per\square\metre}\) & Net solar radiation at the top of the atmosphere. Accumulated field \\
+    Total precipitation (TP) & \(\si{\metre}\) & Convective precipitation \(+\) stratiform precipitation (CP + LSP). Accumulated field \\
+    \bottomrule
+\end{tabularx}
+\end{table}
 
 \subsection{Error measure}
 

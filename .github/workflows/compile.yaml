@@ -9,13 +9,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Compile LaTeX document
+      - name: Compile thesis
         uses: xu-cheng/latex-action@v2
         with:
           working_directory: elaboration
           root_file: thesis.tex
+      - name: Compile presentation
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: presentation
+          root_file: presentation.tex
+      - run: |
+          sudo mv elaboration/out/thesis.pdf thesis.pdf
+          sudo mv presentation/out/presentation.pdf presentation.pdf
       - name: Upload LaTeX document
         uses: actions/upload-artifact@v2
         with: 
           name: PDF
-          path: elaboration/out/thesis.pdf
+          path: |
+            thesis.pdf
+            presentation.pdf

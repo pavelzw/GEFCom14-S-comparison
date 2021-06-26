@@ -1,2 +1,27 @@
 \section{NNQF}
 \label{sec:implementation-nnqf}
+
+Since the NNQF method is only a preprocessing step for the target values, 
+we still need to decide which model we want to use for fitting the 
+conditional distribution function. 
+\Textcite{Ordiano2019} tried fitting each of the \(99\) quantiles 
+with a polynomial of maximum degree \(1\) to \(4\) or a multi layer perceptron 
+with \(6\) or \(10\) hidden neurons. Since the multi layer perceptrons landed 
+significantly better results, I will focus on them. 
+
+Because the data is a time series, timepoints that are close are correlated. 
+That's why we not only take the predictor value \(x_n \in \R^D\) of time point \(n\) 
+but also \(x_{n-1}, \ldots, x_{n-H+1}\) as predictor values, where \(H\) is the number of lags.
+All in all, we want to fit a function \(\func{f_q}{\R^{D\times H}}{\R}\), 
+where \( f(x_n, \ldots, x_{n-H+1}; \theta_{(q)})\) is the conditional \(q\)-quantile of the target value \(Y_n\).
+
+In order to remove quantile crossing, \Textcite{Ordiano2019} postprocesses the conditional quantiles:
+\[ \hat{y}_{(q)} = \begin{cases}
+    \max\set{ f(x; \theta_{(q)}), 0 }, &\text{if } q = 0.01, \\
+    \max\set{ f(x; \theta_{(q)}), f(x; \theta_{(q-0.01)}) }, &\text{else.}
+\end{cases}\]
+
+In this thesis, I used another approach: 
+I simply sorted all estimated conditional quantiles \(\set{ f(x; \theta_{(q)}) \;|\; q\in \set{0.01, \ldots, 0.99} }\) 
+and set \(\hat{y}_{(q)}\) as the \((q\cdot 100)\)-th entry of the sorted list. This resulted in a significant performance improvement 
+in comparison to taking the maximum. \todo{add numbers to show significant improvement!}

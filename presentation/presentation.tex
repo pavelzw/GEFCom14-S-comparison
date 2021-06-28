@@ -54,11 +54,35 @@
 \end{frame}
 
 \begin{frame}{QRF}
-    
+    \begin{itemize}
+        \item Use bagging to produce \(k\) trees from training set \(x_1, \ldots, x_n \in \R^D\) and \(y_1, \ldots, y_n \in \R\)
+        \item For \(x\in \R^D\), we want to predict the distribution \(\P(Y | X=x)\)
+        \begin{itemize}
+            \item Calculate \(\hat{y}_1, \ldots, \hat{y}_k\) from the trees 
+            \item Calculate the empirical quantiles \(\hat{y}_{(q)}\) of \(\set{\hat{y}_1, \ldots, \hat{y}_k}\) for any \(q \in (0,1)\)
+        \end{itemize}
+        \item[\(\leadsto\)] Basically like Random Forests but instead of calculating the mean, you calculate the quantiles of the prediction
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{SQF-RNN}
-    
+    \begin{center}
+        \includegraphics[width=\textwidth]{plots/deepar-rnn.pdf}
+    \end{center}
+    \begin{itemize}
+        \item Autoregressive Recurrent Neural Network with probabilistic output
+        \item \(x_{i, t}\) and \(z_{i, t-1}\) form with \(\boldsymbol{h}_{i,t-1}\) the new network output \(\boldsymbol{h}_{i,t}\)
+        which is used to compute \(\theta_{i,t}\) and the likelihood \(\ell(z_{i,t} | \theta_{i,t})\)
+        \item Generate \(\tilde{z}_{i, t} \sim \ell(\cdot | \theta_{i,t})\) for testing from previous step
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{SQF-RNN}
+    \begin{itemize}
+        \item Output distribution is given by monotonously increasing linear splines: 
+        \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+ \]
+        \item Arbitrary distribution can be fit \(\leadsto\) no assumption on distribution
+    \end{itemize}
 \end{frame}
 
 \section{Comparison}

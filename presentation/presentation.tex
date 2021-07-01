@@ -20,6 +20,17 @@
     \tableofcontents%[hideallsubsections]
 \end{frame}
 
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item Solar energy generation is characterized by fluctuations due to uncertainty of the weather
+        \item Uncertainty should be quantified through a probabilistic forecast
+        \begin{itemize}
+            \item Probabilistic forecasts for solar energy generation are underdeveloped
+            \item[\(\leadsto\)] We want to compare different machine learning based forecasting models on solar power
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
 \section{Model descriptions}
 
 \begin{frame}{NNQF}
@@ -63,6 +74,98 @@
         \end{itemize}
         \item[\(\leadsto\)] Basically like Random Forests but instead of calculating the mean, you calculate the quantiles of the prediction
     \end{itemize}
+\end{frame}
+
+\begin{frame}{DeepAR -- Training}
+    \centering
+    \begin{tikzpicture}
+        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ1) at (0, 0) {\(h_1\)};
+        \node (x1) at (0, -1.5) {\(x_1, z_0\)};
+        \draw[->, line width=0.5mm] (x1) -- (circ1);
+        \node (y1) at (0, 1.5) {\(\P(z_1|h_1)\)};
+        \draw[->, line width=0.5mm] (circ1) -- (y1);
+
+        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ2) at (2, 0) {\(h_2\)};
+        \node (x2) at (2, -1.5) {\(x_2, z_1\)};
+        \draw[->, line width=0.5mm] (x2) -- (circ2);
+        \node (y2) at (2, 1.5) {\(\P(z_2|h_2)\)};
+        \draw[->, line width=0.5mm] (circ2) -- (y2);
+
+        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ3) at (4, 0) {\(h_3\)};
+        \node (x3) at (4, -1.5) {\(x_3, z_2\)};
+        \draw[->, line width=0.5mm] (x3) -- (circ3);
+        \node (y3) at (4, 1.5) {\(\P(z_3|h_3)\)};
+        \draw[->, line width=0.5mm] (circ3) -- (y3);
+
+        \node[circle, opacity=0, thick, inner sep=2pt, minimum size=30pt] (circ4) at (6, 0) {};
+        \node at (circ4) {\(\cdots\)};
+        \node[opacity=0] (y4) at (6, 1.5) {\(y_4\)};
+
+        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circn) at (8, 0) {\(h_n\)};
+        \node (xn) at (8, -1.5) {\(x_n, z_{n-1}\)};
+        \draw[->, line width=0.5mm] (xn) -- (circn);
+        \node (yn) at (8, 1.5) {\(\P(z_n|h_n)\)};
+        \draw[->, line width=0.5mm] (circn) -- (yn);
+
+        \draw[->, line width=0.5mm] (circ1) -- (circ2);
+        \draw[->, line width=0.5mm] (y1) -- (circ2);
+        \draw[->, line width=0.5mm] (circ2) -- (circ3);
+        \draw[->, line width=0.5mm] (y2) -- (circ3);
+        
+        \draw[->, line width=0.5mm] (circ3) -- (circ4);
+        \draw[->, line width=0.5mm] (y3) -- (circ4);
+        \draw[->, line width=0.5mm] (circ4) -- (circn);
+        \draw[->, line width=0.5mm] (y4) -- (circn);
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{DeepAR -- Predicting}
+    \centering
+    \begin{tikzpicture}
+        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ1) at (0, 0) {\(h_T\)};
+        \node (x1) at (0, -1.5) {\(x_T, z_{T-1}\)};
+        \draw[->, line width=0.5mm] (x1) -- (circ1);
+        \node (y1) at (0, 1.5) {\(\P(z_T|h_T)\)};
+        \draw[->, line width=0.5mm] (circ1) -- (y1);
+
+        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ2) at (2.5, 0) {\(h_{T+1}\)};
+        \node (x2) at (2.5, -1.5) {\(x_{T+1}, z_T\)};
+        \draw[->, line width=0.5mm] (x2) -- (circ2);
+        \node (y2) at (2.5, 1.5) {\(\P(z_{T+1}|h_{T+1})\)};
+        \draw[->, line width=0.5mm] (circ2) -- (y2);
+        \node (z2) at (2.5, 2.5) {\(\tilde{z}_{T+1}\)};
+        \draw[->, line width=0.5mm] (y2) -- (z2);
+
+        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ3) at (5, 0) {\(h_{T+2}\)};
+        \node (x3) at (5, -1.5) {\(x_{T+2}, \tilde{z}_{T+1}\)};
+        \draw[->, line width=0.5mm] (x3) -- (circ3);
+        \node (y3) at (5, 1.5) {\(\P(z_{T+2}|h_{T+2})\)};
+        \draw[->, line width=0.5mm] (circ3) -- (y3);
+        \node (z3) at (5, 2.5) {\(\tilde{z}_{T+2}\)};
+        \draw[->, line width=0.5mm] (y3) -- (z3);
+
+        \node[circle, opacity=0, thick, inner sep=2pt, minimum size=30pt] (circ4) at (7.5, 0) {};
+        \node at (circ4) {\(\cdots\)};
+        \node[opacity=0] (y4) at (7.5, 1.5) {\(\tilde{y}_{T+3}\)};
+
+        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circn) at (10, 0) {\(h_{T+n}\)};
+        \node (xn) at (10, -1.5) {\(x_{T+n}, \tilde{z}_{T+n-1}\)};
+        \draw[->, line width=0.5mm] (xn) -- (circn);
+        \node (yn) at (10, 1.5) {\(\P(z_{T+n}|h_{T+n})\)};
+        \draw[->, line width=0.5mm] (circn) -- (yn);
+        \node (zn) at (10, 2.5) {\(\tilde{z}_{T+n}\)};
+        \draw[->, line width=0.5mm] (yn) -- (zn);
+
+        \draw[->, line width=0.5mm] (circ1) -- (circ2);
+        \draw[->, line width=0.5mm] (y1) -- (circ2);
+        \draw[->, line width=0.5mm] (circ2) -- (circ3);
+        \draw[->, line width=0.5mm] (y2) -- (circ3);
+        
+        \draw[->, line width=0.5mm] (circ3) -- (circ4);
+        \draw[->, line width=0.5mm] (y3) -- (circ4);
+        \draw[->, line width=0.5mm] (circ4) -- (circn);
+        \draw[->, line width=0.5mm] (y4) -- (circn);
+    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{SQF-RNN}

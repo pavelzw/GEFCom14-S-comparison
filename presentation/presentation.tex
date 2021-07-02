@@ -76,107 +76,126 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{DeepAR -- Training}
-    \centering
-    \begin{tikzpicture}
-        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ1) at (0, 0) {\(h_1\)};
-        \node (x1) at (0, -1.5) {\(x_1, z_0\)};
-        \draw[->, line width=0.5mm] (x1) -- (circ1);
-        \node (y1) at (0, 1.5) {\(\P(z_1|h_1)\)};
-        \draw[->, line width=0.5mm] (circ1) -- (y1);
-
-        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ2) at (2, 0) {\(h_2\)};
-        \node (x2) at (2, -1.5) {\(x_2, z_1\)};
-        \draw[->, line width=0.5mm] (x2) -- (circ2);
-        \node (y2) at (2, 1.5) {\(\P(z_2|h_2)\)};
-        \draw[->, line width=0.5mm] (circ2) -- (y2);
-
-        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ3) at (4, 0) {\(h_3\)};
-        \node (x3) at (4, -1.5) {\(x_3, z_2\)};
-        \draw[->, line width=0.5mm] (x3) -- (circ3);
-        \node (y3) at (4, 1.5) {\(\P(z_3|h_3)\)};
-        \draw[->, line width=0.5mm] (circ3) -- (y3);
-
-        \node[circle, opacity=0, thick, inner sep=2pt, minimum size=30pt] (circ4) at (6, 0) {};
-        \node at (circ4) {\(\cdots\)};
-        \node[opacity=0] (y4) at (6, 1.5) {\(y_4\)};
-
-        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circn) at (8, 0) {\(h_n\)};
-        \node (xn) at (8, -1.5) {\(x_n, z_{n-1}\)};
-        \draw[->, line width=0.5mm] (xn) -- (circn);
-        \node (yn) at (8, 1.5) {\(\P(z_n|h_n)\)};
-        \draw[->, line width=0.5mm] (circn) -- (yn);
-
-        \draw[->, line width=0.5mm] (circ1) -- (circ2);
-        \draw[->, line width=0.5mm] (y1) -- (circ2);
-        \draw[->, line width=0.5mm] (circ2) -- (circ3);
-        \draw[->, line width=0.5mm] (y2) -- (circ3);
-        
-        \draw[->, line width=0.5mm] (circ3) -- (circ4);
-        \draw[->, line width=0.5mm] (y3) -- (circ4);
-        \draw[->, line width=0.5mm] (circ4) -- (circn);
-        \draw[->, line width=0.5mm] (y4) -- (circn);
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{DeepAR -- Predicting}
-    \centering
-    \begin{tikzpicture}
-        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ1) at (0, 0) {\(h_T\)};
-        \node (x1) at (0, -1.5) {\(x_T, z_{T-1}\)};
-        \draw[->, line width=0.5mm] (x1) -- (circ1);
-        \node (y1) at (0, 1.5) {\(\P(z_T|h_T)\)};
-        \draw[->, line width=0.5mm] (circ1) -- (y1);
-
-        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ2) at (2.5, 0) {\(h_{T+1}\)};
-        \node (x2) at (2.5, -1.5) {\(x_{T+1}, z_T\)};
-        \draw[->, line width=0.5mm] (x2) -- (circ2);
-        \node (y2) at (2.5, 1.5) {\(\P(z_{T+1}|h_{T+1})\)};
-        \draw[->, line width=0.5mm] (circ2) -- (y2);
-        \node (z2) at (2.5, 2.5) {\(\tilde{z}_{T+1}\)};
-        \draw[->, line width=0.5mm] (y2) -- (z2);
-
-        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circ3) at (5, 0) {\(h_{T+2}\)};
-        \node (x3) at (5, -1.5) {\(x_{T+2}, \tilde{z}_{T+1}\)};
-        \draw[->, line width=0.5mm] (x3) -- (circ3);
-        \node (y3) at (5, 1.5) {\(\P(z_{T+2}|h_{T+2})\)};
-        \draw[->, line width=0.5mm] (circ3) -- (y3);
-        \node (z3) at (5, 2.5) {\(\tilde{z}_{T+2}\)};
-        \draw[->, line width=0.5mm] (y3) -- (z3);
-
-        \node[circle, opacity=0, thick, inner sep=2pt, minimum size=30pt] (circ4) at (7.5, 0) {};
-        \node at (circ4) {\(\cdots\)};
-        \node[opacity=0] (y4) at (7.5, 1.5) {\(\tilde{y}_{T+3}\)};
-
-        \node[circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt] (circn) at (10, 0) {\(h_{T+n}\)};
-        \node (xn) at (10, -1.5) {\(x_{T+n}, \tilde{z}_{T+n-1}\)};
-        \draw[->, line width=0.5mm] (xn) -- (circn);
-        \node (yn) at (10, 1.5) {\(\P(z_{T+n}|h_{T+n})\)};
-        \draw[->, line width=0.5mm] (circn) -- (yn);
-        \node (zn) at (10, 2.5) {\(\tilde{z}_{T+n}\)};
-        \draw[->, line width=0.5mm] (yn) -- (zn);
-
-        \draw[->, line width=0.5mm] (circ1) -- (circ2);
-        \draw[->, line width=0.5mm] (y1) -- (circ2);
-        \draw[->, line width=0.5mm] (circ2) -- (circ3);
-        \draw[->, line width=0.5mm] (y2) -- (circ3);
-        
-        \draw[->, line width=0.5mm] (circ3) -- (circ4);
-        \draw[->, line width=0.5mm] (y3) -- (circ4);
-        \draw[->, line width=0.5mm] (circ4) -- (circn);
-        \draw[->, line width=0.5mm] (y4) -- (circn);
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{SQF-RNN}
+\begin{frame}[fragile]{DeepAR -- Training}
     \begin{center}
-        \includegraphics[width=\textwidth]{plots/deepar-rnn.pdf}
+    \begin{tikzpicture}[yscale=-1,node distance=-\pgflinewidth]
+        \tikzset{ReceptorNode/.style={circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt}}
+        \tikzset{Placeholder/.style={circle, thick, inner sep=2pt, minimum size=30pt}}
+        \tikzset{Connection/.style={->, line width=0.5mm}}
+        \newcommand{\mynode}[3]{
+            \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
+            \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
+            \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
+
+            \draw[Connection] (circ-#2) -- (y-#2);
+            \draw[Connection] (x-#2)    -- (circ-#2);
+        }
+        \newcommand{\placeholder}[2]{
+            \node[Placeholder] (circ-#2) at (#1, 0) {\(\cdots\)};
+            \node (x-#2) at (#1, 1.5) {};
+            \node (y-#2) at (#1, -1.5) {};
+        }
+        \newcommand{\connect}[2]{
+            \draw[Connection] (y-#1)    -- (circ-#2);
+            \draw[Connection] (circ-#1) -- (circ-#2);
+        }
+
+        % Create nodes
+        \mynode{1 * 2.5}{1}{0}
+        \onslide<2->{
+            \mynode{2 * 2.5}{2}{1}
+            \connect{1}{2}
+        }
+        \onslide<3->{
+            \mynode{3 * 2.5}{3}{2}
+            \connect{2}{3}
+        }
+        \onslide<4->{
+            \placeholder{4 * 2.5}{4}
+            \connect{3}{4}
+        }
+        % Last node is called "n"
+        \onslide<5->{
+            \mynode{5*2.5}{n}{n-1}
+            \connect{4}{n}
+        }
+    \end{tikzpicture}
     \end{center}
     \begin{itemize}
         \item Autoregressive Recurrent Neural Network with probabilistic output
-        \item \(x_{i, t}\) and \(z_{i, t-1}\) form with \(\boldsymbol{h}_{i,t-1}\) the new network output \(\boldsymbol{h}_{i,t}\)
-        which is used to compute \(\theta_{i,t}\) and the likelihood \(\ell(z_{i,t} | \theta_{i,t})\)
-        \item Generate \(\tilde{z}_{i, t} \sim \ell(\cdot | \theta_{i,t})\) for testing from previous step
+        \item \(x_t\) and \(z_{t-1}\) form with \(\boldsymbol{h}_{t-1}\) the new network output \(\boldsymbol{h}_t\)
+        which is used to compute \(\theta_t\) and the likelihood \(\P(z_t | \theta_t)\)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{DeepAR -- Predicting}
+    \begin{center}
+    \begin{tikzpicture}[yscale=-1,node distance=-\pgflinewidth]
+        \tikzset{ReceptorNode/.style={circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt}}
+        \tikzset{Placeholder/.style={circle, thick, inner sep=2pt, minimum size=30pt}}
+        \tikzset{Connection/.style={->, line width=0.5mm}}
+        \newcommand{\mynode}[3]{
+            \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
+            \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
+            \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
+
+            \draw[Connection] (circ-#2) -- (y-#2);
+            \draw[Connection] (x-#2)    -- (circ-#2);
+        }
+        \newcommand{\mynodewithresult}[3]{
+            \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
+            \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
+            \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
+            \node (z-#2) at (#1, -2.5) {\(\tilde{z}_{#2}\)};
+
+            \draw[Connection] (circ-#2) -- (y-#2);
+            \draw[Connection] (x-#2)    -- (circ-#2);
+            \draw[Connection] (y-#2)    -- (z-#2);
+        }
+        \newcommand{\mynodewithresultinputsampled}[3]{
+            \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
+            \node (x-#2) at (#1, 1.5) {\(x_{#2}, \tilde{z}_{#3}\)};
+            \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
+            \node (z-#2) at (#1, -2.5) {\(\tilde{z}_{#2}\)};
+
+            \draw[Connection] (circ-#2) -- (y-#2);
+            \draw[Connection] (x-#2)    -- (circ-#2);
+            \draw[Connection] (y-#2)    -- (z-#2);
+        }
+        \newcommand{\placeholder}[2]{
+            \node[Placeholder] (circ-#2) at (#1, 0) {\(\cdots\)};
+            \node (x-#2) at (#1, 1.5) {};
+            \node[opacity=0] (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
+        }
+        \newcommand{\connect}[2]{
+            \draw[Connection] (y-#1)    -- (circ-#2);
+            \draw[Connection] (circ-#1) -- (circ-#2);
+        }
+
+        % Create nodes
+        \mynode{1 * 2.5}{T}{T-1}
+        \draw[Connection] ([xshift=-0.5cm]circ-T.west) -- (circ-T);
+        \onslide<2->{
+            \mynodewithresult{2 * 2.5}{T+1}{T}
+            \connect{T}{T+1}
+        }
+        \onslide<3->{
+            \mynodewithresultinputsampled{3 * 2.5}{T+2}{T+1}
+            \connect{T+1}{T+2}
+        }
+        \onslide<4->{
+            \placeholder{4 * 2.5}{T+3}
+            \connect{T+2}{T+3}
+        }
+        % Last node is called "T+n"
+        \onslide<5->{
+            \mynodewithresultinputsampled{5*2.5}{T+n}{T+n-1}
+            \connect{T+3}{T+n}
+        }
+    \end{tikzpicture}
+    \end{center}
+    \begin{itemize}
+        \onslide<2->{\item Generate \(\tilde{z}_t \sim \P(\cdot | \theta_t)\) for testing from previous step}
     \end{itemize}
 \end{frame}
 

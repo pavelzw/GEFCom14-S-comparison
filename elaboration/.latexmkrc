@@ -1,4 +1,4 @@
 $out_dir='out';
-$pdf_mode=1;
+$pdf_mode=5;
 
-$pdflatex = 'pdflatex -shell-escape -interaction nonstopmode %O %S';
+$xelatex = 'xelatex -shell-escape -interaction nonstopmode %O %S';

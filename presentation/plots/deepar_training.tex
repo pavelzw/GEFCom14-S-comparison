@@ -5,7 +5,7 @@
     \newcommand{\mynode}[3]{
         \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
         \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
-        \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
+        \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|\boldsymbol{h}_{#2})\)};
 
         \draw[Connection] (circ-#2) -- (y-#2);
         \draw[Connection] (x-#2)    -- (circ-#2);

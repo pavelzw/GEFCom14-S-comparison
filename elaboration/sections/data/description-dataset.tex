@@ -20,11 +20,11 @@ In the 2014 competition, they upgraded the competition with three features:
 In this thesis, we will only look at the solar power track. 
 In this track, you need to predict the power generation of three 
 solar power plants (the so called zones) in Australia. 
-The prediction should be on a rolling basis for 24 h ahead. 
+The prediction should be on a rolling basis for \(\SI{24}{\hour}\) ahead. 
 For the forecasts, you get different prediction variables shown in Table \ref{table:predictors}.
 
-\begin{table}[h]
-\caption{Predictors for the GEFCom2014-S track}
+\begin{table}[ht]
+\caption{Predictors for the GEFCom2014-S track \\ Adapted from Table 10 in \cite{Hong2016}}
 \label{table:predictors}
 \rowcolors{2}{white}{gray!25}
 \footnotesize
@@ -57,7 +57,7 @@ For the forecasts, you get different prediction variables shown in Table \ref{ta
 
 To evaluate the different forecast competitors in GEFCom2014, 
 the pinball loss was used -- mainly because of the ease of implementation 
-and because the pinball loss is a proper scoring rule\footnote{see \ref{sec:proper-scoring-rules}}. \todo{footnote or link?}
+and because the pinball loss is a proper scoring rule (\ref{sec:proper-scoring-rules}).
 For each time period over the forecast horizon, the participants need to 
 provide the quantiles \(q_{0.01}, \ldots, q_{0.99}\). 
 \(q_0 = -\infty\) and \(q_1 = \infty\) are the natural lower and upper bounds. 

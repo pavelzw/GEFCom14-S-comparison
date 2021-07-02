@@ -78,48 +78,7 @@
 
 \begin{frame}[fragile]{DeepAR -- Training}
     \begin{center}
-    \begin{tikzpicture}[yscale=-1,node distance=-\pgflinewidth]
-        \tikzset{ReceptorNode/.style={circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt}}
-        \tikzset{Placeholder/.style={circle, thick, inner sep=2pt, minimum size=30pt}}
-        \tikzset{Connection/.style={->, line width=0.5mm}}
-        \newcommand{\mynode}[3]{
-            \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
-            \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
-            \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
-
-            \draw[Connection] (circ-#2) -- (y-#2);
-            \draw[Connection] (x-#2)    -- (circ-#2);
-        }
-        \newcommand{\placeholder}[2]{
-            \node[Placeholder] (circ-#2) at (#1, 0) {\(\cdots\)};
-            \node (x-#2) at (#1, 1.5) {};
-            \node (y-#2) at (#1, -1.5) {};
-        }
-        \newcommand{\connect}[2]{
-            \draw[Connection] (y-#1)    -- (circ-#2);
-            \draw[Connection] (circ-#1) -- (circ-#2);
-        }
-
-        % Create nodes
-        \mynode{1 * 2.5}{1}{0}
-        \onslide<2->{
-            \mynode{2 * 2.5}{2}{1}
-            \connect{1}{2}
-        }
-        \onslide<3->{
-            \mynode{3 * 2.5}{3}{2}
-            \connect{2}{3}
-        }
-        \onslide<4->{
-            \placeholder{4 * 2.5}{4}
-            \connect{3}{4}
-        }
-        % Last node is called "n"
-        \onslide<5->{
-            \mynode{5*2.5}{n}{n-1}
-            \connect{4}{n}
-        }
-    \end{tikzpicture}
+        \input{plots/deepar_training}
     \end{center}
     \begin{itemize}
         \item Autoregressive Recurrent Neural Network with probabilistic output
@@ -130,69 +89,7 @@
 
 \begin{frame}[fragile]{DeepAR -- Predicting}
     \begin{center}
-    \begin{tikzpicture}[yscale=-1,node distance=-\pgflinewidth]
-        \tikzset{ReceptorNode/.style={circle, draw=black, fill=lightblue, thick, inner sep=2pt, minimum size=30pt}}
-        \tikzset{Placeholder/.style={circle, thick, inner sep=2pt, minimum size=30pt}}
-        \tikzset{Connection/.style={->, line width=0.5mm}}
-        \newcommand{\mynode}[3]{
-            \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
-            \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
-            \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
-
-            \draw[Connection] (circ-#2) -- (y-#2);
-            \draw[Connection] (x-#2)    -- (circ-#2);
-        }
-        \newcommand{\mynodewithresult}[3]{
-            \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
-            \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
-            \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
-            \node (z-#2) at (#1, -2.5) {\(\tilde{z}_{#2}\)};
-
-            \draw[Connection] (circ-#2) -- (y-#2);
-            \draw[Connection] (x-#2)    -- (circ-#2);
-            \draw[Connection] (y-#2)    -- (z-#2);
-        }
-        \newcommand{\mynodewithresultinputsampled}[3]{
-            \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
-            \node (x-#2) at (#1, 1.5) {\(x_{#2}, \tilde{z}_{#3}\)};
-            \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
-            \node (z-#2) at (#1, -2.5) {\(\tilde{z}_{#2}\)};
-
-            \draw[Connection] (circ-#2) -- (y-#2);
-            \draw[Connection] (x-#2)    -- (circ-#2);
-            \draw[Connection] (y-#2)    -- (z-#2);
-        }
-        \newcommand{\placeholder}[2]{
-            \node[Placeholder] (circ-#2) at (#1, 0) {\(\cdots\)};
-            \node (x-#2) at (#1, 1.5) {};
-            \node[opacity=0] (y-#2) at (#1, -1.5) {\(\P(z_{#2}|h_{#2})\)};
-        }
-        \newcommand{\connect}[2]{
-            \draw[Connection] (y-#1)    -- (circ-#2);
-            \draw[Connection] (circ-#1) -- (circ-#2);
-        }
-
-        % Create nodes
-        \mynode{1 * 2.5}{T}{T-1}
-        \draw[Connection] ([xshift=-0.5cm]circ-T.west) -- (circ-T);
-        \onslide<2->{
-            \mynodewithresult{2 * 2.5}{T+1}{T}
-            \connect{T}{T+1}
-        }
-        \onslide<3->{
-            \mynodewithresultinputsampled{3 * 2.5}{T+2}{T+1}
-            \connect{T+1}{T+2}
-        }
-        \onslide<4->{
-            \placeholder{4 * 2.5}{T+3}
-            \connect{T+2}{T+3}
-        }
-        % Last node is called "T+n"
-        \onslide<5->{
-            \mynodewithresultinputsampled{5*2.5}{T+n}{T+n-1}
-            \connect{T+3}{T+n}
-        }
-    \end{tikzpicture}
+        \input{plots/deepar_predicting}
     \end{center}
     \begin{itemize}
         \onslide<2->{\item Generate \(\tilde{z}_t \sim \P(\cdot | \theta_t)\) for testing from previous step}

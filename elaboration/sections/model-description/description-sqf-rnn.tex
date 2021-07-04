@@ -4,10 +4,42 @@
 \Textcite{Gasthaus2019} proposed a method for probabilistic forecasting by modeling 
 the quantile function with monotonic regression splines. 
 The proposed \gls{sqfrnn} model combines the ability to forecast time series 
-from recurrent neural networks with the flexibility of being able to 
+from recurrent neural networks which was already done by the DeepAR model from \Textcite{Salinas2017}
+with the flexibility of being able to 
 model the quantile functions with linear splines. 
-The model is trained by minimizing the CRPS (\ref{ch:crps}) which can be computed effectively 
-for spline-based quantile functions.
+
+Let \(x_1, \ldots, x_n \in \R^D\) be the predictor values and 
+\(z_1, \ldots, z_n \in \R\) be the target time series. Also, let \(\Theta\) 
+be the model parameters, \(\boldsymbol{h}_t\) the network output of 
+time step \(t\) and \(\theta_t\) the parameters of the conditional distribution \(\P(z_t | \theta_t)\).
+The model works as follows:
+Compute the network output \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, z_{t-1}, x_t, \Theta)\) 
+as well as the parameters \(\theta_t = \theta(\boldsymbol{h}_t, \Theta)\) for the distribution
+\(\P(z_t | \theta_t)\). The process is illustrated in Figure \ref{fig:deepar-training}.
+
+\begin{figure}[h]%
+    \centering
+    \input{plots/deepar_training}
+    \caption{DeepAR Training}%
+    \label{fig:deepar-training}%
+\end{figure}
+
+For the prediction step, the target time series are not known. 
+The known history of the time series \(z_1, \ldots, z_{t_0}\) is fed into the 
+model and for \(t > t_0\), samples \(\tilde{z}_t \sim \P(z_t | \theta_t)\) 
+are generated and fed back into the model for the next time step.
+The process is illustrated in Figure \ref{fig:deepar-predicting}.
+
+\begin{figure}[h]%
+    \centering
+    \input{plots/deepar_predicting}
+    \caption{DeepAR Predicting}%
+    \label{fig:deepar-predicting}%
+\end{figure}
+
+While the DeepAR model is trained by maximizing the likelihood function, 
+the SQF-RNN model is trained by minimizing the CRPS (see \ref{ch:crps}) 
+which can be computed effectively for spline-based quantile functions.
 
 A linear spline with \(L\) pieces is of the form 
 \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+, 

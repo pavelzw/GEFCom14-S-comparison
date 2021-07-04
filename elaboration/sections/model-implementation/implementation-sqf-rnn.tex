@@ -3,16 +3,43 @@
 
 The implementation for the SQF-RNN model can be found on GitHub\footnote{\url{https://github.com/awslabs/gluon-ts}}.
 
-\Textcite{Salinas2017} proposed DeepAR which is also a 
-probabilistic forecasting model with RNNs. It outputs the 
-parameters of a probabilistic distribution as the forecast. 
-The disadvantage of this method is that it requires the 
-specification of the probabilistic distribution that fits the data. 
-For complex problems, this is often not trivial. 
-In the DeepAR implementation, the Student's \(t\)-distribution is used. 
-This method performs noticably worse on the GEFCom14 dataset. 
+The key difference between the SQF-RNN model and the DeepAR model from 
+\Textcite{Salinas2017} is that the DeepAR implementation uses a 
+probabilistic distribution and optimizes the likelihood of that distribution 
+where in the SQF-RNN case spline quantile functions are used and the 
+CRPS is optimized. 
+For complex problems, the specification on a probabilistic distribution 
+that fits the data is often not trivial. 
+
+In the DeepAR default implementation, the Student's \(t\)-distribution is used. 
+With this assumption, the model performs noticably worse on the GEFCom14 dataset.
 
 The CRPS is often used to evaluate a forecast model but its usage as 
 a direct loss function in the training process is rare. 
 As the CRPS is closely related to the pinball loss (see \ref{ch:crps}), 
 this helps in the GEFCom14 problem since it directly minimizes the given metric.
+
+The implementation of the model was done through a pipeline, the framework in use is called
+pyWATTS\footnote{\url{https://github.com/KIT-IAI/pyWATTS}} and was introduced by \Textcite{Heidrich2021}.
+First, the data is read from the \texttt{.csv} files. 
+After that, the cumulated columns (SSRD, STRD, TSR) are decumulated and then normalized.
+Then, the trainig data is converted into a \texttt{ListDataset} and fitted with the 
+\texttt{DeepAREstimator} class. The frequency of the model was set to one hour and 
+prediction length to 28, 30 or 31 days since the task was to predict one full month. 
+In order to use quantile splines with three parts as the output distribution, 
+we need to set \texttt{distr\_output=PiecewiseLinearOutput(num\_pieces=3)}. 
+Because the default value of \texttt{use\_feat\_dynamic\_real} is set to \texttt{False} 
+in the \texttt{DeepAREstimator} model, 
+we need to change it to \texttt{True} or else it will ignore the predictors 
+\(x_1, \ldots, x_n \in \R^D\). 
+
+After training for seven epochs, the model with the data that is available from the months before, 
+we need to predict the upcoming month. This is done by calling the \texttt{predict()} 
+method from the predictor that we got after training.
+After that, we calculate the quantiles from the prediction and use them to 
+calculate the pinball loss for each time step and zone.
+
+In order to get better and more consistent results, the ensemble averaging is used. 
+Seven independent models are trained simultaneously and in the predcition step, 
+the output of every model is averaged and returned.
+\todo{how much performance improvement?}

@@ -57,11 +57,11 @@ For the forecasts, you get different prediction variables shown in Table \ref{ta
 
 To evaluate the different forecast competitors in GEFCom2014, 
 the pinball loss was used -- mainly because of the ease of implementation 
-and because the pinball loss is a proper scoring rule (\ref{sec:proper-scoring-rules}).
+and because the pinball loss is a proper scoring rule (see \ref{sec:proper-scoring-rules}).
 For each time period over the forecast horizon, the participants need to 
 provide the quantiles \(q_{0.01}, \ldots, q_{0.99}\). 
 \(q_0 = -\infty\) and \(q_1 = \infty\) are the natural lower and upper bounds. 
-Those quantiles are then evaluated with the pinball loss (\ref{sec:pinball-loss}).
+Those quantiles are then evaluated with the pinball loss (see \ref{sec:pinball-loss}).
 
 The overall score is the average over all time points, zones and quantiles.
 The models are then compared with a benchmark which is a basic point forecast 

@@ -15,7 +15,10 @@ time step \(t\) and \(\theta_t\) the parameters of the conditional distribution 
 The model works as follows:
 Compute the network output \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, z_{t-1}, x_t, \Theta)\) 
 as well as the parameters \(\theta_t = \theta(\boldsymbol{h}_t, \Theta)\) for the distribution
-\(\P(z_t | \theta_t)\). The process is illustrated in Figure \ref{fig:deepar-training}.
+\(\P(z_t | \theta_t)\). \(h(\cdot)\) is a multi-layer RNN with 
+LSTM cells and \(\theta(\cdot)\) is a projection layer. 
+The quantiles are then used to calculate the loss and train the model parameters \(\Theta\).
+The process is illustrated in Figure \ref{fig:deepar-training}.
 
 \begin{figure}[h]%
     \centering
@@ -56,17 +59,3 @@ we get \(m_l = \sum_{j=0}^l b_j = \beta_l \geq 0\).
 We can therefore model our spline with the parameter 
 \(\theta = (\gamma, \beta, \delta)\), \(\gamma \in \R, \beta \in [0,\infty)^{L}, 
 \delta \in \set{ \delta \in [0,1]^L: \sum_{j=1}^L \delta_j = 1 }\).
-
-Let \(z_{i,t} \in \R\) be the value of the \(i\)-th time series at time \(t\) and 
-\(x_{i,t} \in \R^D\) be the corresponding predictors for the time series. 
-The predictors are assumed to be available during prediction. 
-
-The setup of the model is the following: 
-During training, the model takes \(x_{i,t}\) as well as \(z_{i, t-1}\) 
-and \(h_{i, t-1}\) -- the previous state of the network -- 
-as input and calculates \(h_{i,t} = r(h_{i, t-1}, z_{i, t-1}, x_{i, t})\)
-which is then used to calculate the quantile outputs 
-\(\theta_{i,t} = \theta(h_{i,t}, \phi)\).
-\(r(\cdot)\) is a multi-layer RNN with LSTM cells and \(\theta(\cdot)\) 
-is a projection layer.
-The quantiles are then used to calculate the CRPS loss and train the model.

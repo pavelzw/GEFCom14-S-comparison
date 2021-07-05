@@ -9,8 +9,6 @@ with a polynomial of maximum degree \(1\) to \(4\) or a multi layer perceptron
 with \(6\) or \(10\) hidden neurons. Since the multi layer perceptrons lands 
 significantly better results, I will focus on them. 
 
-The implementation of the model is done through pyWATTS, like in the SQF-RNN case.
-
 Because the data is a time series, timepoints that are close are correlated. 
 That's why we not only take the predictor value \(x_n \in \R^D\) of time point \(n\) 
 but also \(x_{n-1}, \ldots, x_{n-H+1}\) as predictor values, where \(H\) is the number of lags.

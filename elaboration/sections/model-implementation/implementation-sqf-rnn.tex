@@ -19,8 +19,6 @@ a direct loss function in the training process is rare.
 As the CRPS is closely related to the pinball loss (see \ref{ch:crps}), 
 this helps in the GEFCom14 problem since it directly minimizes the given metric.
 
-The implementation of the model was done through a pipeline, the framework in use is called
-pyWATTS\footnote{\url{https://github.com/KIT-IAI/pyWATTS}} and was introduced by \Textcite{Heidrich2021}.
 First, the data is read from the \texttt{.csv} files. 
 After that, the cumulated columns (SSRD, STRD, TSR) are decumulated and then normalized.
 Then, the trainig data is converted into a \texttt{ListDataset} and fitted with the 

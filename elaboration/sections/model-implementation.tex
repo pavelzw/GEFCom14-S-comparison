@@ -17,6 +17,12 @@ with the power output of the solar plant.
     \label{fig:strd-accumulated-vs-decumulated}%
 \end{figure}
 
+Since we are using some steps like the calculation of the pinball loss, 
+it makes sense to use some kind of pipeline structure for the code. 
+\Textcite{Heidrich2021} introduced 
+pyWATTS\footnote{\url{https://github.com/KIT-IAI/pyWATTS}}: a framework 
+that is designed to solve the issue of creating pipelines for time series 
+forecasting. 
 
 \input{sections/model-implementation/implementation-sqf-rnn}
 

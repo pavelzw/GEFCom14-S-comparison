@@ -9,8 +9,8 @@ the training data directly represents a probabilistic distribution.
 Now, a regression model like an artificial neural network can 
 train on this modified data set and learn the quantile function.
 
-Let \(x_n \in \R^D\), \(1 \leq n \leq N\), be the \(n\)-th predictor 
-and \(y_n \in \R\) the \(n\)-th value of the time series. 
+Let \(x_n \in \R^D\) be the \(n\)-th predictor 
+and \(y_n \in \R\) the \(n\)-th value of the time series, \(1 \leq n \leq N\). 
 The NNQF first searches the \(k\) nearest neighbors of \(x_n\). 
 Let \(J \subset \set{1, \ldots, N}\) be the indices of 
 those nearest neighbors. 
@@ -40,7 +40,7 @@ This method has three main advantages:
     \item the calculation of the nearest neighbors and the modified 
     training set only needs to be done once, you can save time when 
     using multiple quantile regressions. Also, the original dataset 
-    does not need to be saved after that.
+    does not need to be saved afterwards.
 \end{enumerate}
 
 In comparison to most other \(k\)-Nearest Neighbors quantile 

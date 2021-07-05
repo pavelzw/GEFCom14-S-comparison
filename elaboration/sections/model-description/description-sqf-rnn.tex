@@ -43,6 +43,7 @@ The process is illustrated in Figure \ref{fig:deepar-predicting}.
 While the DeepAR model is trained by maximizing the likelihood function, 
 the SQF-RNN model is trained by minimizing the CRPS (see \ref{ch:crps}) 
 which can be computed effectively for spline-based quantile functions.
+\todo{Maybe calculation of spline CRPS?}
 
 A linear spline with \(L\) pieces is of the form 
 \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+, 

@@ -1,0 +1,194 @@
+% Encoding: UTF-8
+
+@Article{Hong2016,
+  author    = {Tao Hong and Pierre Pinson and Shu Fan and Hamidreza Zareipour and Alberto Troccoli and Rob J. Hyndman},
+  journal   = {International Journal of Forecasting},
+  title     = {Probabilistic energy forecasting: Global Energy Forecasting Competition 2014 and beyond},
+  year      = {2016},
+  month     = jul,
+  number    = {3},
+  pages     = {896--913},
+  volume    = {32},
+  doi       = {10.1016/j.ijforecast.2016.02.001},
+  publisher = {Elsevier {BV}},
+}
+
+@Article{Ordiano2019,
+  author        = {Jorge Ángel González Ordiano and Lutz Gröll and Ralf Mikut and Veit Hagenmeyer},
+  title         = {Probabilistic Energy Forecasting using Quantile Regressions based on a new Nearest Neighbors Quantile Filter},
+  year          = {2019},
+  month         = mar,
+  abstract      = {Parametric quantile regressions are a useful tool for creating probabilistic energy forecasts. Nonetheless, since classical quantile regressions are trained using a non-differentiable cost function, their creation using complex data mining techniques (e.g., artificial neural networks) may be complicated. This article presents a method that uses a new nearest neighbors quantile filter to obtain quantile regressions independently of the utilized data mining technique and without the non-differentiable cost function. Thereafter, a validation of the presented method using the dataset of the Global Energy Forecasting Competition of 2014 is undertaken. The results show that the presented method is able to solve the competition's task with a similar accuracy and in a similar time as the competition's winner, but requiring a much less powerful computer. This property may be relevant in an online forecasting service for which the fast computation of probabilistic forecasts using not so powerful machines is required.},
+  archiveprefix = {arXiv},
+  doi           = {10.1016/j.ijforecast.2019.06.003},
+  eprint        = {1903.07390},
+  file          = {:http\://arxiv.org/pdf/1903.07390v1:PDF},
+  keywords      = {cs.LG, stat.ML},
+  primaryclass  = {cs.LG},
+}
+
+@Article{Gasthaus2019,
+  author   = {Jan Gasthaus and Konstantinos Benidis and Syama Sundar Rangapuram and Yuyang (Bernie) Wang and David Salinas and Valentin Flunkert and Tim Januschowski},
+  title    = {Probabilistic Forecasting with Spline Quantile Function RNNs},
+  year     = {2019},
+  abstract = {In this paper, we propose a flexible method for probabilistic modeling with conditional quantile functions using monotonic regression splines. The shape of the spline is parameterized by a neural network whose parameters are learned by minimizing the continuous ranked probability score. Within this framework, we propose a method for probabilistic time series forecasting, which combines the modeling capacity of recurrent neural networks with the flexibility of a spline-based representation of the output distribution. Unlike methods based on parametric probability density functions and maximum likelihood estimation, the proposed method can flexibly adapt to different output distributions without manual intervention. We empirically demonstrate the effectiveness of the approach on synthetic and real-world data sets.},
+  comment  = {SQF-RNN},
+}
+
+@Article{Huang2016,
+  author    = {Jing Huang and Matthew Perry},
+  journal   = {International Journal of Forecasting},
+  title     = {A semi-empirical approach using gradient boosting and k-nearest neighbors regression for {GEFCom}2014 probabilistic solar power forecasting},
+  year      = {2016},
+  month     = jul,
+  number    = {3},
+  pages     = {1081--1086},
+  volume    = {32},
+  abstract  = {The aim of this work is to produce probabilistic forecasts of solar power for the Global
+Energy Forecasting Competition 2014 (GEFCom2014). The task involves predicting the
+outputs from three solar farms at an hourly resolution using data from the ECMWF
+numerical weather prediction model.
+The annual cycle of solar radiation and power is modelled using a low-pass filter built
+using a Fourier transformation. The diurnal cycle is handled by fitting separate models for
+each hour of the day with the positive solar radiation. A model for simulating PV power
+production, taking the effect of temperature into account, is also included.
+The forecasting methods were gradient boosting for the deterministic forecasting of
+solar power and k-nearest neighbors regression for estimating prediction intervals in
+order to provide probabilistic forecasts. A cross-validation strategy, splitting the data into
+monthly folds, was employed for comparing the performances of alternative methods and
+in an attempt to avoid overfitting issues.},
+  comment   = {gang gang},
+  doi       = {10.1016/j.ijforecast.2015.11.002},
+  publisher = {Elsevier {BV}},
+}
+
+@Article{Nagy2016,
+  author    = {G{\'{a}}bor I. Nagy and Gerg{\H{o}} Barta and S{\'{a}}ndor Kazi and Gyula Borb{\'{e}}ly and G{\'{a}}bor Simon},
+  journal   = {International Journal of Forecasting},
+  title     = {{GEFCom}2014: Probabilistic solar and wind power forecasting using a generalized additive tree ensemble approach},
+  year      = {2016},
+  month     = jul,
+  number    = {3},
+  pages     = {1087--1093},
+  volume    = {32},
+  abstract  = {We investigate the probabilistic forecasting of solar and wind power generation in
+connection with the Global Energy Forecasting Competition 2014.We use a voted ensemble
+of a quantile regression forest model and a stacked random forest – gradient boosting
+decision tree model to predict the probability distribution. The raw probabilities thus
+obtained need to be post-processed using isotonic regression in order to conform to
+the monotonic-increase attribute of probability distributions. The results show a great
+performance in terms of the weighted pinball loss, with the model achieving second place
+on the final competition leaderboard.},
+  comment   = {dmlab},
+  doi       = {10.1016/j.ijforecast.2015.11.013},
+  publisher = {Elsevier {BV}},
+}
+
+@Article{Juban2016,
+  author    = {Romain Juban and Henrik Ohlsson and Mehdi Maasoumy and Louis Poirier and J. Zico Kolter},
+  journal   = {International Journal of Forecasting},
+  title     = {A multiple quantile regression approach to the wind, solar, and price tracks of {GEFCom}2014},
+  year      = {2016},
+  month     = jul,
+  number    = {3},
+  pages     = {1094--1102},
+  volume    = {32},
+  abstract  = {This paper proposes a generic framework for probabilistic energy forecasting, and discusses
+the application of the method to several tracks in the 2014 Global Energy Forecasting
+Competition (GEFCom2014). The proposed method uses a multiple quantile regression
+approach to predict a full distribution over possible future energy outcomes, uses the
+alternating direction method of multipliers to solve the optimization problems resulting
+from this quantile regression formulation efficiently, and uses a radial basis function
+network to capture the non-linear dependencies on the input data. For the GEFCom2014
+competition, the approach proved general enough to obtain one of the top five ranks in
+three tracks, solar, wind, and price forecasting, and it was also ranked seventh in the final
+load forecasting track.},
+  comment   = {C3 green team},
+  doi       = {10.1016/j.ijforecast.2015.12.002},
+  publisher = {Elsevier {BV}},
+}
+
+@Article{Jordan2019,
+  author    = {Alexander Jordan and Fabian Krüger and Sebastian Lerch},
+  journal   = {Journal of Statistical Software},
+  title     = {Evaluating Probabilistic Forecasts with {scoringRules}},
+  year      = {2019},
+  number    = {12},
+  volume    = {90},
+  comment   = {Energy score, section 5},
+  doi       = {10.18637/jss.v090.i12},
+  publisher = {Foundation for Open Access Statistic},
+}
+
+@Article{Rasul2020,
+  author        = {Kashif Rasul and Abdul-Saboor Sheikh and Ingmar Schuster and Urs Bergmann and Roland Vollgraf},
+  title         = {Multivariate Probabilistic Time Series Forecasting via Conditioned Normalizing Flows},
+  year          = {2020},
+  month         = feb,
+  abstract      = {Time series forecasting is often fundamental to scientific and engineering problems and enables decision making. With ever increasing data set sizes, a trivial solution to scale up predictions is to assume independence between interacting time series. However, modeling statistical dependencies can improve accuracy and enable analysis of interaction effects. Deep learning methods are well suited for this problem, but multivariate models often assume a simple parametric distribution and do not scale to high dimensions. In this work we model the multivariate temporal dynamics of time series via an autoregressive deep learning model, where the data distribution is represented by a conditioned normalizing flow. This combination retains the power of autoregressive models, such as good performance in extrapolation into the future, with the flexibility of flows as a general purpose high-dimensional distribution model, while remaining computationally tractable. We show that it improves over the state-of-the-art for standard metrics on many real-world data sets with several thousand interacting time-series.},
+  archiveprefix = {arXiv},
+  comment       = {Zalando},
+  eprint        = {2002.06103},
+  file          = {:http\://arxiv.org/pdf/2002.06103v3:PDF},
+  keywords      = {cs.LG, stat.ML},
+  primaryclass  = {cs.LG},
+}
+
+@Article{Hong2016a,
+  author    = {Tao Hong and Shu Fan},
+  journal   = {International Journal of Forecasting},
+  title     = {Probabilistic electric load forecasting: A tutorial review},
+  year      = {2016},
+  month     = jul,
+  number    = {3},
+  pages     = {914--938},
+  volume    = {32},
+  doi       = {10.1016/j.ijforecast.2015.11.011},
+  publisher = {Elsevier {BV}},
+}
+
+@Article{Salinas2017,
+  author        = {David Salinas and Valentin Flunkert and Jan Gasthaus},
+  title         = {DeepAR: Probabilistic Forecasting with Autoregressive Recurrent Networks},
+  year          = {2017},
+  month         = apr,
+  abstract      = {Probabilistic forecasting, i.e. estimating the probability distribution of a time series' future given its past, is a key enabler for optimizing business processes. In retail businesses, for example, forecasting demand is crucial for having the right inventory available at the right time at the right place. In this paper we propose DeepAR, a methodology for producing accurate probabilistic forecasts, based on training an auto regressive recurrent network model on a large number of related time series. We demonstrate how by applying deep learning techniques to forecasting, one can overcome many of the challenges faced by widely-used classical approaches to the problem. We show through extensive empirical evaluation on several real-world forecasting data sets accuracy improvements of around 15\% compared to state-of-the-art methods.},
+  archiveprefix = {arXiv},
+  eprint        = {1704.04110},
+  file          = {:http\://arxiv.org/pdf/1704.04110v3:PDF},
+  keywords      = {cs.AI, cs.LG, stat.ML},
+  primaryclass  = {cs.AI},
+}
+
+@Article{Meinshausen2006,
+  author   = {Meinshausen, Nicolai and Ridgeway, Greg},
+  journal  = {Journal of Machine Learning Research},
+  title    = {Quantile regression forests.},
+  year     = {2006},
+  number   = {6},
+  volume   = {7},
+  abstract = {Random forests were introduced as a machine learning tool in Breiman (2001) and have
+since proven to be very popular and powerful for high-dimensional regression and classification. For regression, random forests give an accurate approximation of the conditional
+mean of a response variable. It is shown here that random forests provide information
+about the full conditional distribution of the response variable, not only about the conditional mean. Conditional quantiles can be inferred with quantile regression forests, a
+generalisation of random forests. Quantile regression forests give a non-parametric and
+accurate way of estimating conditional quantiles for high-dimensional predictor variables.
+The algorithm is shown to be consistent. Numerical examples suggest that the algorithm
+is competitive in terms of predictive power.},
+  url      = {https://www.jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf},
+}
+
+@Article{Heidrich2021,
+  author        = {Benedikt Heidrich and Andreas Bartschat and Marian Turowski and Oliver Neumann and Kaleb Phipps and Stefan Meisenbacher and Kai Schmieder and Nicole Ludwig and Ralf Mikut and Veit Hagenmeyer},
+  title         = {pyWATTS: Python Workflow Automation Tool for Time Series},
+  year          = {2021},
+  month         = jun,
+  abstract      = {Time series data are fundamental for a variety of applications, ranging from financial markets to energy systems. Due to their importance, the number and complexity of tools and methods used for time series analysis is constantly increasing. However, due to unclear APIs and a lack of documentation, researchers struggle to integrate them into their research projects and replicate results. Additionally, in time series analysis there exist many repetitive tasks, which are often re-implemented for each project, unnecessarily costing time. To solve these problems we present \texttt{pyWATTS}, an open-source Python-based package that is a non-sequential workflow automation tool for the analysis of time series data. pyWATTS includes modules with clearly defined interfaces to enable seamless integration of new or existing methods, subpipelining to easily reproduce repetitive tasks, load and save functionality to simply replicate results, and native support for key Python machine learning libraries such as scikit-learn, PyTorch, and Keras.},
+  archiveprefix = {arXiv},
+  eprint        = {2106.10157},
+  file          = {:http\://arxiv.org/pdf/2106.10157v1:PDF},
+  keywords      = {cs.LG},
+  primaryclass  = {cs.LG},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

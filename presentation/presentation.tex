@@ -100,11 +100,29 @@
 \end{frame}
 
 \begin{frame}{SQF-RNN [\cite{Gasthaus2019}]}
+    \begin{columns}
+    \begin{column}{0.6\textwidth}
     \begin{itemize}
-        \item Output distribution is given by monotonously increasing linear splines: 
-        \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+ \]
-        \item Arbitrary distribution can be fit \(\leadsto\) no assumption on distribution
+        \item Main difference to DeepAR is output distribution
+        \begin{itemize}
+            \item Given by monotonously increasing linear splines: 
+            \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+ \]
+            \item Arbitrary distribution can be fit \(\leadsto\) no assumption on distribution
+        \end{itemize}
     \end{itemize}
+    \end{column}
+
+    \begin{column}{0.35\textwidth}
+    \begin{tikzpicture}[scale=0.6]
+        \begin{axis}[xmin=-0.05, xmax=1.05, ymin=-0.1, ymax=2.1]
+            \addplot[domain = 0:1, blue] {tanh(4*x-2)-tanh(-2)};
+            \addplot[domain = 0:0.3, red] {x};
+            \addplot[domain = 0.3:0.7, red] {0.3 + 3.3 * (x - 0.3)};
+            \addplot[domain = 0.7:1, red] {1.62 + 1.02 * (x - 0.7)};
+        \end{axis}
+    \end{tikzpicture}
+    \end{column}
+    \end{columns}
 \end{frame}
 
 \section{Comparison}

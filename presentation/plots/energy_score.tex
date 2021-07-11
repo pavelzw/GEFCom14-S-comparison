@@ -1,0 +1,20 @@
+\begin{tikzpicture}[scale=0.6]
+    \pgfplotsset{every axis/.style={mlineplot}}
+    \begin{axis}[title=Energy score, 
+                 xlabel=Month, 
+                 ylabel=loss, 
+                 xtick={4,6,8,10,12,14}, 
+                 xticklabels={Jul, Sep, Nov, Jan, Mar, May}]
+        % NNQF
+        \addplot coordinates {(4, 0.30482) (5, 0.40201) (6, 0.37712) (7, 0.42732) (8, 0.42651) (9, 0.41919) (10, 0.41308) (11, 0.37499) (12, 0.36515) (13, 0.31821) (14, 0.28263) (15, 0.30319)};
+        \addlegendentry{NNQF}
+        % QRF
+        \addplot coordinates {(4, 0.30431) (5, 0.40166) (6, 0.37702) (7, 0.42787) (8, 0.42602) (9, 0.41971) (10, 0.41166) (11, 0.37581) (12, 0.36495) (13, 0.31922) (14, 0.28258) (15, 0.30330)};
+        \addlegendentry{QRF}
+        % SQF-RNN
+        \addplot coordinates {(4, 0.42407) (5, 0.54152) (6, 0.37154) (7, 0.30926) (8, 0.32410) (9, 0.33759) (10, 0.36245) (11, 0.31466) (12, 0.39435) (13, 0.34716) (14, 0.29842) (15, 0.35548)};
+        \addlegendentry{SQF-RNN}
+        % DeepAR
+        % TODO
+    \end{axis}
+\end{tikzpicture}

@@ -128,49 +128,69 @@
 \section{Comparison}
 
 \begin{frame}[fragile]{Pinball loss}
-    \renewcommand{\b}[1]{\mathbf{#1}}
-    \begin{tabular}{c|cccccc}
-        Task & \(4\) & \(5\) & \(6\) & \(7\) & \(8\) & \(9\) \\
-        \hline
-        NNQF    & \(\b{0.01559}\) & \(\b{0.02091}\) & \(\b{0.01896}\) & \(0.02267\)     & \(0.02330\)     & \(0.02334\)     \\
-        QRF     & \(0.01559\)     & \(0.02100\)     & \(0.01983\)     & \(0.02350\)     & \(0.02447\)     & \(0.02370\)     \\
-        SQF-RNN & \(0.02581\)     & \(0.03041\)     & \(0.02451\)     & \(\b{0.01895}\) & \(\b{0.01707}\) & \(\b{0.01833}\)
-    \end{tabular}
-    \begin{tabular}{c|cccccc|c}
-        Task & \(10\) & \(11\) & \(12\) & \(13\) & \(14\) & \(15\) & Mean \\
-        \hline
-        NNQF    & \(0.02333\)     & \(\b{0.02038}\) & \(\b{0.01912}\) & \(\b{0.01673}\) & \(\b{0.01363}\) & \(\b{0.01480}\) & \(\b{0.01940}\) \\
-        QRF     & \(0.02483\)     & \(0.02160\)     & \(0.01932\)     & \(0.01694\)     & \(0.01536\)     & \(0.01526\)     & \(0.02015\)     \\
-        SQF-RNN & \(\b{0.02002}\) & \(0.02104\)     & \(0.02204\)     & \(0.01684\)     & \(0.01338\)     & \(0.01648\)     & \(0.02041\)
-    \end{tabular}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{flushright}
+            \input{plots/pinball_loss}
+        \end{flushright}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        Mean losses:
+        \begin{description}
+            \item[NNQF] \(0.01940\), place 16/24
+            \item[QRF] \(0.02015\), place 17/24
+            \item[SQF-RNN] \(0.02041\), place 18/24
+        \end{description}
+    \end{column}
+    \end{columns}
+    
+    \begin{itemize}
+        \item NNQF and QRF perform very similar
+        \item In the summer months (southern hemisphere!), SQF-RNN performs significantly better than NNQF and QRF models
+        \begin{itemize}
+            \item[\(\leadsto\)] NNQF and QRF only focus on solar radiation, not on total cloud cover
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Energy score}
-    \renewcommand{\b}[1]{\mathbf{#1}}
-    \begin{tabular}{c|cccccc}
-        Task & \(4\) & \(5\) & \(6\) & \(7\) & \(8\) & \(9\) \\
-        \hline
-        NNQF    & \(0.30482\)     & \(0.40201\)     & \(0.37712\)     & \(0.42732\)     & \(0.42651\)     & \(0.41919\)     \\
-        QRF     & \(\b{0.30431}\) & \(\b{0.40166}\) & \(0.37702\)     & \(0.42787\)     & \(0.42602\)     & \(0.41971\)     \\
-        SQF-RNN & \(0.42407\)     & \(0.54152\)     & \(\b{0.37154}\) & \(\b{0.30926}\) & \(\b{0.32410}\) & \(\b{0.33759}\)
-    \end{tabular}
-    \begin{tabular}{c|cccccc|c}
-        Task & \(10\) & \(11\) & \(12\) & \(13\) & \(14\) & \(15\) & Overall \\
-        \hline
-        NNQF    & \(0.41308\)     & \(0.37499\)     & \(0.36515\)     & \(\b{0.31821}\) & \(0.28263\)     & \(\b{0.30319}\) & \(0.36736\)     \\
-        QRF     & \(0.41166\)     & \(0.37581\)     & \(\b{0.36495}\) & \(0.31922\)     & \(\b{0.28258}\) & \(0.30330\)     & \(0.36759\)     \\
-        SQF-RNN & \(\b{0.36245}\) & \(\b{0.31466}\) & \(0.39435\)     & \(0.34716\)     & \(0.29842\)     & \(0.35548\)     & \(\b{0.36644}\)
-    \end{tabular}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+    \begin{flushright}
+        \input{plots/energy_score}
+    \end{flushright}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    Mean losses:
+    \begin{description}
+        \item[NNQF] \(0.36736\)
+        \item[QRF] \(0.36759\)
+        \item[SQF-RNN] \(0.36644\)
+    \end{description}
+    \end{column}
+    \end{columns}
+    
+    \begin{itemize}
+        \item SQF-RNN \(\succ\) NNQF \(\approx\) QRF in the energy score
+        \begin{itemize}
+            \item Energy score takes time series attributes more into account, SQF-RNN is better at that due to the RNN structure
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Feature importance}
-    \begin{tabular}{c|cccccc}
-        Feature & SSRD & STRD & TSR & TP & TCC & Previous time series \\
-        \hline
-        NNQF    & \(1.2202\) & \(1.0052\) & \(1.0856\) & \(1.0032\) & \(1.0405\) & -- \\
-        QRF     & \(1.3365\) & \(1.0214\) & \(1.0199\) & \(1.0020\) & \(1.0025\) & -- \\
-        SQF-RNN & \(1.0268\) & \(1.0208\) & \(1.0516\) & \(1.0124\) & \(1.2059\) & \(1.0918\)
-    \end{tabular}
+    \begin{columns}
+    \begin{column}{0.8\textwidth}
+        \input{plots/feature_importance}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+        SSRD: \\Surface solar rad down\\
+        STRD: \\Surface thermal rad down\\
+        TSR: \\Top net solar rad\\
+        TP: \\Total precipitation\\
+        TCC: \\Total cloud cover
+    \end{column}
+    \end{columns}
 \end{frame}
 
 \section{Conclusion}
@@ -178,12 +198,8 @@
 \begin{frame}{Conclusion}
     \begin{itemize}
         \item NNQF is best on average
-        \item SQF-RNN is noticably better in the months October till Febuary
         \item NNQF is slightly better than QRF
-        \item SQF-RNN \(\succ\) NNQF \(\succ\) QRF in the energy score
-        \begin{itemize}
-            \item Energy score takes time series attributes more into account, SQF-RNN is better at that due to the RNN structure
-        \end{itemize}
+        \item SQF-RNN is noticably better in the months October till Febuary (summer)
         \item SQF-RNN is not really fit for this kind of problem, usually uses way more different correlated tracks
     \end{itemize}
 \end{frame}

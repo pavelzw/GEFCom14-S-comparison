@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+    \pgfplotsset{every axis/.style={mbarplot}}
+    \begin{axis}[
+        width  = \textwidth,
+        height = 0.85\textheight,
+        major x tick style = transparent,
+        ybar,
+        bar width=10pt,
+        ymajorgrids = true,
+        ylabel = {Feature importance},
+        symbolic x coords={SSRD, STRD, TSR, TP, TCC, Previous\ points},
+        scaled y ticks = false,
+    ]
+        \addplot
+            coordinates {(SSRD, 1.2202) (STRD, 1.0052) (TSR, 1.0856) (TP, 1.0032) (TCC, 1.0405)};
+        \addplot
+            coordinates {(SSRD, 1.3365) (STRD, 1.0214) (TSR, 1.0199) (TP, 1.0020) (TCC, 1.0025)};
+        \addplot
+            coordinates {(SSRD, 1.0268) (STRD, 1.0208) (TSR, 1.0516) (TP, 1.0124) (TCC, 1.2059) (Previous\ points, 1.0918)};
+
+        \legend{NNQF, QRF, SQF-RNN}
+    \end{axis}
+\end{tikzpicture}

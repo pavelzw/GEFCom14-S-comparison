@@ -1,0 +1,23 @@
+\begin{tikzpicture}[scale=0.6]
+    \pgfplotsset{every axis/.style={mlineplot}}
+    \begin{axis}[title=Pinball loss, 
+                 xlabel=Month, 
+                 ylabel=loss, 
+                 xtick={4,6,8,10,12,14}, 
+                 xticklabels={Jul, Sep, Nov, Jan, Mar, May}]
+        % NNQF
+        \addplot coordinates {(4, 0.01559) (5, 0.02091) (6, 0.01896) (7, 0.02267) (8, 0.02330) (9, 0.02334) (10, 0.02333) (11, 0.02038) (12, 0.01912) (13, 0.01673) (14, 0.01363) (15, 0.01480)};
+        \addlegendentry{NNQF}
+        % QRF
+        \addplot coordinates {(4, 0.01559) (5, 0.02100) (6, 0.01983) (7, 0.02350) (8, 0.02447) (9, 0.02370) (10, 0.02483) (11, 0.02160) (12, 0.01932) (13, 0.01694) (14, 0.01536) (15, 0.01526)};
+        \addlegendentry{QRF}
+        % SQF-RNN
+        \addplot coordinates {(4, 0.02581) (5, 0.03041) (6, 0.02451) (7, 0.01895) (8, 0.01707) (9, 0.01833) (10, 0.02002) (11, 0.02104) (12, 0.02204) (13, 0.01684) (14, 0.01338) (15, 0.02041)};
+        \addlegendentry{SQF-RNN}
+        % DeepAR
+        % TODO
+        % winner
+        % \addplot coordinates {(4, 0.01292) (5, 0.01621) (6, 0.01169) (7, 0.01118) (8, 0.01247) (9, 0.01242) (10, 0.01236) (11, 0.01204) (12, 0.01262) (13, 0.01101) (14, 0.00823) (15, 0.01243)};
+        % \addlegendentry{GEFCom14 winner}
+    \end{axis}
+\end{tikzpicture}

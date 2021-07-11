@@ -140,6 +140,7 @@
             \item[NNQF] \(0.01940\), place 16/24
             \item[QRF] \(0.02015\), place 17/24
             \item[SQF-RNN] \(0.02041\), place 18/24
+            \item[DeepAR] \(0.02437\), place 20/24
         \end{description}
     \end{column}
     \end{columns}
@@ -166,6 +167,7 @@
         \item[NNQF] \(0.36736\)
         \item[QRF] \(0.36759\)
         \item[SQF-RNN] \(0.36644\)
+        \item[DeepAR] \(0.44235\)
     \end{description}
     \end{column}
     \end{columns}
@@ -201,6 +203,10 @@
         \item NNQF is slightly better than QRF
         \item SQF-RNN is noticably better in the months October till Febuary (summer)
         \item SQF-RNN is not really fit for this kind of problem, usually uses way more different correlated tracks
+        \item SQF-RNN always outperforms DeepAR (assumes Student's \(t\)-distribution)
+        \begin{itemize}
+            \item[\(\leadsto\)] SQF-RNN better suited for nonparametric tasks like weather forecasting
+        \end{itemize}
     \end{itemize}
 \end{frame}
 

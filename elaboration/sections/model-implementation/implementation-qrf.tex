@@ -13,3 +13,36 @@ of leaves is set to \(32\).
 
 After training and prediction, the results are again evaluated 
 using the pinball loss scoring rule.
+
+The hyperparameters of Quantile Regression Forests are very similar to the ones 
+of conventional Random Forests. We can choose the number of trees in the forest, 
+the splitting criterion (mean squared error or mean absolute error), 
+the splitting strategy (best split or best random split) 
+and the number of features to consider when looking for the best split. 
+We can also change the shape of the trees: 
+the maximum depth, minimum number of samples required to split a node, the minimum number of samples per leaf and 
+the maximum number of leaf nodes can all be adjusted.
+The parameters after tuning are shown in Table \ref{table:qrf-hyperparameters}.
+\todo{How were the hyperparameters tuned?}
+
+\begin{table}[h!]%
+    \caption{QRF Hyperparameters}
+    \label{table:qrf-hyperparameters}
+    \rowcolors{2}{white}{gray!25}
+    \centering
+    \footnotesize
+    \begin{tabular}{ll}
+    \toprule \noalign{\smallskip}
+    \tableheads Hyperparameter & \tableheads Value \\ 
+    \midrule
+    Number of trees                             & \(100\)            \\
+    Splitting criterion                         & mean squared error \\
+    Splitting strategy                          & best split         \\
+    Maximum number of features for split        & \(\infty\)         \\
+    Maximum depth                               & \(\infty\)         \\
+    Minimum number of samples required to split & \(2\)              \\
+    Minimum number of samples per leaf          & \(1\)              \\
+    Maximum number of leaves                    & \(\infty\)         \\
+    \bottomrule
+    \end{tabular}
+\end{table}

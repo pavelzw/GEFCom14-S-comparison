@@ -6,8 +6,8 @@ we still need to decide which model we want to use for fitting the
 conditional distribution function. 
 \Textcite{Ordiano2019} tried fitting each of the \(99\) quantiles 
 with a polynomial of maximum degree \(1\) to \(4\) or a multi layer perceptron 
-with \(6\) or \(10\) hidden neurons. Since the multi layer perceptrons lands 
-significantly better results, I will focus on them. 
+with \(6\) or \(10\) hidden neurons. Since the multi layer perceptron lands 
+significantly better results, I will focus on this regression method. 
 
 Because the data is a time series, timepoints that are close are correlated. 
 That's why we not only take the predictor value \(x_n \in \R^D\) of time point \(n\) 
@@ -33,9 +33,42 @@ In order to remove quantile crossing, \Textcite{Ordiano2019} postprocesses the c
     \max\set{ f(x; \theta_{(q)}), f(x; \theta_{(q-0.01)}) }, &\text{else.}
 \end{cases}\]
 
-In this thesis, I used another approach: 
-I sort all estimated conditional quantiles \(\set{ f(x; \theta_{(q)}) \;|\; q\in \set{0.01, \ldots, 0.99} }\) 
+In this thesis, we use another approach: \\
+We sort all estimated conditional quantiles \(\set{ f(x; \theta_{(q)}) \;|\; q\in \set{0.01, \ldots, 0.99} }\) 
 and set \(\hat{y}_{(q)}\) as the \((q\cdot 100)\)-th entry of the sorted list. This results in a significant performance improvement 
 in comparison to taking the maximum. \todo{add numbers to show significant improvement!}
 
 After that, the pinball loss is calculated the same way as in the SQF-RNN case.
+
+In the NNQF model, the only hyperparameters for the preprocessing part are 
+the metric that is used calculating the distances, 
+the number of neighbors that should be considered and 
+the number of lags \(H\). 
+The other hyperparameters depend on the regression model. 
+In the case of the multi layer perceptron, the usual hyperparameters like 
+hidden layer sizes, activation function, solver and learning rate can be tuned. 
+To improve stability, we can also use ensemble training at the expense of training and evaluation time.
+The parameters after tuning are shown in Table \ref{table:nnqf-hyperparameters}.
+\todo{How were the hyperparameters tuned?}
+
+\begin{table}[h!]%
+    \caption{NNQF Hyperparameters}
+    \label{table:nnqf-hyperparameters}
+    \rowcolors{2}{white}{gray!25}
+    \centering
+    \footnotesize
+    \begin{tabular}{ll}
+    \toprule \noalign{\smallskip}
+    \tableheads Hyperparameter & \tableheads Value \\ 
+    \midrule
+    Number of neighbors & \(100\)                     \\
+    Distance metric     & euclidean \(|| \cdot ||_2\) \\
+    Number of lags      & \(24\)                      \\
+    Hidden layer sizes  & one layer with \(50\) nodes \\
+    Activation function & ReLU                        \\
+    Solver              & Adam                        \\
+    Learning rate       & \(0.001\)                   \\
+    Ensemble size       & \(3\)                       \\
+    \bottomrule
+    \end{tabular}
+\end{table}

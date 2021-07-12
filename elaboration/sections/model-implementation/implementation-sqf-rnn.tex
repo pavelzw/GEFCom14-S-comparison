@@ -41,3 +41,45 @@ In order to get better and more consistent results, the ensemble averaging is us
 Seven independent models are trained simultaneously and in the predcition step, 
 the output of every model is averaged and returned.
 \todo{how much performance improvement?}
+
+Because the DeepAR model is similar to a recurrent neural network, 
+the tunable hyperparameters also look similar. 
+The context length -- e. g. the number of steps to unroll the RNN before computing predictions -- can be tuned, 
+the number of RNN layers as well as the number of RNN cells for each layer. The cell type of the RNN can be either an LSTM or a GRU cell.
+Another hyperparameter is the dropout regularization: the dropout rate and the dropout cell type can be tuned 
+with available cell types being \texttt{ZoneoutCell}, \texttt{RNNZoneoutCell}, \texttt{VariationalDropoutCell} 
+and \texttt{VariationalZoneoutCell}.
+For the output distribution, the number of spline pieces can be adjusted.
+For the training part, the usual hyperparameters like number of epochs, batch size, 
+learning rate, learning rate decay, patience, gradient clip and weight decay can be tuned.
+The parameters after tuning are shown in Table \ref{table:sqf-rnn-hyperparameters}.
+\todo{How were the hyperparameters tuned?}
+
+\begin{table}[h!]%
+    \caption{SQF-RNN Hyperparameters}
+    \label{table:sqf-rnn-hyperparameters}
+    \rowcolors{2}{white}{gray!25}
+    \centering
+    \footnotesize
+    \begin{tabular}{ll}
+    \toprule \noalign{\smallskip}
+    \tableheads Hyperparameter & \tableheads Value \\ 
+    \midrule
+    Context length & \(1\) month \\
+    RNN layers & \(2\) \\
+    RNN cells per layer & \(40\) \\
+    RNN cell type & LSTM \\
+    Dropout rate & \(0.1\) \\
+    Dropout Cell Type & \texttt{ZoneoutCell} \\
+    Number of spline pieces & \(3\) \\
+    Number of epochs & \(7\) \\
+    Batch size & \(32\) \\
+    Learning rate & \(0.001\) \\
+    Learning rate decay & \(0.5\) \\
+    Patience & \(10\) \\
+    Gradient clip & \(10\) \\
+    Weight decay & \(10^{-8}\) \\
+    Ensemble size & \(3\) \\
+    \bottomrule
+    \end{tabular}
+\end{table}

@@ -8,22 +8,31 @@ from recurrent neural networks which was already done by the DeepAR model from \
 with the flexibility of being able to 
 model the quantile functions with linear splines. 
 
+This flexibility and the fact that DeepAR uses autoregressive input with an RNN structure 
+motivates the usage of this model instead of other models that don't 
+have autoregressive input or an RNN structure like QRF or NNQF.
+
 Let \(x_1, \ldots, x_n \in \R^D\) be the predictor values and 
 \(z_1, \ldots, z_n \in \R\) be the target time series. Also, let \(\Theta\) 
 be the model parameters, \(\boldsymbol{h}_t\) the network output of 
 time step \(t\) and \(\theta_t\) the parameters of the conditional distribution \(\P(z_t | \theta_t)\).
 The model works as follows:
-Compute the network output \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, z_{t-1}, x_t, \Theta)\) 
+Compute the network output \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, x_t, z_{t-1}, \Theta)\) 
 as well as the parameters \(\theta_t = \theta(\boldsymbol{h}_t, \Theta)\) for the distribution
-\(\P(z_t | \theta_t)\). \(h(\cdot)\) is a multi-layer RNN with 
+\(\P(z_t | \theta_t)\). Here, the function \(h(\cdot)\) is a multi-layer RNN with 
 LSTM cells and \(\theta(\cdot)\) is a projection layer. 
 The quantiles are then used to calculate the loss and train the model parameters \(\Theta\).
-The process is illustrated in Figure \ref{fig:deepar-training}.
+The process is illustrated in Figure \ref{fig:deepar-training}. 
 
 \begin{figure}[h]%
     \centering
     \input{plots/deepar_training}
-    \caption{DeepAR Training}%
+    \caption[DeepAR Training]{DeepAR Training. 
+    The state of the network \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, x_t, z_{t-1}, \Theta)\) 
+    is calculated from the previous state \(\boldsymbol{h}_{t-1}\), 
+    the predictor value \(x_t\) and the previous observed target point \(z_{t-1}\). 
+    The target distribution \(\P(z_t | \boldsymbol{h}_t)\) 
+    is calculated from the state of the network \(\boldsymbol{h}_t\).}%
     \label{fig:deepar-training}%
 \end{figure}
 
@@ -36,7 +45,10 @@ The process is illustrated in Figure \ref{fig:deepar-predicting}.
 \begin{figure}[h]%
     \centering
     \input{plots/deepar_predicting}
-    \caption{DeepAR Predicting}%
+    \caption[DeepAR Predicting]{DeepAR Predicting. 
+    In the prediction steps, the target data \(z_{t-1}\) is not available. 
+    To combat this, we sample \(\tilde{z}_{t-1} \sim \P(z_{t-1} | \boldsymbol{h}_{t-1})\) 
+    from the previous step and use it as input instead of \(z_{t-1}\).}%
     \label{fig:deepar-predicting}%
 \end{figure}
 

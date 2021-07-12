@@ -6,8 +6,26 @@ energy forecasting using quantile regression based on a \gls{nnqf}.
 The method works as follows: first, the training set is modified 
 by using the Nearest Neigbor Quantile Filters so that 
 the training data directly represents a probabilistic distribution. 
-Now, a regression model like an artificial neural network can 
+Then, a regression model like an artificial neural network can 
 train on this modified data set and learn the quantile function.
+
+This method has three main advantages: 
+\begin{enumerate}
+    \item \(q\) is a free parameter and can be changed to any \(q \in (0,1)\),
+    \item the technique for the quantile regression is not specified, 
+    any technique can be used,
+    \item the calculation of the nearest neighbors and the modified 
+    training set only needs to be done once, you can save time when 
+    using multiple quantile regressions. Also, the original dataset 
+    does not need to be saved afterwards.
+\end{enumerate}
+
+In comparison to most other \(k\)-Nearest Neighbors quantile 
+regression techniques, the nearest neighbors are only calculated once 
+and then the regression model is trained on the modified training data. 
+A regular \(k\)-Nearest Neighbor Quantile Regression algorithm 
+calculates the nearest neighbors every time when a forecast is conducted 
+which is computationally more expensive in the long run.
 
 Let \(x_n \in \R^D\) be the \(n\)-th predictor 
 and \(y_n \in \R\) the \(n\)-th value of the time series, \(1 \leq n \leq N\). 
@@ -31,21 +49,3 @@ predictors \(X = (x_1, \ldots, x_N)\).
 With the modified training set, one can now train the regression model 
 for each quantile. Common examples are polynomial regression or 
 artificial neural networks. 
-
-This method has three main advantages: 
-\begin{enumerate}
-    \item \(q\) is a free parameter and can be changed to any \(q \in (0,1)\),
-    \item the technique for the quantile regression is not specified, 
-    any technique can be used,
-    \item the calculation of the nearest neighbors and the modified 
-    training set only needs to be done once, you can save time when 
-    using multiple quantile regressions. Also, the original dataset 
-    does not need to be saved afterwards.
-\end{enumerate}
-
-In comparison to most other \(k\)-Nearest Neighbors quantile 
-regression techniques, the nearest neighbors are only calculated once 
-and then the regression model is trained on the modified training data. 
-A regular \(k\)-Nearest Neighbor Quantile Regression algorithm 
-calculates the nearest neighbors every time when a forecast is conducted 
-which is computationally more expensive in the long run.

@@ -3,9 +3,19 @@
 
 Quantile Regression Forests were first proposed by \Textcite{Meinshausen2006}
 and have since then proven to be a powerful method for high-dimensional quantile 
-regression. It works in a similar way as Random Forest with the main difference 
+regression and time series forecasting. 
+The method works in a similar way as Random Forest with the main difference 
 being that we don't take the mean over the trees but take different quantiles 
 from the trees.
+
+The performance of this algorithm is very competitive in comparison with other 
+linear and tree-based methods like linear quantile regression (QQR and LQR), quantile regression trees with 
+piecewise constant (TRC), piecewise multiple linear (TRM) and piecewise second-degree polynomial form (TRP).
+Therefore, they provide a competitive baseline for this thesis. 
+
+\Textcite{Meinshausen2006} also shows that Quantile Regression Forests are consistent 
+under some specific assumptions about the distribution of the covariates, the proportion of observations, the splitting criterion and the 
+continuity and monotonicity of the \gls{cdf}.
 
 Quantile Regression Forests work as follows:
 Let \(X_1, \ldots, X_n \in \mathbb{R}^D\) be the predictors and 
@@ -21,11 +31,3 @@ We want to estimate \(F(y|X=x) = P(Y\leq y| X = x)\).
     \[ \hat{F}(y | X=x) = \hat{P}(Y=y | X=x) = \sum_{i=1}^n w_i(x) \mathds{1}_{\set{Y_i \leq y}}. \]
 \end{enumerate}
 The quantiles can now be estimated by inverting \(\hat{F}(y|X=x)\).
-
-The performance of this algorithm is very competitive in comparison with other 
-linear and tree-based methods like linear quantile regression (QQR and LQR), quantile regression trees with 
-piecewise constant (TRC), piecewise multiple linear (TRM) and piecewise second-degree polynomial form (TRP).
-
-\Textcite{Meinshausen2006} also show that Quantile Regression Forests are consistent 
-under some specific assumptions about the distribution of the covariates, the proportion of observations, the splitting criterion and the 
-continuity and monotonicity of the \gls{cdf}.

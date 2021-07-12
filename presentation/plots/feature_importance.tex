@@ -1,22 +1,25 @@
 \begin{tikzpicture}
+    \newcommand{\SSRD}{Solarsurfaceraddown}
     \pgfplotsset{every axis/.style={mbarplot}}
     \begin{axis}[
-        width  = \textwidth,
+        width  = 0.85\textwidth,
         height = 0.85\textheight,
         major x tick style = transparent,
         ybar,
         bar width=10pt,
         ymajorgrids = true,
         ylabel = {Feature importance},
-        symbolic x coords={SSRD, STRD, TSR, TP, TCC, Previous\ points},
+        xtick = {1,2,3,4,5,6},
+        xticklabel style={align=center},
+        xticklabels = {Surface\\surface\\rad down, Surface\\thermal\\rad down, Top net\\solar rad, Total\\precipitation, Total\\cloud cover, Previous\\points},
         scaled y ticks = false,
     ]
         \addplot
-            coordinates {(SSRD, 1.2202) (STRD, 1.0052) (TSR, 1.0856) (TP, 1.0032) (TCC, 1.0405)};
+            coordinates {(1, 1.2202) (2, 1.0052) (3, 1.0856) (4, 1.0032) (5, 1.0405)};
         \addplot
-            coordinates {(SSRD, 1.3365) (STRD, 1.0214) (TSR, 1.0199) (TP, 1.0020) (TCC, 1.0025)};
+            coordinates {(1, 1.3365) (2, 1.0214) (3, 1.0199) (4, 1.0020) (5, 1.0025)};
         \addplot
-            coordinates {(SSRD, 1.0268) (STRD, 1.0208) (TSR, 1.0516) (TP, 1.0124) (TCC, 1.2059) (Previous\ points, 1.0918)};
+            coordinates {(1, 1.0268) (2, 1.0208) (3, 1.0516) (4, 1.0124) (5, 1.2059) (6, 1.0918)};
 
         \legend{NNQF, QRF, SQF-RNN}
     \end{axis}

@@ -53,8 +53,12 @@
 \begin{frame}{NNQF [\cite{Ordiano2019}]}
     \begin{itemize}
         \item After modification of training set, a data mining technique is used for learning the map \(f(x) = (y_{(0.01)}, \ldots, y_{(0.99)})\).
-        \item High correlation of adjacent data points \(\leadsto\) don't just use \(x_i\) for prediction of \(y_i\), but also 
-        \(x_{i-1}, \ldots, x_{i-H+1}\)
+        \item High correlation of adjacent data points
+        \begin{itemize}
+            \item[\(\leadsto\)] use lag features: don't just use \(x_i\) for prediction of \(y_i\), but also 
+            \(x_{i-1}, \ldots, x_{i-H+1}\)
+            \item regression model now predicts \( \P(y_i | x_i, \ldots, x_{i-H+1}) \)
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -62,7 +66,13 @@
     \begin{itemize}
         \item \(q\) is a free parameter and can be changed to any \(q\in (0,1)\)
         \item the regression technique is not specified, any technique can be used
+        \begin{itemize}
+            \item in the classical quantile regression techniques and QRF, the algorithm needs to be specified
+        \end{itemize}
         \item nearest neighbor calculation only needs to be done once
+        \begin{itemize}
+            \item nearest neighbor quantile regression calculates the nearest neighbors for each prediction
+        \end{itemize}
         \item the original dataset does not need to be saved
     \end{itemize}
 \end{frame}
@@ -75,7 +85,6 @@
             \item Calculate \(\hat{y}_1, \ldots, \hat{y}_k\) from the trees 
             \item Calculate the empirical quantiles \(\hat{y}_{(q)}\) of \(\set{\hat{y}_1, \ldots, \hat{y}_k}\) for any \(q \in (0,1)\)
         \end{itemize}
-        \item[\(\leadsto\)] Basically like Random Forests but instead of calculating the mean, you calculate the quantiles of the prediction
     \end{itemize}
 \end{frame}
 
@@ -113,14 +122,7 @@
     \end{column}
 
     \begin{column}{0.35\textwidth}
-    \begin{tikzpicture}[scale=0.6]
-        \begin{axis}[xmin=-0.05, xmax=1.05, ymin=-0.1, ymax=2.1]
-            \addplot[domain = 0:1, blue] {tanh(4*x-2)-tanh(-2)};
-            \addplot[domain = 0:0.3, red] {x};
-            \addplot[domain = 0.3:0.7, red] {0.3 + 3.3 * (x - 0.3)};
-            \addplot[domain = 0.7:1, red] {1.62 + 1.02 * (x - 0.7)};
-        \end{axis}
-    \end{tikzpicture}
+        \input{plots/spline}
     \end{column}
     \end{columns}
 \end{frame}
@@ -137,17 +139,17 @@
     \begin{column}{0.5\textwidth}
         Mean losses:
         \begin{description}
-            \item[NNQF] \(0.01940\), place 16/24
-            \item[QRF] \(0.02015\), place 17/24
-            \item[SQF-RNN] \(0.02041\), place 18/24
-            \item[DeepAR] \(0.02437\), place 20/24
+            \item[\textcolor{TolDarkBlue}{NNQF}] \(0.01940\), place 16/24
+            \item[\textcolor{TolLightBrown}{QRF}] \(0.02015\), place 17/24
+            \item[\textcolor{TolLightGreen}{SQF-RNN}] \(0.02041\), place 18/24
+            \item[\textcolor{TolDarkBrown}{DeepAR}] \(0.02437\), place 20/24
         \end{description}
     \end{column}
     \end{columns}
     
     \begin{itemize}
         \item NNQF and QRF perform very similar
-        \item In the summer months (southern hemisphere!), SQF-RNN performs significantly better than NNQF and QRF models
+        \item In the summer months (southern hemisphere!), SQF-RNN performs noticably better than NNQF and QRF models
         \begin{itemize}
             \item[\(\leadsto\)] NNQF and QRF only focus on solar radiation, not on total cloud cover
         \end{itemize}
@@ -164,10 +166,10 @@
     \begin{column}{0.5\textwidth}
     Mean losses:
     \begin{description}
-        \item[NNQF] \(0.36736\)
-        \item[QRF] \(0.36759\)
-        \item[SQF-RNN] \(0.36644\)
-        \item[DeepAR] \(0.44235\)
+        \item[\textcolor{TolDarkBlue}{NNQF}] \(0.36736\)
+        \item[\textcolor{TolLightBrown}{QRF}] \(0.36759\)
+        \item[\textcolor{TolLightGreen}{SQF-RNN}] \(0.36644\)
+        \item[\textcolor{TolDarkBrown}{DeepAR}] \(0.44235\)
     \end{description}
     \end{column}
     \end{columns}
@@ -175,24 +177,13 @@
     \begin{itemize}
         \item SQF-RNN \(\succ\) NNQF \(\approx\) QRF in the energy score
         \begin{itemize}
-            \item Energy score takes time series attributes more into account, SQF-RNN is better at that due to the RNN structure
+            \item Energy score takes time series attributes into account, SQF-RNN is better at that due to the RNN structure
         \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Feature importance}
-    \begin{columns}
-    \begin{column}{0.8\textwidth}
-        \input{plots/feature_importance}
-    \end{column}
-    \begin{column}{0.3\textwidth}
-        SSRD: \\Surface solar rad down\\
-        STRD: \\Surface thermal rad down\\
-        TSR: \\Top net solar rad\\
-        TP: \\Total precipitation\\
-        TCC: \\Total cloud cover
-    \end{column}
-    \end{columns}
+    \input{plots/feature_importance}
 \end{frame}
 
 \section{Conclusion}

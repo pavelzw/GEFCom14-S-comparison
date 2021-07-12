@@ -15,6 +15,9 @@
 
 @Article{Ordiano2019,
   author        = {Jorge Ángel González Ordiano and Lutz Gröll and Ralf Mikut and Veit Hagenmeyer},
+  journal       = {International Journal of Forecasting},
+  volume        = {36},
+  pages         = {310--323},
   title         = {Probabilistic Energy Forecasting using Quantile Regressions based on a new Nearest Neighbors Quantile Filter},
   year          = {2019},
   month         = mar,
@@ -27,12 +30,27 @@
   primaryclass  = {cs.LG},
 }
 
-@Article{Gasthaus2019,
-  author   = {Jan Gasthaus and Konstantinos Benidis and Syama Sundar Rangapuram and Yuyang (Bernie) Wang and David Salinas and Valentin Flunkert and Tim Januschowski},
-  title    = {Probabilistic Forecasting with Spline Quantile Function RNNs},
-  year     = {2019},
-  abstract = {In this paper, we propose a flexible method for probabilistic modeling with conditional quantile functions using monotonic regression splines. The shape of the spline is parameterized by a neural network whose parameters are learned by minimizing the continuous ranked probability score. Within this framework, we propose a method for probabilistic time series forecasting, which combines the modeling capacity of recurrent neural networks with the flexibility of a spline-based representation of the output distribution. Unlike methods based on parametric probability density functions and maximum likelihood estimation, the proposed method can flexibly adapt to different output distributions without manual intervention. We empirically demonstrate the effectiveness of the approach on synthetic and real-world data sets.},
-  comment  = {SQF-RNN},
+@InProceedings{Gasthaus2019,
+  title         = "{Probabilistic Forecasting with Spline Quantile Function RNNs}",
+  author        = {Gasthaus, Jan and Benidis, Konstantinos and Wang, Yuyang and Rangapuram, Syama Sundar and Salinas, David and Flunkert, Valentin and Januschowski, Tim},
+  booktitle     = {The 22nd International Conference on Artificial Intelligence and Statistics},
+  pages         = {1901--1910},
+  year          = {2019},
+  abstract      = {In this paper, we propose a flexible method for probabilistic modeling with conditional 
+  quantile functions using monotonic regression splines. The shape of the spline is parameterized by 
+  a neural network whose parameters are learned by minimizing the continuous ranked probability score. 
+  Within this framework, we propose a method for probabilistic time series forecasting, which combines 
+  the modeling capacity of recurrent neural networks with the flexibility of a spline-based representation 
+  of the output distribution. Unlike methods based on parametric probability density functions 
+  and maximum likelihood estimation, the proposed method can flexibly adapt to different output distributions 
+  without manual intervention. We empirically demonstrate the effectiveness 
+  of the approach on synthetic and real-world data sets.},
+  editor        = {Chaudhuri, Kamalika and Sugiyama, Masashi},
+  volume        = {89},
+  series        = {Proceedings of Machine Learning Research},
+  publisher     = {PMLR},
+  pdf           = {http://proceedings.mlr.press/v89/gasthaus19a/gasthaus19a.pdf},
+  url           = {http://proceedings.mlr.press/v89/gasthaus19a.html},
 }
 
 @Article{Huang2016,
@@ -45,18 +63,18 @@
   pages     = {1081--1086},
   volume    = {32},
   abstract  = {The aim of this work is to produce probabilistic forecasts of solar power for the Global
-Energy Forecasting Competition 2014 (GEFCom2014). The task involves predicting the
-outputs from three solar farms at an hourly resolution using data from the ECMWF
-numerical weather prediction model.
-The annual cycle of solar radiation and power is modelled using a low-pass filter built
-using a Fourier transformation. The diurnal cycle is handled by fitting separate models for
-each hour of the day with the positive solar radiation. A model for simulating PV power
-production, taking the effect of temperature into account, is also included.
-The forecasting methods were gradient boosting for the deterministic forecasting of
-solar power and k-nearest neighbors regression for estimating prediction intervals in
-order to provide probabilistic forecasts. A cross-validation strategy, splitting the data into
-monthly folds, was employed for comparing the performances of alternative methods and
-in an attempt to avoid overfitting issues.},
+  Energy Forecasting Competition 2014 (GEFCom2014). The task involves predicting the
+  outputs from three solar farms at an hourly resolution using data from the ECMWF
+  numerical weather prediction model.
+  The annual cycle of solar radiation and power is modelled using a low-pass filter built
+  using a Fourier transformation. The diurnal cycle is handled by fitting separate models for
+  each hour of the day with the positive solar radiation. A model for simulating PV power
+  production, taking the effect of temperature into account, is also included.
+  The forecasting methods were gradient boosting for the deterministic forecasting of
+  solar power and k-nearest neighbors regression for estimating prediction intervals in
+  order to provide probabilistic forecasts. A cross-validation strategy, splitting the data into
+  monthly folds, was employed for comparing the performances of alternative methods and
+  in an attempt to avoid overfitting issues.},
   comment   = {gang gang},
   doi       = {10.1016/j.ijforecast.2015.11.002},
   publisher = {Elsevier {BV}},
@@ -72,13 +90,13 @@ in an attempt to avoid overfitting issues.},
   pages     = {1087--1093},
   volume    = {32},
   abstract  = {We investigate the probabilistic forecasting of solar and wind power generation in
-connection with the Global Energy Forecasting Competition 2014.We use a voted ensemble
-of a quantile regression forest model and a stacked random forest – gradient boosting
-decision tree model to predict the probability distribution. The raw probabilities thus
-obtained need to be post-processed using isotonic regression in order to conform to
-the monotonic-increase attribute of probability distributions. The results show a great
-performance in terms of the weighted pinball loss, with the model achieving second place
-on the final competition leaderboard.},
+  connection with the Global Energy Forecasting Competition 2014.We use a voted ensemble
+  of a quantile regression forest model and a stacked random forest – gradient boosting
+  decision tree model to predict the probability distribution. The raw probabilities thus
+  obtained need to be post-processed using isotonic regression in order to conform to
+  the monotonic-increase attribute of probability distributions. The results show a great
+  performance in terms of the weighted pinball loss, with the model achieving second place
+  on the final competition leaderboard.},
   comment   = {dmlab},
   doi       = {10.1016/j.ijforecast.2015.11.013},
   publisher = {Elsevier {BV}},
@@ -94,15 +112,15 @@ on the final competition leaderboard.},
   pages     = {1094--1102},
   volume    = {32},
   abstract  = {This paper proposes a generic framework for probabilistic energy forecasting, and discusses
-the application of the method to several tracks in the 2014 Global Energy Forecasting
-Competition (GEFCom2014). The proposed method uses a multiple quantile regression
-approach to predict a full distribution over possible future energy outcomes, uses the
-alternating direction method of multipliers to solve the optimization problems resulting
-from this quantile regression formulation efficiently, and uses a radial basis function
-network to capture the non-linear dependencies on the input data. For the GEFCom2014
-competition, the approach proved general enough to obtain one of the top five ranks in
-three tracks, solar, wind, and price forecasting, and it was also ranked seventh in the final
-load forecasting track.},
+  the application of the method to several tracks in the 2014 Global Energy Forecasting
+  Competition (GEFCom2014). The proposed method uses a multiple quantile regression
+  approach to predict a full distribution over possible future energy outcomes, uses the
+  alternating direction method of multipliers to solve the optimization problems resulting
+  from this quantile regression formulation efficiently, and uses a radial basis function
+  network to capture the non-linear dependencies on the input data. For the GEFCom2014
+  competition, the approach proved general enough to obtain one of the top five ranks in
+  three tracks, solar, wind, and price forecasting, and it was also ranked seventh in the final
+  load forecasting track.},
   comment   = {C3 green team},
   doi       = {10.1016/j.ijforecast.2015.12.002},
   publisher = {Elsevier {BV}},
@@ -150,9 +168,12 @@ load forecasting track.},
 @Article{Salinas2017,
   author        = {David Salinas and Valentin Flunkert and Jan Gasthaus},
   title         = {DeepAR: Probabilistic Forecasting with Autoregressive Recurrent Networks},
+  journal       = {International Journal of Forecasting},
+  volume        = {36},
+  pages         = {1181--1191},
   year          = {2017},
   month         = apr,
-  abstract      = {Probabilistic forecasting, i.e. estimating the probability distribution of a time series' future given its past, is a key enabler for optimizing business processes. In retail businesses, for example, forecasting demand is crucial for having the right inventory available at the right time at the right place. In this paper we propose DeepAR, a methodology for producing accurate probabilistic forecasts, based on training an auto regressive recurrent network model on a large number of related time series. We demonstrate how by applying deep learning techniques to forecasting, one can overcome many of the challenges faced by widely-used classical approaches to the problem. We show through extensive empirical evaluation on several real-world forecasting data sets accuracy improvements of around 15% compared to state-of-the-art methods.},
+  abstract      = {Probabilistic forecasting, i.e. estimating the probability distribution of a time series' future given its past, is a key enabler for optimizing business processes. In retail businesses, for example, forecasting demand is crucial for having the right inventory available at the right time at the right place. In this paper we propose DeepAR, a methodology for producing accurate probabilistic forecasts, based on training an auto regressive recurrent network model on a large number of related time series. We demonstrate how by applying deep learning techniques to forecasting, one can overcome many of the challenges faced by widely-used classical approaches to the problem. We show through extensive empirical evaluation on several real-world forecasting data sets accuracy improvements of around 15\% compared to state-of-the-art methods.},
   archiveprefix = {arXiv},
   eprint        = {1704.04110},
   file          = {:http\://arxiv.org/pdf/1704.04110v3:PDF},
@@ -161,20 +182,21 @@ load forecasting track.},
 }
 
 @Article{Meinshausen2006,
-  author   = {Meinshausen, Nicolai and Ridgeway, Greg},
+  author   = {Nicolai Meinshausen},
   journal  = {Journal of Machine Learning Research},
-  title    = {Quantile regression forests.},
+  title    = {Quantile regression forests},
   year     = {2006},
-  number   = {6},
+  number   = {Jun},
   volume   = {7},
+  pages    = {983--999},
   abstract = {Random forests were introduced as a machine learning tool in Breiman (2001) and have
-since proven to be very popular and powerful for high-dimensional regression and classification. For regression, random forests give an accurate approximation of the conditional
-mean of a response variable. It is shown here that random forests provide information
-about the full conditional distribution of the response variable, not only about the conditional mean. Conditional quantiles can be inferred with quantile regression forests, a
-generalisation of random forests. Quantile regression forests give a non-parametric and
-accurate way of estimating conditional quantiles for high-dimensional predictor variables.
-The algorithm is shown to be consistent. Numerical examples suggest that the algorithm
-is competitive in terms of predictive power.},
+  since proven to be very popular and powerful for high-dimensional regression and classification. For regression, random forests give an accurate approximation of the conditional
+  mean of a response variable. It is shown here that random forests provide information
+  about the full conditional distribution of the response variable, not only about the conditional mean. Conditional quantiles can be inferred with quantile regression forests, a
+  generalisation of random forests. Quantile regression forests give a non-parametric and
+  accurate way of estimating conditional quantiles for high-dimensional predictor variables.
+  The algorithm is shown to be consistent. Numerical examples suggest that the algorithm
+  is competitive in terms of predictive power.},
   url      = {https://www.jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf},
 }
 

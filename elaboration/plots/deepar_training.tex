@@ -13,10 +13,9 @@
     \newcommand{\placeholder}[2]{
         \node[Placeholder] (circ-#2) at (#1, 0) {\(\cdots\)};
         \node (x-#2) at (#1, 1.5) {};
-        \node[opacity=0] (y-#2) at (#1, -1.5) {\(\P(z_{#2}|\boldsymbol{h}_{#2})\)};
+        \node (y-#2) at (#1, -1.5) {\phantom{\(\P(z_{#2}|\boldsymbol{h}_{#2})\)}};
     }
     \newcommand{\connect}[2]{
-        \draw[Connection] (y-#1)    -- (circ-#2);
         \draw[Connection] (circ-#1) -- (circ-#2);
     }
 

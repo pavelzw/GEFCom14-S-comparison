@@ -127,6 +127,47 @@
     \end{columns}
 \end{frame}
 
+\begin{frame}{Summary}
+    \begin{itemize}
+        \item NNQF
+        \begin{itemize}
+            \item Preprocessing with nearest neighbor filters \(\leadsto\) regression for preprocessed data
+        \end{itemize}
+        \item QRF
+        \begin{itemize}
+            \item Random Forests \(\leadsto\) take empirical quantiles of result
+        \end{itemize}
+        \item SQF-RNN
+        \begin{itemize}
+            \item Deep neural network with autoregressive input
+            \item Target distribution modeled by spline quantile functions
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Plots}
+    \begin{columns}
+        \begin{column}{0.33\textwidth}
+            \includegraphics[width=\textwidth]{plots/nnqf_plot_9.pdf}
+            \begin{center}
+                NNQF
+            \end{center}
+        \end{column}
+        \begin{column}{0.33\textwidth}
+            \includegraphics[width=\textwidth]{plots/qrf_plot_9.pdf}
+            \begin{center}
+                QRF
+            \end{center}
+        \end{column}
+        \begin{column}{0.33\textwidth}
+            \includegraphics[width=\textwidth]{plots/sqf_rnn_plot_9.pdf}
+            \begin{center}
+                SQF-RNN
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
 \section{Comparison}
 
 \begin{frame}[fragile]{Pinball loss}

@@ -1,9 +1,9 @@
 \begin{tikzpicture}[scale=0.6]
     \pgfplotsset{every axis/.style={mlineplot}}
     \begin{axis}[xmin=-0.05, xmax=1.05, ymin=-0.1, ymax=2.1]
-        \addplot[domain = 0:1] {tanh(4*x-2)-tanh(-2)};
-        \addplot[domain = 0:0.3] {x};
-        \addplot[domain = 0.3:0.7] {0.3 + 3.3 * (x - 0.3)};
-        \addplot[domain = 0.7:1] {1.62 + 1.02 * (x - 0.7)};
+        \addplot[domain = 0:1, TolDarkBlue] {tanh(4*x-2)-tanh(-2)};
+        \addplot[domain = 0:0.3, TolLightBrown] {x};
+        \addplot[domain = 0.3:0.7, TolLightBrown] {0.3 + 3.3 * (x - 0.3)};
+        \addplot[domain = 0.7:1, TolLightBrown] {1.62 + 1.02 * (x - 0.7)};
     \end{axis}
 \end{tikzpicture}

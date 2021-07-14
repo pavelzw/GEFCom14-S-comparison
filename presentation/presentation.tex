@@ -44,7 +44,7 @@
         \item Let \(x_1, \ldots, x_n \in \R^D\) be the predictors and \(y_1, \ldots, y_n\in \R\) the target values.
         \item Calculate approximate quantiles of \(y_i\):
         \begin{itemize}
-            \item Find \(N\) nearest neighbors of \(x_i\): \(\set{y_{i_1}, \ldots, y_{i_N}}\)
+            \item Find \(N\) nearest neighbors of \(x_i\): \(\set{x_{i_1}, \ldots, x_{i_N}}\)
             \item Calculate the empirical quantiles \(y_{(0.01)}, \ldots, y_{(0.99)}\) from \(\set{y_{i_1}, \ldots, y_{i_N}}\)
         \end{itemize}
     \end{itemize}
@@ -64,7 +64,6 @@
 
 \begin{frame}{Advantages of NNQF [\cite{Ordiano2019}]}
     \begin{itemize}
-        \item \(q\) is a free parameter and can be changed to any \(q\in (0,1)\)
         \item the regression technique is not specified, any technique can be used
         \begin{itemize}
             \item in the classical quantile regression techniques and QRF, the algorithm needs to be specified
@@ -170,6 +169,12 @@
 
 \section{Comparison}
 
+\begin{frame}{Feature importance}
+    \begin{center}
+        \input{plots/feature_importance}
+    \end{center}
+\end{frame}
+
 \begin{frame}[fragile]{Pinball loss}
     \begin{columns}
     \begin{column}{0.5\textwidth}
@@ -221,10 +226,6 @@
             \item Energy score takes time series attributes into account, SQF-RNN is better at that due to the RNN structure
         \end{itemize}
     \end{itemize}
-\end{frame}
-
-\begin{frame}{Feature importance}
-    \input{plots/feature_importance}
 \end{frame}
 
 \section{Conclusion}

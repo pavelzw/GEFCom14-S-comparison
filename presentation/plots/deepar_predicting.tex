@@ -5,17 +5,17 @@
     \tikzset{LightConnection/.style={->, dashed, line width=0.3mm, opacity=0.25}}
     \newcommand{\mynode}[3]{
         \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
-        \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
-        \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|\boldsymbol{h}_{#2})\)};
+        \node (x-#2) at (#1, 1.5) {\(x_{#2}, y_{#3}\)};
+        \node (y-#2) at (#1, -1.5) {\(\P(y_{#2}|\boldsymbol{h}_{#2})\)};
 
         \draw[Connection] (circ-#2) -- (y-#2);
         \draw[Connection] (x-#2)    -- (circ-#2);
     }
     \newcommand{\mynodewithresult}[3]{
         \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
-        \node (x-#2) at (#1, 1.5) {\(x_{#2}, z_{#3}\)};
-        \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|\boldsymbol{h}_{#2})\)};
-        \node (z-#2) at (#1, -2.5) {\(\tilde{z}_{#2}\)};
+        \node (x-#2) at (#1, 1.5) {\(x_{#2}, y_{#3}\)};
+        \node (y-#2) at (#1, -1.5) {\(\P(y_{#2}|\boldsymbol{h}_{#2})\)};
+        \node (z-#2) at (#1, -2.5) {\(\tilde{y}_{#2}\)};
 
         \draw[Connection] (circ-#2) -- (y-#2);
         \draw[Connection] (x-#2)    -- (circ-#2);
@@ -23,9 +23,9 @@
     }
     \newcommand{\mynodewithresultinputsampled}[3]{
         \node[ReceptorNode] (circ-#2) at (#1, 0) {\(\boldsymbol{h}_{#2}\)};
-        \node (x-#2) at (#1, 1.5) {\(x_{#2}, \tilde{z}_{#3}\)};
-        \node (y-#2) at (#1, -1.5) {\(\P(z_{#2}|\boldsymbol{h}_{#2})\)};
-        \node (z-#2) at (#1, -2.5) {\(\tilde{z}_{#2}\)};
+        \node (x-#2) at (#1, 1.5) {\(x_{#2}, \tilde{y}_{#3}\)};
+        \node (y-#2) at (#1, -1.5) {\(\P(y_{#2}|\boldsymbol{h}_{#2})\)};
+        \node (z-#2) at (#1, -2.5) {\(\tilde{y}_{#2}\)};
 
         \draw[Connection] (circ-#2) -- (y-#2);
         \draw[Connection] (x-#2)    -- (circ-#2);
@@ -33,9 +33,9 @@
     }
     \newcommand{\placeholder}[2]{
         \node[Placeholder] (circ-#2) at (#1, 0) {\(\cdots\)};
-        \node (x-#2) at (#1, 1.5) {\phantom{\(x_{#2}, \tilde{z}_{#2}\)}};
-        \node (y-#2) at (#1, -1.5) {\phantom{\(\P(z_{#2}|h_{#2})\)}};
-        \node (z-#2) at (#1, -2.5) {\phantom{\(\tilde{z}_{#2}\)}};
+        \node (x-#2) at (#1, 1.5) {\phantom{\(x_{#2}, \tilde{y}_{#2}\)}};
+        \node (y-#2) at (#1, -1.5) {\phantom{\(\P(y_{#2}|h_{#2})\)}};
+        \node (z-#2) at (#1, -2.5) {\phantom{\(\tilde{y}_{#2}\)}};
     }
     \newcommand{\connect}[2]{
         \draw[Connection] (circ-#1) -- (circ-#2);

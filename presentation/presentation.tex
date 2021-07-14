@@ -93,8 +93,8 @@
     \end{center}
     \begin{itemize}
         \item Autoregressive Recurrent Neural Network with probabilistic output
-        \item \(x_t\) and \(z_{t-1}\) form with \(\boldsymbol{h}_{t-1}\) the new network output \(\boldsymbol{h}_t\)
-        which is used to compute the likelihood \(\P(z_t | \boldsymbol{h}_t)\)
+        \item \(x_t\) and \(y_{t-1}\) form with \(\boldsymbol{h}_{t-1}\) the new network output \(\boldsymbol{h}_t\)
+        which is used to compute the likelihood \(\P(y_t | \boldsymbol{h}_t)\)
     \end{itemize}
 \end{frame}
 
@@ -103,7 +103,7 @@
         \input{plots/deepar_predicting}
     \end{center}
     \begin{itemize}
-        \onslide<2->{\item Generate \(\tilde{z}_t \sim \P(\cdot | \boldsymbol{h}_t)\) and use it in the next step as input}
+        \onslide<2->{\item Generate \(\tilde{y}_t \sim \P(\cdot | \boldsymbol{h}_t)\) and use it in the next step as input}
     \end{itemize}
 \end{frame}
 
@@ -235,11 +235,11 @@
         \item NNQF is best on average
         \item NNQF is slightly better than QRF
         \item SQF-RNN is noticably better in the months October till Febuary (summer)
-        \item SQF-RNN is not really fit for this kind of problem, usually uses way more different correlated tracks
         \item SQF-RNN always outperforms DeepAR (assumes Student's \(t\)-distribution)
         \begin{itemize}
             \item[\(\leadsto\)] SQF-RNN better suited for nonparametric tasks like weather forecasting
         \end{itemize}
+        \item SQF-RNN is not really fit for this kind of problem, usually uses way more different correlated tracks
     \end{itemize}
 \end{frame}
 

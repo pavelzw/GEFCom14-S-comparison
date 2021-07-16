@@ -48,21 +48,13 @@
     % Create nodes
     \mynode{1 * 2.5}{t_0}{t_0-1}
     \draw[Connection] ([xshift=-0.5cm]circ-t_0.west) -- (circ-t_0);
-    \onslide<2->{
-        \mynodewithresult{2 * 2.5}{t_0+1}{t_0}
-        \connect{t_0}{t_0+1}
-    }
-    \onslide<3->{
-        \mynodewithresultinputsampled{3 * 2.5}{t_0+2}{t_0+1}
-        \connectsampled{t_0+1}{t_0+2}
-    }
-    \onslide<4->{
-        \placeholder{4 * 2.5}{t_0+3}
-        \connectsampled{t_0+2}{t_0+3}
-    }
+    \mynodewithresult{2 * 2.5}{t_0+1}{t_0}
+    \connect{t_0}{t_0+1}
+    \mynodewithresultinputsampled{3 * 2.5}{t_0+2}{t_0+1}
+    \connectsampled{t_0+1}{t_0+2}
+    \placeholder{4 * 2.5}{t_0+3}
+    \connectsampled{t_0+2}{t_0+3}
     % Last node is called "t_0+T"
-    \onslide<5->{
-        \mynodewithresultinputsampled{5*2.5}{t_0+T}{t_0+T-1}
-        \connectsampled{t_0+3}{t_0+T}
-    }
+    \mynodewithresultinputsampled{5*2.5}{t_0+T}{t_0+T-1}
+    \connectsampled{t_0+3}{t_0+T}
 \end{tikzpicture}

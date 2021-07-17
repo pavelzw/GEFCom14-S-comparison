@@ -1,26 +1,31 @@
 \section{Spline Quantile Function RNNs}
 \label{sec:sqf-rnn}
 
-\Textcite{Gasthaus2019} proposed a method for probabilistic forecasting by modeling 
-the quantile function with monotonic regression splines. 
-The proposed \gls{sqfrnn} model combines the ability to forecast time series 
-from recurrent neural networks which was already done by the DeepAR model from \Textcite{Salinas2017}
-with the flexibility of being able to 
-model the quantile functions with linear splines. 
+DeepAR is an autoregressive recurrent neural network proposed by 
+\Textcite{Salinas2017} for the prediction of time series. It models 
+known distribution like the normal distribution or the Student's \(t\)-distribution. 
+
+A recurrent neural network is a model where the internal state of the model 
+is also used as an input variable. With this property, RNNs can use their 
+internal state as memory and are therefore able to process time series.
+
+\Textcite{Gasthaus2019} builds on top of that: they proposed \gls{sqfrnn}, 
+a model that works just like DeepAR but doesn't use a predetermined output 
+distribution. Instead they model the conditional distribution 
+by spline quantile functions. 
 
 This flexibility and the fact that DeepAR uses autoregressive input with an RNN structure 
 motivates the usage of this model instead of other models that don't 
 have autoregressive input or an RNN structure like QRF or NNQF.
 
-Let \(x_1, \ldots, x_n \in \R^D\) be the predictor values and 
-\(z_1, \ldots, z_n \in \R\) be the target time series. Also, let \(\Theta\) 
-be the model parameters, \(\boldsymbol{h}_t\) the network output of 
-time step \(t\) and \(\theta_t\) the parameters of the conditional distribution \(\P(z_t | \theta_t)\).
+Let \(\Theta\) be the model parameters, \(\boldsymbol{h}_t\) the network output of 
+time step \(t\) and \(\theta_t\) the parameters of the conditional distribution \(\P(y_t | \theta_t)\).
 The model works as follows:
-Compute the network output \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, x_t, z_{t-1}, \Theta)\) 
+Compute the network output \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, x_t, y_{t-1}, \Theta)\) 
 as well as the parameters \(\theta_t = \theta(\boldsymbol{h}_t, \Theta)\) for the distribution
-\(\P(z_t | \theta_t)\). Here, the function \(h(\cdot)\) is a multi-layer RNN with 
-LSTM cells and \(\theta(\cdot)\) is a projection layer. 
+\(\P(y_t | \theta_t)\). Here, the function \(h(\cdot)\) is a multi-layer RNN with 
+Long short-term memory (LSTM, a type of RNN) cells and \(\theta(\cdot)\) is a projection layer, 
+i.e. a linear map from a high dimensional space into a lower dimesnional space. 
 The quantiles are then used to calculate the loss and train the model parameters \(\Theta\).
 The process is illustrated in Figure \ref{fig:deepar-training}. 
 
@@ -28,17 +33,17 @@ The process is illustrated in Figure \ref{fig:deepar-training}.
     \centering
     \input{plots/deepar_training}
     \caption[DeepAR Training]{DeepAR Training. 
-    The state of the network \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, x_t, z_{t-1}, \Theta)\) 
+    The state of the network \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, x_t, y_{t-1}, \Theta)\) 
     is calculated from the previous state \(\boldsymbol{h}_{t-1}\), 
-    the predictor value \(x_t\) and the previous observed target point \(z_{t-1}\). 
-    The target distribution \(\P(z_t | \boldsymbol{h}_t)\) 
+    the predictor value \(x_t\) and the previous observed target point \(y_{t-1}\). 
+    The target distribution \(\P(y_t | \boldsymbol{h}_t)\) 
     is calculated from the state of the network \(\boldsymbol{h}_t\).}%
     \label{fig:deepar-training}%
 \end{figure}
 
 For the prediction step, the target time series are not known. 
-The known history of the time series \(z_1, \ldots, z_{t_0}\) is fed into the 
-model and for \(t > t_0\), samples \(\tilde{z}_t \sim \P(z_t | \theta_t)\) 
+The known history of the time series \(y_1, \ldots, y_{t_0}\) is fed into the 
+model and for \(t > t_0\), samples \(\tilde{y}_t \sim \P(y_t | \theta_t)\) 
 are generated and fed back into the model for the next time step.
 The process is illustrated in Figure \ref{fig:deepar-predicting}.
 
@@ -46,9 +51,9 @@ The process is illustrated in Figure \ref{fig:deepar-predicting}.
     \centering
     \input{plots/deepar_predicting}
     \caption[DeepAR Predicting]{DeepAR Predicting. 
-    In the prediction steps, the target data \(z_{t-1}\) is not available. 
-    To combat this, we sample \(\tilde{z}_{t-1} \sim \P(z_{t-1} | \boldsymbol{h}_{t-1})\) 
-    from the previous step and use it as input instead of \(z_{t-1}\).}%
+    In the prediction steps, the target data \(y_{t-1}\) is not available. 
+    To combat this, we sample \(\tilde{y}_{t-1} \sim \P(y_{t-1} | \boldsymbol{h}_{t-1})\) 
+    from the previous step and use it as input instead of \(y_{t-1}\).}%
     \label{fig:deepar-predicting}%
 \end{figure}
 
@@ -60,15 +65,17 @@ which can be computed effectively for spline-based quantile functions.
 A linear spline with \(L\) pieces is of the form 
 \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+, 
 \quad b, d \in \R^{L+1}. \]
-Since we want a monotone spline, we need to create constraints for \(b_l\) and \(d_l\).
-We want \(d_l < d_{l+1}\) for ordered knot positions. To achieve this 
+Because the quantile function is a monotone function, 
+a monotone spline is needed. That's why we need to create constraints 
+for \(b_l\) and \(d_l\).
+\(d_l < d_{l+1}\) results in ordered knot positions. To achieve this 
 in the neural network, we set \(d_0 = 0\) and \(d_l = \sum_{j=1}^l \delta_j\), 
 where \(\delta_j \geq 0\) and \(\sum_{j=1}^L \delta_j = 1\) since the domain 
 of the quantile function is \([0, 1]\). 
-We also want monotonicity: the slope \(m_l\) between two knots is given by 
-\(m_l = \sum_{j=0}^l b_j\). We need to make sure that \(m_l \geq 0 \forall l\).
-If we set \(b_l = \beta_l - \beta_{l-1}\) and \(b_0 = \beta_0\) with \(\beta_l \geq 0 \forall l\), 
-we get \(m_l = \sum_{j=0}^l b_j = \beta_l \geq 0\).
-We can therefore model our spline with the parameter 
+The second property is monotonicity: the slope \(m_l\) between two knots is given by 
+\(m_l = \sum_{j=0}^l b_j\). The constraint \(m_l \geq 0 \forall l\) solves that.
+By setting \(b_l = \beta_l - \beta_{l-1}\) and \(b_0 = \beta_0\) with \(\beta_l \geq 0 \forall l\), 
+\(m_l = \sum_{j=0}^l b_j = \beta_l \geq 0\) is ensured.
+Therefore, the spline can be modeled with the parameter 
 \(\theta = (\gamma, \beta, \delta)\), \(\gamma \in \R, \beta \in [0,\infty)^{L}, 
 \delta \in \set{ \delta \in [0,1]^L: \sum_{j=1}^L \delta_j = 1 }\).

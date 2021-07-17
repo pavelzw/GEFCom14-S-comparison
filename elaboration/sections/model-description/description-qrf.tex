@@ -9,8 +9,7 @@ being that we don't take the mean over the trees but take different quantiles
 from the trees.
 
 The performance of this algorithm is very competitive in comparison with other 
-linear and tree-based methods like linear quantile regression (QQR and LQR), quantile regression trees with 
-piecewise constant (TRC), piecewise multiple linear (TRM) and piecewise second-degree polynomial form (TRP).
+linear and tree-based methods.
 Therefore, they provide a competitive baseline for this thesis. 
 
 \Textcite{Meinshausen2006} also shows that Quantile Regression Forests are consistent 
@@ -18,16 +17,9 @@ under some specific assumptions about the distribution of the covariates, the pr
 continuity and monotonicity of the \gls{cdf}.
 
 Quantile Regression Forests work as follows:
-Let \(X_1, \ldots, X_n \in \mathbb{R}^D\) be the predictors and 
-\(Y_1, \ldots, Y_n \in \mathbb{R}\) the corresponding targets.
-We want to estimate \(F(y|X=x) = P(Y\leq y| X = x)\).
 \begin{enumerate}
-    \item Grow \(k\) trees \(T(\theta_j), j\in\set{1,\ldots,k}\) like in a Random Forest.
-    \item For a given \(x \in \mathbb{R}^D\), compute the weights \(w_i(x, \theta_j)\) 
-    for all given observations \(i \in \set{1,\ldots, n}\) and trees \(j \in \set{1, \ldots, k}\).
-    Now, compute the weight \(w_i(x) = \frac{1}{k} \sum_{j=1}^k w_i(x, \theta_j)\) for every 
-    observation \(i \in \set{1,\ldots, n}\).
-    \item Compute the estimate of the distribution function like this:
-    \[ \hat{F}(y | X=x) = \hat{P}(Y=y | X=x) = \sum_{i=1}^n w_i(x) \mathds{1}_{\set{Y_i \leq y}}. \]
+    \item Grow \(k\) trees \(\func{T_1, \ldots, T_k}{\R^D}{\R}\) like in a Random Forest from the training data.
+    \item For a given \(x\in\R^D\), calculate the outputs \( \tilde{y}_i = T_i(x) \) for all \(i \in \set{1, \ldots, k}\).
+    \item Calculate the empirical quantiles \(y_{(0.01)}, \ldots, y_{(0.99)}\) from 
+    \(\set{\tilde{y}_1, \ldots, \tilde{y}_k}\).
 \end{enumerate}
-The quantiles can now be estimated by inverting \(\hat{F}(y|X=x)\).

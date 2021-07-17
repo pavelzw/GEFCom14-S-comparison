@@ -1,10 +1,27 @@
 \chapter{Model description}
 \label{ch:model-description}
 
-In this chapter, we describe the basic functionality of the models 
-and their advantages.
-We furthermore give motivation why these models were selected 
-for solar energy forecasting. 
+In this chapter, we give motivation why the models were selected and 
+describe their basic functionality as well as their advantages.
+
+Quantile Random Forests have proven to be a very competitive 
+and powerful quantile regression method for high-dimensional datasets. 
+This is the reason why we use it as a benchmark to compare the other two models 
+against it.
+Nearest Neighbor Quantile Regression is the method utilized by the first place 
+in the GEFCom14 challenge. NNQF uses a similar strategy but requires much less 
+computation power in order to predict its output. 
+SQF-RNN uses autoregressive input with an RNN structure and provides flexible 
+conditional output distributions through spline quantile functions. 
+\Textcite{Gasthaus2019} already shows that it works well on large solar energy 
+forecasting datasets.
+
+In order to describe the model in the following subsections, we will introduce the necessary notation here:
+\begin{itemize}
+    \item \(n\) is the training data length
+    \item \(x_1, \ldots, x_n \in \R^D\) are the predictor values of the time series
+    \item \(y_1, \ldots, y_n \in \R\) are the corresponding target values
+\end{itemize}
 
 \input{sections/model-description/description-qrf}
 

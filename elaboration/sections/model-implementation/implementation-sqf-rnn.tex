@@ -1,29 +1,30 @@
 \section{Spline Quantile Function RNNs}
 \label{sec:implementation-sqf-rnn}
 
-The implementation for the SQF-RNN model can be found on GitHub\footnote{\url{https://github.com/awslabs/gluon-ts}}.
+The implementation for the SQF-RNN model is provided by 
+\Textcite{Gasthaus2019} on GitHub\footnote{\url{https://github.com/awslabs/gluon-ts}}.
 
 The key difference between the SQF-RNN model and the DeepAR model from 
 \Textcite{Salinas2017} is that the DeepAR implementation uses a 
-probabilistic distribution and optimizes the likelihood of that distribution 
-where in the SQF-RNN case spline quantile functions are used and the 
-CRPS is optimized. 
-For complex problems, the specification on a probabilistic distribution 
+parametric distribution and optimizes the distribution parameters 
+based on the maximum likelihood estimation. 
+In the SQF-RNN case, spline quantile functions are used and their parameters 
+are optimized based on the CRPS. 
+For complex problems, the specification of a probabilistic distribution 
 that fits the data is often not trivial. 
 
-In the DeepAR default implementation, the Student's \(t\)-distribution is used. 
+In the DeepAR default implementation, a Student's \(t\)-distribution is used. 
 With this assumption, the model performs noticably worse on the GEFCom14 dataset.
 
 The CRPS is often used to evaluate a forecast model but its usage as 
-a direct loss function in the training process is rare. 
+a direct loss function in the training process is rare. \todo{not entirely true (environmental forecasting)}
 As the CRPS is closely related to the pinball loss (see \ref{ch:crps}), 
 this helps in the GEFCom14 problem since it directly minimizes the given metric.
 
-First, the data is read from the \texttt{.csv} files. 
-After that, the cumulated columns (SSRD, STRD, TSR) are decumulated and then normalized.
-Then, the trainig data is converted into a \texttt{ListDataset} and fitted with the 
-\texttt{DeepAREstimator} class. The frequency of the model was set to one hour and 
-prediction length to 28, 30 or 31 days since the task was to predict one full month. 
+The data preprocessing steps are the same as in the QRF case. 
+After preprocessing, the trainig data is converted into a \texttt{ListDataset} and fitted with the 
+\texttt{DeepAREstimator} class. The frequency of the model is set to one hour and 
+prediction length to 28, 30 or 31 days since the task is to predict one full month. 
 In order to use quantile splines with three parts as the output distribution, 
 we need to set \texttt{distr\_output=PiecewiseLinearOutput(num\_pieces=3)}. 
 Because the default value of \texttt{use\_feat\_dynamic\_real} is set to \texttt{False} 
@@ -34,26 +35,30 @@ we need to change it to \texttt{True} or else it will ignore the predictors
 After training for seven epochs, the model with the data that is available from the months before, 
 we need to predict the upcoming month. This is done by calling the \texttt{predict()} 
 method from the predictor that we got after training.
-After that, we calculate the quantiles from the prediction and use them to 
-calculate the pinball loss for each time step and zone.
+Then, the quantiles are calculated from the results and used to 
+calculate the pinball loss.
 
-In order to get better and more consistent results, the ensemble averaging is used. 
-Seven independent models are trained simultaneously and in the predcition step, 
-the output of every model is averaged and returned.
+In order to get better and more consistent results, 
+seven independent models are trained simultaneously and in the predcition step 
+and the average of all models is used as output.
 \todo{how much performance improvement?}
 
 Because the DeepAR model is similar to a recurrent neural network, 
 the tunable hyperparameters also look similar. 
-The context length -- e.g. the number of steps to unroll the RNN before computing predictions -- can be tuned, 
-the number of RNN layers as well as the number of RNN cells for each layer. The cell type of the RNN can be either an LSTM or a GRU cell.
-Another hyperparameter is the dropout regularization: the dropout rate and the dropout cell type can be tuned 
-with available cell types being \texttt{ZoneoutCell}, \texttt{RNNZoneoutCell}, \texttt{VariationalDropoutCell} 
+The context length -- e.g. the number of steps to unroll the RNN 
+before computing predictions -- can be tuned, 
+the number of RNN layers as well as the number of RNN cells for each layer. 
+The cell type of the RNN can be either an LSTM or a gated recurrent unit (GRU) cell.
+Another hyperparameter is the dropout regularization: 
+the dropout rate and the dropout cell type can be tuned 
+with available cell types being \texttt{ZoneoutCell}, 
+\texttt{RNNZoneoutCell}, \texttt{VariationalDropoutCell} 
 and \texttt{VariationalZoneoutCell}.
 For the output distribution, the number of spline pieces can be adjusted.
-For the training part, the usual hyperparameters like number of epochs, batch size, 
+For the training part, the usual hyperparameters like the number of epochs, batch size, 
 learning rate, learning rate decay, patience, gradient clip and weight decay can be tuned.
 The parameters after tuning are shown in Table \ref{table:sqf-rnn-hyperparameters}.
-\todo{How were the hyperparameters tuned?}
+\todo{How were the hyperparameters tuned, any interesting/systematic effects?}
 
 \begin{table}[h!]%
     \caption{SQF-RNN Hyperparameters}

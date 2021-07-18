@@ -1,32 +1,13 @@
 \chapter{Model implementation}
 \label{ch:model-implementation}
 
-In order to test the performance of the different models on the GEFCom14-S dataset, we need to implement them. 
-The implementation is done in Python and can be found on GitHub\footnote{\url{https://github.com/pavelzw/GEFCom14-S-comparison}}.
+The implementation of the models and the testing is done in Python. 
+The source code can be found on 
+GitHub\footnote{\url{https://github.com/pavelzw/GEFCom14-S-comparison}}.
 
-From all predictors in Table \ref{table:predictors}, only SSRD, STRD, TSR, TP and TCC are used. 
-Since the Variables SSRD, STRD and TSR are all available as accumulated fields, they first need to be decumulated.
-This can be done by subtracting the value before the current value from the current value, for each day separately. 
-Figure \ref{fig:strd-accumulated-vs-decumulated} shows both the accumulated and decumulated fields. 
-A machine learning algorithm works better with the decumulated field since the decumulated field directly correlates 
-with the power output of the solar plant.
+\input{sections/model-implementation/pywatts}
 
-\begin{figure}[h]%
-    \centering
-    \subfloat[\centering STRD accumulated]{{\includegraphics[width=7cm]{plots/strd_accumulated.pdf} }}%
-    \qquad
-    \subfloat[\centering STRD decumulated]{{\includegraphics[width=7cm]{plots/strd_decumulated.pdf} }}%
-    \caption[STRD accumulated vs. decumulated]{STRD accumulated vs. decumulated. 
-    In order to get the actual data, we first need to subtract the previous point \(x_{t-1}\) from \(x_t\).}%
-    \label{fig:strd-accumulated-vs-decumulated}%
-\end{figure}
-
-Since we are using some steps like the calculation of the pinball loss multiple times, 
-it makes sense to use some kind of pipeline structure for the code. 
-\Textcite{Heidrich2021} introduced 
-pyWATTS\footnote{\url{https://github.com/KIT-IAI/pyWATTS}}: a framework 
-that is designed to solve the issue of creating pipelines for time series 
-forecasting. 
+\input{sections/model-implementation/preprocessing}
 
 \input{sections/model-implementation/implementation-qrf}
 

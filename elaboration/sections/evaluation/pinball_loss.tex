@@ -1,0 +1,66 @@
+\section{Pinball loss}
+\label{sec:elaboration-pinball-loss}
+
+As stated in section \ref{sec:gefcom-dataset}, the pinball loss is 
+used to determine the performance of the different models. 
+It is calculated by taking the average over all pinball losses for each time 
+point and zone in the dataset. 
+
+Table \ref{table:pinball-loss} and Figure \ref{fig:pinball-loss} show the 
+losses of the models for task 4 to task 15 (July 2013 to June 2014). 
+
+\begin{table}[ht]%
+    \footnotesize
+    \hspace*{25pt} % make kind of centering
+    \begin{minipage}{\textwidth}
+    \renewcommand{\b}[1]{\textbf{#1}}
+    \rowcolors{2}{white}{gray!25}
+    \begin{tabular}{c|cccccc}
+        \toprule \noalign{\smallskip}
+        Task & \(4\) & \(5\) & \(6\) & \(7\) & \(8\) & \(9\) \\
+        \midrule
+        QRF     & \(0.01559\)     & \(0.02100\)     & \(0.01983\)     & \(0.02350\)     & \(0.02447\)     & \(0.02370\)     \\
+        NNQF    & \(\b{0.01559}\) & \(\b{0.02091}\) & \(\b{0.01896}\) & \(0.02267\)     & \(0.02330\)     & \(0.02334\)     \\
+        SQF-RNN & \(0.02581\)     & \(0.03041\)     & \(0.02451\)     & \(\b{0.01895}\) & \(\b{0.01707}\) & \(\b{0.01833}\) \\
+        DeepAR  & \(0.02634\)     & \(0.03649\)     & \(0.02744\)     & \(0.01958\)     & \(0.02579\)     & \(0.02290\)     \\
+        \bottomrule
+    \end{tabular}
+    \vspace*{1em} \\
+    \rowcolors{2}{white}{gray!25}
+    \begin{tabular}{c|cccccc|c}
+        \toprule \noalign{\smallskip}
+        Task & \(10\) & \(11\) & \(12\) & \(13\) & \(14\) & \(15\) & Mean \\
+        \midrule
+        QRF     & \(0.02483\)     & \(0.02160\)     & \(0.01932\)     & \(0.01694\)     & \(0.01536\)     & \(0.01526\)     & \(0.02015\)     \\
+        NNQF    & \(0.02333\)     & \(\b{0.02038}\) & \(\b{0.01912}\) & \(\b{0.01673}\) & \(\b{0.01363}\) & \(\b{0.01480}\) & \(\b{0.01940}\) \\
+        SQF-RNN & \(\b{0.02002}\) & \(0.02104\)     & \(0.02204\)     & \(0.01684\)     & \(0.01338\)     & \(0.01648\)     & \(0.02041\)     \\
+        DeepAR  & \(0.02320\)     & \(0.02612\)     & \(0.02424\)     & \(0.02282\)     & \(0.01865\)     & \(0.01889\)     & \(0.02437\)     \\
+        \bottomrule
+    \end{tabular}
+    \end{minipage}
+
+    \caption[Pinball loss]{Pinball loss. 
+    Each task is one month in the training period. 
+    Task 4 represents July 2013, Task 5 August 2013, etc. up until June 2014.
+    The pinball loss is calculated by averaging 
+    over all pinball losses for each timepoint and zone.}
+    \label{table:pinball-loss}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \input{plots/pinball_loss}
+    \caption[Pinball loss]{Pinball loss. 
+    This graph plots the losses of the models for each month of the dataset competition.}
+    \label{fig:pinball-loss}
+\end{figure}
+
+We can see that the DeepAR model performs worse than the SQF-RNN model. 
+Thus we can conclude that the Student's \(t\)-distribution is not the right fit 
+and spline quantile functions model the distribution better. 
+Another thing to note is that the QRF and NNQF model behave similarly, 
+and the SQF-RNN model performs better in the months from October to Febuary. 
+Because the solar stations are positioned in Australia, these months are the summer time. 
+One explanation why the SQF-RNN model is better could be that it focuses more on 
+the total cloud cover variable that plays a more substantial role than assumed by 
+NNQF and QRF.

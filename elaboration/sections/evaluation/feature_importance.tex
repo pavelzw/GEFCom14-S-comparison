@@ -1,0 +1,52 @@
+\section{Feature importance}
+\label{sec:feature-importance}
+
+One way to determine the importance of a feature for a model is called 
+permutation feature importance. Here, the model is trained like usual but for the prediction 
+step, we don't use the normal test data, but a modified dataset where one feature is 
+shuffled. Like that, the model cannot use the information of this feature properly 
+and will most likely perform worse. The performance on the shuffled dataset is 
+then divided by the performance on the regular test set. A value close to \(1\) 
+indicates that the feature is not that important because the model doesn't perform 
+much worse than before. The higher the quotient, the more important the feature is for the model.
+Since our time series heavily depends of the time of day, it makes sense 
+not to shuffle the whole feature but only the equivalence classes of each hour, 
+i.e. the values at \(1\) AM are shuffled, the values at \(2\) AM are shuffled, etc.
+
+Table \ref{table:feature-importance} and Figure \ref{fig:feature-importance} 
+show the results of the permutation feature importance calculation.
+
+\begin{table}[h!]%
+    \rowcolors{2}{white}{gray!25}
+    \centering
+    \footnotesize
+    \begin{tabular}{lllllll}
+    \toprule \noalign{\smallskip}
+    \tableheads Model & \tableheads SSRD & \tableheads STRD & \tableheads TSR & \tableheads TP & \tableheads TCC & \tableheads Previous points \\ 
+    \midrule
+    QRF     & \(1.3365\) & \(1.0214\) & \(1.0199\) & \(1.0020\) & \(1.0025\) & -- \\
+    NNQF    & \(1.2202\) & \(1.0052\) & \(1.0856\) & \(1.0032\) & \(1.0405\) & -- \\
+    SQF-RNN & \(1.0268\) & \(1.0208\) & \(1.0516\) & \(1.0124\) & \(1.2059\) & \(1.0918\) \\
+    \bottomrule
+    \end{tabular}
+
+    \caption[Feature importance]{Feature importance. 
+    The table shows the permutation feature importance quotients. 
+    The permutation feature importance quotient is 
+    the performance of the model with shuffled feature 
+    divided by the performance of the model without shuffled features. 
+    A higher value indicates a more important feature.}
+    \label{table:feature-importance}    
+\end{table}
+
+\begin{figure}[h!]
+    \input{plots/feature_importance}
+    \caption[Feature importance]{Feature importance. 
+    The table shows the permutation feature importance quotients. 
+    The permutation feature importance quotient is 
+    the performance of the model with shuffled feature 
+    divided by the performance of the model without shuffled features. 
+    A higher value indicates a more important feature.}
+    \label{fig:feature-importance}
+\end{figure}
+\todo{same caption as before?}

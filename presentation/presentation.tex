@@ -34,6 +34,30 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{The GEFCom2014 Dataset [\cite{Hong2016}]}
+    \begin{itemize}
+        \item Global Energy Forecasting Competition 2014
+        \begin{itemize}
+            \item 581 participants from 61 countries
+            \item 4 energy domains, each comprising 15 tasks
+            \begin{itemize}
+                \item Electric load
+                \item Electricity price
+                \item Wind power
+                \item Solar power, 3 Australian power plants
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    Task: predict a month long hourly \(0.01, \ldots, 0.99\)-quantiles of the target variable 
+    \(24\)~h ahead
+
+    Evaluation with pinball loss: 
+    \[ s(x,y) = (\mathds{1}_{\set{y\leq x}} - \alpha)(x - y) = \begin{cases}
+        (1-\alpha) (x-y), &y\leq x \\
+        \alpha (y - x), & y > x
+    \end{cases} \]
+\end{frame}
+
 \section{Model descriptions}
 
 \begin{frame}{NNQF [\cite{Ordiano2020}]}
@@ -244,7 +268,8 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{References}
+\begin{frame}[allowframebreaks]{References}
+    \footnotesize
     \printbibliography[heading=none]
 \end{frame}
 

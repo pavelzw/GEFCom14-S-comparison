@@ -14,10 +14,8 @@ For complex problems, the specification of a probabilistic distribution
 that fits the data is often not trivial. 
 
 In the DeepAR default implementation, a Student's \(t\)-distribution is used. 
-With this assumption, the model performs noticably worse on the GEFCom14 dataset.
+\todo{With this assumption, the model performs noticably worse on the GEFCom14 dataset. \(\leadsto\) evaluation chapter}
 
-The CRPS is often used to evaluate a forecast model but its usage as 
-a direct loss function in the training process is rare. \todo{not entirely true (environmental forecasting)}
 As the CRPS is closely related to the pinball loss (see \ref{ch:crps}), 
 this helps in the GEFCom14 problem since it directly minimizes the given metric.
 
@@ -41,7 +39,7 @@ calculate the pinball loss.
 In order to get better and more consistent results, 
 seven independent models are trained simultaneously and in the predcition step 
 and the average of all models is used as output.
-\todo{how much performance improvement?}
+\todo{how much performance improvement? \(\leadsto\) evaluation chapter}
 
 Because the DeepAR model is similar to a recurrent neural network, 
 the tunable hyperparameters also look similar. 

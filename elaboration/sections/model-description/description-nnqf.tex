@@ -9,9 +9,9 @@ the training data directly represents a probabilistic distribution.
 Then, a regression model like an artificial neural network can 
 train on this modified data set and learn the quantile function.
 
-The preprocessing of the NNQF method works as follows: 
-For each point \(x_i\), we search the \(k\) nearest neighbors 
-of \(x_i\).
+The preprocessing of the NNQF method includes multiple steps. 
+Firstly, we search the \(k\) nearest neighbors 
+for every \(x_i\).
 The distance metric can be any distance metric on \(\R^D\), 
 the euclidean metric is used often.
 Let \(J \subset \set{1, \ldots, n}\) be the indices of 

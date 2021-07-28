@@ -1,12 +1,15 @@
 \chapter{Model description}
 \label{ch:model-description}
 
-In this chapter, we give motivation why the models were selected and 
+In this chapter, we motivate why the models were selected and 
 describe their basic functionality as well as their advantages.
 
 Quantile Random Forests have proven to be a very competitive 
 and powerful quantile regression method for high-dimensional datasets. 
-This is the reason why we use it as a benchmark to compare the other two models 
+There is a lot of literature that discuss which configurations and hyperparameter 
+choices function well for Quantile Random Forests. Therefore, they do not only perform 
+well but they are also simple to implement as a benchmark.
+This is the reason why we use it to compare the other two models 
 against it.
 Nearest Neighbor Quantile Regression is the method utilized by the first place 
 in the GEFCom14 challenge. NNQF uses a similar strategy but requires much less 

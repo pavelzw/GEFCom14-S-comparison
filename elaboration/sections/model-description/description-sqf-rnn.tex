@@ -25,7 +25,8 @@ time step \(t\) and \(\theta_t\) the parameters of the conditional distribution 
 The model works as follows:
 Compute the network output \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, x_t, y_{t-1}, \Theta)\) 
 as well as the parameters \(\theta_t = \theta(\boldsymbol{h}_t, \Theta)\) for the distribution
-\(\P(y_t | \theta_t)\). Here, the function \(h(\cdot)\) is a multi-layer RNN with 
+\(\P(y_t | \theta_t)\). 
+Here, the function \(h(\cdot)\) is a multi-layer RNN with 
 Long short-term memory (LSTM, a type of RNN) cells and \(\theta(\cdot)\) is a projection layer, 
 i.e. a linear map from a high dimensional space into a lower dimesnional space. 
 The quantiles are then used to calculate the loss and train the model parameters \(\Theta\).
@@ -59,8 +60,10 @@ The process is illustrated in Figure \ref{fig:deepar-predicting}.
     \label{fig:deepar-predicting}%
 \end{figure}
 
-While the DeepAR model is trained by maximizing the likelihood function, 
-the SQF-RNN model is trained by minimizing the CRPS (see \ref{ch:crps}) 
+While the DeepAR model is trained by maximizing the likelihood function 
+of the parametric distribution \(\P(y_t | \theta_t)\), 
+the SQF-RNN model is trained by minimizing the CRPS scoring rule 
+\(\mathrm{CRPS}(\P(\cdot | \theta_t), y_t)\) (see \ref{ch:crps}) 
 which can be computed effectively for spline-based quantile functions.
 \todo{Maybe calculation of spline CRPS?}
 

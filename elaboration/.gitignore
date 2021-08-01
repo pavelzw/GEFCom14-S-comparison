@@ -1,3 +1,5 @@
 out/
 *.bak
 *.sav
+/thesis.pdf
+/thesis.synctex.gz

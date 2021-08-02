@@ -1,0 +1,26 @@
+\section{Energy score}
+
+The energy score is a proper scoring rule that is used for 
+evaluating multi dimensional forecasts. A time series \((y_t)_t\) 
+can be evaluated in this fashion by looking at a sequence of \(H\) 
+points, i.e. \((y_t, \ldots, y_{t-H+1})_t \in \R^H\). 
+The scoring rule is defined as follows:
+\[ \mathrm{S}(P, y) = \mathbb{E}_P ||Y-y||_2 - \frac{1}{2} \mathbb{E}_P ||Y-Y'||_2, \]
+where \(Y'\) is an i.i.d. copy of \(Y\), so it is drawn independently with the same distribution \(P\).
+
+This scoring rule takes the time series attributes, namely the 
+correlation of adjacent data points, into account while 
+the pinball loss only evaluates the score pointwise.
+
+The results of the energy score are shown in Figure \ref{fig:energy-score}.
+
+\begin{figure}[ht]
+    \centering
+    \input{plots/energy_score}
+    \caption[Energy score]{Energy score. 
+    This graph plots the scores of the models for each month of the dataset competition. A lower score means a better performance.}
+    \label{fig:energy-score}
+\end{figure}
+
+QRF got a mean score of \(0.36759\), NNQF got a mean score of \(0.36736\), 
+SQF-RNN got a mean score of \(0.36644\) and DeepAR a mean score of \(0.44235\).

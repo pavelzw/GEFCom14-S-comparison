@@ -74,14 +74,6 @@ def load_data():
     return predictor_zones, train_data_zones, gefcom14_metadata
 
 
-def nnqf_transform(x_input, y_output):
-    yq_output = nnqf_filter(x_input=np.array(x_input), y_output=np.array(y_output),
-                            q_quantile=[p / 100 for p in range(1, 100)],
-                            num_neighbors=100).T
-
-    return xr.DataArray(yq_output, indexes=y_output.indexes)
-
-
 def remove_quantile_crossing(quantiles):
     prediction = np.maximum(quantiles, 0)
     prediction.values.sort()

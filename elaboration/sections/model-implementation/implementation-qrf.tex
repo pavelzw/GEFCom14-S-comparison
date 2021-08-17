@@ -20,8 +20,11 @@ and the number of features to consider when looking for the best split.
 We can also change the shape of the trees: 
 the maximum depth, minimum number of samples required to split a node, the minimum number of samples per leaf and 
 the maximum number of leaf nodes can all be adjusted.
-The parameters after tuning are shown in Table \ref{table:qrf-hyperparameters}.
-\todo{How were the hyperparameters tuned, any interesting/systematic effects?}
+The parameters after tuning as well as the optimization space 
+are shown in Table \ref{table:qrf-hyperparameters}.
+Most of the losses are in the range \([0.18, 0.24]\). 
+The default configuration resulted in a loss of \(0.2\) so 
+the optimization results in an improvement of around \(10\%\).
 
 \begin{table}[h!]%
     \caption{QRF Hyperparameters}
@@ -29,18 +32,21 @@ The parameters after tuning are shown in Table \ref{table:qrf-hyperparameters}.
     \rowcolors{2}{white}{gray!25}
     \centering
     \footnotesize
-    \begin{tabular}{ll}
+    \begin{tabular}{lll}
     \toprule \noalign{\smallskip}
-    \tableheads Hyperparameter & \tableheads Value \\ 
+    \tableheads Hyperparameter & \tableheads Optimization space & \tableheads Value \\ 
     \midrule
-    Number of trees                             & \(100\)                 \\
-    Splitting criterion                         & mean squared error      \\
-    Splitting strategy                          & best split              \\
-    Maximum number of features for split        & number of features      \\
-    Maximum depth                               & any size                \\
-    Minimum number of samples required to split & \(2\)                   \\
-    Minimum number of samples per leaf          & \(1\)                   \\
-    Maximum number of leaves                    & number of points, \(n\) \\
+    Number of trees                             & \(\set{50, 100, 150, 200}\)  & \(100\)                 \\
+    Splitting criterion                         & --                           & mean squared error      \\
+    Splitting strategy                          & --                           & best split              \\
+    Maximum number of features for split        & \(\set{1, 2, 3, 
+                                                  \text{number of features}}\) & number of features      \\
+    Maximum depth                               & \(\set{5, 10, 20, 30, 40, 50, 
+                                                  \text{any size}}\)           & any size                \\
+    Minimum number of samples required to split & \(\set{2, 4, 6, 8, 10}\)     & \(2\)                   \\
+    Minimum number of samples per leaf          & \(\set{1, 2, 4, 8}\)         & \(1\)                   \\
+    Maximum number of leaves                    & \(\set{50, 100, 200, 300, 
+                                                  \text{n}}\)                  & number of points, \(n\) \\
     \bottomrule
     \end{tabular}
 \end{table}

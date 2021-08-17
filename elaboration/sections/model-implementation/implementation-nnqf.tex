@@ -54,8 +54,11 @@ The other hyperparameters depend on the regression model.
 In the case of the multi layer perceptron, the usual hyperparameters like 
 hidden layer sizes, activation function, solver and learning rate can be tuned. 
 To improve stability, we also use ensemble training at the expense of training and evaluation time.
-The parameters after tuning are shown in Table \ref{table:nnqf-hyperparameters}.
-\todo{How were the hyperparameters tuned, any interesting/systematic effects?}
+The parameters after tuning as well as the hyperparameter space 
+are shown in Table \ref{table:nnqf-hyperparameters}. 
+The resulting losses are all in the range \([0.02, 0.025]\) 
+but the best loss was already approximately achieved by the default configuration. 
+No noticable performance improvement is visible.
 
 \begin{table}[ht]%
     \caption{NNQF Hyperparameters}
@@ -63,18 +66,19 @@ The parameters after tuning are shown in Table \ref{table:nnqf-hyperparameters}.
     \rowcolors{2}{white}{gray!25}
     \centering
     \footnotesize
-    \begin{tabular}{ll}
+    \begin{tabular}{lll}
     \toprule \noalign{\smallskip}
-    \tableheads Hyperparameter & \tableheads Value \\ 
+    \tableheads Hyperparameter & \tableheads Optimization space & \tableheads Value \\ 
     \midrule
-    Number of neighbors & \(100\)                     \\
-    Distance metric     & euclidean \(|| \cdot ||_2\) \\
-    Number of lags      & \(24\)                      \\
-    Hidden layer sizes  & one layer with \(50\) nodes \\
-    Activation function & ReLU                        \\
-    Solver              & Adam                        \\
-    Learning rate       & \(0.001\)                   \\
-    Ensemble size       & \(3\)                       \\
+    Number of neighbors & \(\set{50, 100, 150, 200}\)     & \(50\)                      \\
+    Distance metric     & --                              & euclidean \(|| \cdot ||_2\) \\
+    Number of lags      & \(\set{12, 24, 48, 96}\)        & \(12\)                      \\
+    Hidden layer sizes  & \(\set{(50), (50, 50), (100), 
+                          (50, 100, 50)}\)                & one layer with \(50\) nodes \\
+    Activation function & \(\set{\text{ReLU}, \tanh}\)    & ReLU                        \\
+    Solver              & --                              & Adam                        \\
+    Learning rate       & \(\set{0.0001,0.001,0.01,0.1}\) & \(0.001\)                   \\
+    Ensemble size       & --                              & \(3\)                       \\
     \bottomrule
     \end{tabular}
 \end{table}

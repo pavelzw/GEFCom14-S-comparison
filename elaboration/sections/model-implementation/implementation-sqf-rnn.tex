@@ -55,8 +55,9 @@ and \texttt{VariationalZoneoutCell}.
 For the output distribution, the number of spline pieces can be adjusted.
 For the training part, the usual hyperparameters like the number of epochs, batch size, 
 learning rate, learning rate decay, patience, gradient clip and weight decay can be tuned.
-The parameters after tuning are shown in Table \ref{table:sqf-rnn-hyperparameters}.
-\todo{How were the hyperparameters tuned, any interesting/systematic effects?}
+The parameters after tuning and their corresponding optimization spaces 
+are shown in Table \ref{table:sqf-rnn-hyperparameters}.
+\todo{any interesting/systematic effects?}
 
 \begin{table}[h!]%
     \caption{SQF-RNN Hyperparameters}
@@ -64,25 +65,26 @@ The parameters after tuning are shown in Table \ref{table:sqf-rnn-hyperparameter
     \rowcolors{2}{white}{gray!25}
     \centering
     \footnotesize
-    \begin{tabular}{ll}
+    \begin{tabular}{lll}
     \toprule \noalign{\smallskip}
-    \tableheads Hyperparameter & \tableheads Value \\ 
+    \tableheads Hyperparameter & \tableheads Optimization space & \tableheads Value \\ 
     \midrule
-    Context length & \(1\) month \\
-    RNN layers & \(2\) \\
-    RNN cells per layer & \(40\) \\
-    RNN cell type & LSTM \\
-    Dropout rate & \(0.1\) \\
-    Dropout Cell Type & \texttt{ZoneoutCell} \\
-    Number of spline pieces & \(3\) \\
-    Number of epochs & \(7\) \\
-    Batch size & \(32\) \\
-    Learning rate & \(0.001\) \\
-    Learning rate decay & \(0.5\) \\
-    Patience & \(10\) \\
-    Gradient clip & \(10\) \\
-    Weight decay & \(10^{-8}\) \\
-    Ensemble size & \(3\) \\
+    Context length          & \set{\(1\) week, 
+                              \(1\) month, \(2\) months} & \(1\) month \\
+    RNN layers              & \(\set{2, 3, 4}\)          & \(2\) \\
+    RNN cells per layer     & \(\set{20, 40, 60, 100}\)  & \(40\) \\
+    RNN cell type           & \set{LSTM, GRU}            & LSTM \\
+    Dropout rate            & \(\set{0.01, 0.1, 0.5}\)   & \(0.1\) \\
+    Dropout Cell Type       & --                         & \texttt{ZoneoutCell} \\
+    Number of spline pieces & \(\set{2, 3, 4, 5}\)       & \(3\) \\
+    Number of epochs        & --                         & \(7\) \\
+    Batch size              & --                         & \(32\) \\
+    Learning rate           & --                         & \(0.001\) \\
+    Learning rate decay     & --                         & \(0.5\) \\
+    Patience                & --                         & \(10\) \\
+    Gradient clip           & --                         & \(10\) \\
+    Weight decay            & --                         & \(10^{-8}\) \\
+    Ensemble size           & --                         & \(3\) \\
     \bottomrule
     \end{tabular}
 \end{table}

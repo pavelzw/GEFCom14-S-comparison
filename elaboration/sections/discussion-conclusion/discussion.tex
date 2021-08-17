@@ -1,0 +1,67 @@
+\section{Discussion}
+\label{sec:discussion}
+
+In this section, we discuss the results, compare the different 
+models and look at potential weaknesses of the competition. 
+
+Looking at Figure \ref{fig:pinball-loss}, we can see that NNQF and QRF perform very similar. 
+In the months from October to Febuary, i.e. the summer months since 
+Australia is located in the southern hemisphere, we can see that 
+the SQF-RNN model performs noticably better than the NNQF and QRF models. 
+One explanation could be that the NNQF and QRF models only focus on solar 
+radiation but not on total cloud cover. 
+In the summer months, the solar energy is influenced in a large part by 
+how many clouds are in the sky. Since the SQF-RNN model focuses more on 
+total cloud cover as we can see in Figure \ref{fig:feature-importance}, 
+it performs better in these months. 
+
+When looking at the energy score in Figure \ref{fig:energy-score}, 
+we can see that the SQF-RNN model outperforms the NNQF model as well as QRF.
+One reason why the SQF-RNN works better here is that it takes 
+the time series attributes more into account because of its RNN structure. 
+The NNQF model only uses lag features while the QRF model doesn't look 
+at the previous values at all, it only looks at the current time point.
+
+When comparing the SQF-RNN and the DeepAR model with 
+the Student's \(t\)-distribution in Figure \ref{fig:pinball-loss} and 
+Figure \ref{fig:energy-score}, we can see that the DeepAR model 
+always performs worse than the SQF-RNN model. 
+Here we can see that the nonparametric approach is better than assuming 
+that the target variable ist distributed by an arbitrary distribution. 
+
+The PIT histograms tell us if the forecasting method is probabilistically 
+calibrated or if it is probabilistically calibrated or 
+if it is over- or underdispersed. 
+Figure \ref{fig:pit} indicate that the QRF and NNQF model are 
+probabilistically calibrated while the PIT histograms of SQF-RNN 
+and DeepAR model are skewed and thus their predictive distribution is 
+biased in their location.
+
+When we look at the PIT histograms by each hour 
+for quantile regression forests in Figure \ref{fig:pit-qrf-by-hour} 
+we can observe that the predictions for the night are underdispersed. 
+Since the solar plants don't produce energy during the night 
+it makes sense to just predict \(0\) for the target variable when there is 
+no sunshine.
+
+The NNQF model also suffers a bit from this problem. We can see 
+in Figure \ref{fig:pit-nnqf-by-hour} in the time frame 22:00-00:00 that 
+there is a high density at \(0\) indicating that the forecast 
+was often too high. This can be fixed like in the proposition above.
+
+The hourly PIT histograms for the SQF-RNN and DeepAR model in 
+Figure \ref{fig:pit-deepar-by-hour} and Figure \ref{fig:pit-sqf-rnn-by-hour} 
+both indicate the same this as mentioned above: both predictions are biased 
+in their location. One solution would be postprocessing by shifting the 
+predictions so that the PITs are approximately symmetric. 
+
+The competition wants to mimic real time solar energy forecasting with 
+a \(\SI{24}{\hour}\) forecast horizon. In this scenario, the energy data of 
+the previous days would be available. Since the competition leader want to 
+prevent overfitting the data, the target variables are not available for 
+the entire month. This is one reason why the SQF-RNN model doesn't perform 
+as expected. 
+It is the most complicated of the three but has the worst results. 
+In order to compare the model fairly with the other competitors, 
+we did it like in the competition. A more realistic approach would be 
+providing the model with the target data and evaluating it this way.

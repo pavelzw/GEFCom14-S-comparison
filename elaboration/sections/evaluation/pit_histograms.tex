@@ -28,12 +28,12 @@ to look at the PIT histograms for each hour separately.
     \subfloat[\centering DeepAR]{{\includegraphics[width=0.45\textwidth]{plots/pit/pit_deepar.pdf} \label{fig:pit-deepar} }}
     \subfloat[\centering Spline Quantile Functions RNN]{{\includegraphics[width=0.45\textwidth]{plots/pit/pit_sqf-rnn.pdf} \label{fig:pit-sqf-rnn} }}
     \caption[PIT histograms]{Probability integral transform of each model. 
-    If the distribution of the PIT looks like \(U(0,1)\), it's probabilistically dispersed.}%
+    If the distribution of the PIT looks like \(U(0,1)\), it's probabilistically calibrated.}%
     \label{fig:pit}%
 \end{figure}
 
 The PIT histograms broken down into each hour are shown in Figure \ref{fig:pit-qrf-by-hour}, Figure \ref{fig:pit-nnqf-by-hour}, 
-Figure \ref{fig:pit-deepar-by-hour} and Figure \ref{fig:pit-sqf-rnn-by-hour}. \todo{maybe large images in appendix?}
+Figure \ref{fig:pit-deepar-by-hour} and Figure \ref{fig:pit-sqf-rnn-by-hour}. 
 The PIT histograms averaged over each hour are shown in Figure \ref{fig:pit}. 
 
 One can observe that the PIT histogram of QRF (\ref{fig:pit-qrf}) and NNQF (\ref{fig:pit-nnqf}) are approximately 

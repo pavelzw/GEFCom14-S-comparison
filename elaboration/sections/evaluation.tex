@@ -1,5 +1,5 @@
 \chapter{Evaluation}
-\label{ch:Evaluation}
+\label{ch:evaluation}
 
 In this chapter, we will look at the results of the different models. 
 We first evaluate which features are most important for the models using 
@@ -7,6 +7,22 @@ permutation feature importance, then we will look at the pinball scores from
 that are used in the competition. Finally, we will look at how the models performed 
 considering another scoring function, the Energy score as well as the probabilistic calibration 
 of the models using PIT histograms.
+
+Before we look at the different evaluation metrics, 
+we take a quick look at what the models predicted. 
+Figure \ref{fig:predictions} shows the \(0.1, 0.5\) and \(0.9\)-percentile 
+of the predicted distribution as well as the actual target data.
+We can observe that the predictions for the Quantile Random Forests in Figure \ref{fig:predictions-qrf} are 
+capped at the top values. 
+
+\begin{figure}[h]%
+    \centering
+    \subfloat[\centering Quantile Random Forests]{{\includegraphics[width=0.3\textwidth]{plots/predictions/qrf_plot_9.pdf} \label{fig:predictions-qrf} }}
+    \subfloat[\centering Nearest Neighbor Quantile Filters]{{\includegraphics[width=0.3\textwidth]{plots/predictions/nnqf_plot_9.pdf} \label{fig:predictions-nnqf} }}
+    \subfloat[\centering Spline Quantile Functions RNN]{{\includegraphics[width=0.3\textwidth]{plots/predictions/sqf_rnn_plot_9.pdf} \label{fig:predictions-sqf-rnn} }}
+    \caption[Predictions]{Predictions of the forecasters. The \(0.1\) and \(0.9\) percentiles are shown in light red, the median in red and the actual data is the blue line.}%
+    \label{fig:predictions}%
+\end{figure}
 
 \input{sections/evaluation/feature_importance}
 

@@ -29,6 +29,16 @@ always performs worse than the SQF-RNN model.
 Here we can see that the nonparametric approach is better than assuming 
 that the target variable ist distributed by an arbitrary distribution. 
 
+As discussed in chapter \ref{ch:evaluation}, 
+the QRF model's predictions are capped 
+at the top (Figure \ref{fig:predictions-qrf}). 
+This is because of the QRF's predictive nature: it generates 
+the prediction directly from the previous target data 
+and thus cannot predict values 
+that are higher than the maximal values of the training set. 
+The other two models don't suffer from this because they use 
+neural networks to predict the target distribution.
+
 The PIT histograms tell us if the forecasting method is probabilistically 
 calibrated or if it is probabilistically calibrated or 
 if it is over- or underdispersed. 

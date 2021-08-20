@@ -1,2 +1,34 @@
 \section{Motivation}
 \label{sec:motivation}
+
+Energy forecasting has become increasingly important in the last years 
+because of higher energy consumption and a higher demand for renewable energies. 
+Solar energy power generation can be characterized through weather variables like 
+precipitation, solar radiation and cloud cover. 
+That's why \Textcite{Hong2016} hosted a forecasting competition in 2014. 
+
+\Textcite{Hong2016} state that wind power forecasting is 
+more mature than solar energy forecasting. This is because 
+wind power forecasing is the closest to meteorological forecasting, 
+where probabilistic forecasting is well-established and commonly accepted.
+Although solar power forecasting has the same subdomain as wind forecasting, 
+namely renewable energy generation, it is neither in the 
+point forecasting nor in the probabilistic forecasting domain as mature 
+as wind power forecasting. 
+
+Because modeling the uncertainty of a forecast is relevant for planning 
+the energy household of the electric grid, probabilistic forecasts 
+make sense instead of only point forecasts. 
+
+This is the reason why we will be comparing three different nonparametric 
+machine learning models to tackle the probabilistic solar energy forecasting 
+problem. 
+The three models that we take a look at are 
+\begin{enumerate}
+    \item Quantile Regression Forests proposed by \Textcite{Meinshausen2006},
+    \item Nearest Neighbor Quantile Filters proposed by \Textcite{Ordiano2019},
+    \item Spline Quantile Functions RNN proposed by \Textcite{Gasthaus2019}.
+\end{enumerate}
+All of these models are so called distributional regression methods, meaning 
+they predict a probabilistic distribution and try to minimize a loss function 
+given the distribution and the target data.

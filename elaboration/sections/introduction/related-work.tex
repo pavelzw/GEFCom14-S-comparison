@@ -1,19 +1,24 @@
 \section{Related Work}
-\label{ch:related-work}
+\label{sec:related-work}
 
-This chapter is supposed to summarise previous work of other researchers related to your topic.
-The aim is to give an overview of existing literature while highlighting differences and similarities to this thesis.
-
-There are several forms of citations you can use throughout your thesis. For example
-
-\begin{itemize}
-	\item Direct citation of results, an approach or similar
-	\item[] \Textcite{Jordan2019} find that their method improves the benchmark.
-	\item Indirect citation
-	\item[] Recent research highlights the importance of this method \Parencite{Gasthaus2019}.
-	\item Direct citation
-	\item[] \textquote{\emph{Energy optimisation in buildings is important}} \Parencite{Hong2016}.
-\end{itemize}
-
-
-Please choose a coherent citation style throughout the thesis.
+This section covers related work concerning solar energy forecasting as well as 
+the different models that we look at. 
+\Textcite{Hong2016} discusses the importance of solar energy, wind energy, electric load 
+and electric price forecasting. They summarize the recent research progress on probabilistic 
+energy forecasting and introduce the Global Energy Forecasting Competition 2014 (GEFCom2014).
+\Textcite{Meinshausen2006} proposes the Quantile Random Forests method. He describes 
+how it works, gives numerical examples that undermine its predictive performance
+and provides proofs for some of the model's properties like consistency. 
+\Textcite{Ordiano2019} introduce the Nearest Neighbors Quantile Filters (NNQF) method. 
+They explain the advantages and test the model's performance on the GEFCom2014 dataset. 
+We will also try out the model on the GEFCom2014 dataset and evaluate 
+it in multiple kinds of manners.
+\Textcite{Salinas2017} introduce the DeepAR model -- a model for probabilistic forecasting 
+with autoregressive recurrent neural networks. They evaluate the model on several 
+real-world data sets and show that this model has accuracy improvements of around 
+\(15\%\) compared to other state-of-the-art methods.
+\Textcite{Gasthaus2019} propose the SQF-RNN model, an extension of the DeepAR model 
+that is supposed to be a more flexible method for probabilistic forecasting 
+by modeling the quantile function with splines instead of a fixed distribution class.
+They empirically demonstrate its effectiveness by evaluating the model on several real-world 
+data sets and comparing it with the DeepAR model.

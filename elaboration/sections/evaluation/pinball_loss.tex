@@ -8,6 +8,9 @@ point and zone in the dataset.
 
 Table \ref{table:pinball-loss} and Figure \ref{fig:pinball-loss} show the 
 losses of the models for task 4 to task 15 (July 2013 to June 2014). 
+We can see that the QRF and NNQF model perform similarly and that the 
+SQF-RNN model performs better that the other two during the months from October to Febuary.
+Another thing to note is that the DeepAR model always performs worse than the SQF-RNN model.
 
 \begin{table}[ht]%
     \footnotesize
@@ -54,13 +57,3 @@ losses of the models for task 4 to task 15 (July 2013 to June 2014).
     This graph plots the losses of the models for each month of the dataset competition.}
     \label{fig:pinball-loss}
 \end{figure}
-
-We can see that the DeepAR model performs worse than the SQF-RNN model. 
-Thus we can conclude that the Student's \(t\)-distribution is not the right fit 
-and spline quantile functions model the distribution better. 
-Another thing to note is that the QRF and NNQF model behave similarly, 
-and the SQF-RNN model performs better in the months from October to Febuary. 
-Because the solar stations are positioned in Australia, these months are the summer time. 
-One explanation why the SQF-RNN model is better could be that it focuses more on 
-the total cloud cover variable that plays a more substantial role than assumed by 
-NNQF and QRF.

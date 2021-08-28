@@ -4,21 +4,24 @@
 In this section, we discuss the results, compare the different 
 models and look at potential weaknesses of the competition. 
 
-Looking at Figure \ref{fig:pinball-loss}, we can see that NNQF and QRF perform very similar. 
-In the months from October to Febuary, i.e. the summer months since 
+Looking at Figure \ref{fig:pinball-loss}, we see that NNQF and QRF perform very similar. 
+In the months from October to Febuary, i.e., the summer months since 
 Australia is located in the southern hemisphere, we can see that 
 the SQF-RNN model performs noticably better than the NNQF and QRF models. 
 One explanation could be that the NNQF and QRF models only focus on solar 
-radiation but not on total cloud cover. 
+radiation but not on total cloud cover.  
 In the summer months, the solar energy is influenced in a large part by 
-how many clouds are in the sky. Since the SQF-RNN model focuses more on 
-total cloud cover as we can see in Figure \ref{fig:feature-importance}, 
+how many clouds are in the sky. Figure \ref{fig:feature-importance} shows us that 
+the SQF-RNN model focuses more on total cloud cover. Therefore, 
 it performs better in these months. 
+We can also observe that the SQF-RNN model always outperforms the DeepAR model. 
+Thus we can conclude that the Student's \(t\)-distribution is not the right fit 
+and spline quantile functions model the distribution better. 
 
 When looking at the energy score in Figure \ref{fig:energy-score}, 
 we can see that the SQF-RNN model outperforms the NNQF model as well as QRF.
 One reason why the SQF-RNN works better here is that it takes 
-the time series attributes more into account because of its RNN structure. 
+the time series attributes into account because of its RNN structure. 
 The NNQF model only uses lag features while the QRF model doesn't look 
 at the previous values at all, it only looks at the current time point.
 
@@ -61,7 +64,7 @@ was often too high. This can be fixed like in the proposition above.
 
 The hourly PIT histograms for the SQF-RNN and DeepAR model in 
 Figure \ref{fig:pit-deepar-by-hour} and Figure \ref{fig:pit-sqf-rnn-by-hour} 
-both indicate the same this as mentioned above: both predictions are biased 
+both indicate the same as mentioned above: both predictions are biased 
 in their location. One solution would be postprocessing by shifting the 
 predictions so that the PITs are approximately symmetric. 
 
@@ -73,5 +76,5 @@ the entire month. This is one reason why the SQF-RNN model doesn't perform
 as expected. 
 It is the most complicated of the three but has the worst results. 
 In order to compare the model fairly with the other competitors, 
-we did it like in the competition. A more realistic approach would be 
+we implemented it under competition conditions. A more realistic approach would be 
 providing the model with the target data and evaluating it this way.

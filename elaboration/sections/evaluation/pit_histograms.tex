@@ -1,5 +1,7 @@
 \section{PIT Histograms}
 
+\todo{add citations}
+
 In this section, we will look at the PIT histograms of the different forecasting models. 
 
 Let \(F\) denote a CDF for an observation \(Y\). The probability integral 
@@ -16,7 +18,7 @@ A forecast is called overdispersed if \(\mathrm{var}(Z_F) > \frac{1}{12}\) or if
 the PIT histogram has a \(\cup\)-shape. A forecast is called underdispersed if 
 \(\mathrm{var}(Z_F) < \frac{1}{12}\) or if the PIT histogram has a \(\cap\)-shape. 
 Overdispersion indicate a too high estimated variance and underdispersion indicate 
-that the variance of the forecast is too low.
+that the variance of the forecast is too low. \todo{add figure to explain over- and underdispersion}
 
 Because the models act differently at each hour, it makes sense 
 to look at the PIT histograms for each hour separately. 
@@ -40,5 +42,5 @@ One can observe that the PIT histogram of QRF (\ref{fig:pit-qrf}) and NNQF (\ref
 \(U(0,1)\)-distributed but the forecasts during the night are overdispersed in the QRF case and 
 skewed in the NNQF model.
 
-The DeepAR and SQF-RNN model get similar results: they are both skewed with a high density at \(0\). 
+The DeepAR and SQF-RNN model perform similarly: they are both skewed with a high density at \(0\). 
 This means that the actual output lies often in the lower quantiles of the prediction. 

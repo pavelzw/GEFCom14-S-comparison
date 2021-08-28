@@ -9,12 +9,15 @@ and will most likely perform worse. The performance on the shuffled dataset is
 then divided by the performance on the regular test set. A value close to \(1\) 
 indicates that the feature is not that important because the model doesn't perform 
 much worse than before. The higher the quotient, the more important the feature is for the model.
-Since our time series heavily depends of the time of day, it makes sense 
+Since our time series heavily depends on the time of day, it makes sense 
 not to shuffle the whole feature but only the equivalence classes of each hour, 
-i.e. the values at \(1\) AM are shuffled, the values at \(2\) AM are shuffled, etc.
+i.e., the values at \(1\) AM are shuffled, the values at \(2\) AM are shuffled, etc.
 
 Figure \ref{fig:feature-importance} 
-shows the results of the permutation feature importance calculation.
+shows the results of the permutation feature importance calculation. 
+We can see that the feature importance value for surface solar radiation downwards 
+is highest for QRF and NNQF while the total cloud cover predictor is the most important 
+for SQF-RNN.
 
 \begin{figure}[h!]
     \input{plots/feature_importance}

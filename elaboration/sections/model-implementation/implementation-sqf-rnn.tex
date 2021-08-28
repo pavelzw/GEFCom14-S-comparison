@@ -8,13 +8,11 @@ The key difference between the SQF-RNN model and the DeepAR model from
 \Textcite{Salinas2017} is that the DeepAR implementation uses a 
 parametric distribution and optimizes the distribution parameters 
 based on the maximum likelihood estimation. 
+In the DeepAR default implementation, a Student's \(t\)-distribution is used. 
 In the SQF-RNN case, spline quantile functions are used and their parameters 
 are optimized based on the CRPS. 
 For complex problems, the specification of a probabilistic distribution 
 that fits the data is often not trivial. 
-
-In the DeepAR default implementation, a Student's \(t\)-distribution is used. 
-
 As the CRPS is closely related to the pinball loss (see \ref{ch:crps}), 
 this helps in the GEFCom14 problem since it directly minimizes the given metric.
 
@@ -23,11 +21,12 @@ After preprocessing, the trainig data is converted into a \texttt{ListDataset} a
 \texttt{DeepAREstimator} class. The frequency of the model is set to one hour and 
 prediction length to 28, 30 or 31 days since the task is to predict one full month. 
 In order to use quantile splines with three parts as the output distribution, 
-we need to set \texttt{distr\_output=PiecewiseLinearOutput(num\_pieces=3)}. 
-Because the default value of \texttt{use\_feat\_dynamic\_real} is set to \texttt{False} 
-in the \texttt{DeepAREstimator} model, 
-we need to change it to \texttt{True} or else it will ignore the predictors 
-\(x_1, \ldots, x_n \in \R^D\). 
+we need to set the distribution output of the model to \texttt{PiecewiseLinearOutput(num\_pieces=3)}, 
+i.e., linear spline quantile functions. 
+The default implementation of DeepAR does not use the predictors but only uses the previous time data. 
+In order to use the predictors \(x_1, \ldots, x_n \in \R^D\), 
+we need to change the value of \texttt{use\_feat\_dynamic\_real}
+to \texttt{True} or else the model will ignore them. 
 
 After training for seven epochs, the model with the data that is available from the months before, 
 we need to predict the upcoming month. This is done by calling the \texttt{predict()} 

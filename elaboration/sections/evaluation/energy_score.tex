@@ -12,7 +12,10 @@ This scoring rule takes the time series attributes, namely the
 correlation of adjacent data points, into account while 
 the pinball loss only evaluates the score pointwise.
 
-The results of the energy score are shown in Figure \ref{fig:energy-score}.
+The results of the energy score are shown in Figure \ref{fig:energy-score}. 
+We can observe that the SQF-RNN model performs better than or at least similar 
+to the NNQF and QRF models in every month with July and August as exception. 
+Another thing to note is that the DeepAR model always performs worse than the SQF-RNN model. 
 
 \begin{figure}[ht]
     \centering
@@ -22,5 +25,5 @@ The results of the energy score are shown in Figure \ref{fig:energy-score}.
     \label{fig:energy-score}
 \end{figure}
 
-QRF got a mean score of \(0.36759\), NNQF got a mean score of \(0.36736\), 
-SQF-RNN got a mean score of \(0.36644\) and DeepAR a mean score of \(0.44235\).
+QRF returns a mean score of \(0.36759\), NNQF a mean score of \(0.36736\), 
+SQF-RNN a mean score of \(0.36644\) and DeepAR a mean score of \(0.44235\).

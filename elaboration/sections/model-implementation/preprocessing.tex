@@ -3,10 +3,10 @@
 
 From all predictors in Table \ref{table:predictors}, only SSRD, STRD, TSR, TP and TCC are used 
 because they are the most relevant predictors: SSRD, STRD and TSR can model the hypothetical maximum power 
-output while TCC is relevant because it correlated with how much sun light actually get to the solar stations. 
+output while TCC is relevant because it correlated with how much sun light actually reaches the solar stations. 
 Total precipitation is also important in the winter months since the solar stations can be covered with snow and no sun light gets through.
 Since the Variables SSRD, STRD and TSR are all provided as accumulated fields, they first need to be decumulated.
-This can be done by subtracting the value before the current value from the current value, for each day separately. 
+This can be done by subtracting the value before the current value from the current value, for each day separately. \todo{mathematical equation as explanation}
 Figure \ref{fig:strd-accumulated-vs-decumulated} shows both the accumulated and decumulated fields. 
 A machine learning algorithm works better with the decumulated field since the decumulated field directly correlates 
 with the power output of the solar plant.

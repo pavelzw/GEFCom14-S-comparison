@@ -4,12 +4,12 @@
 Normal neural networks don't use the temporal correlation of a time series. 
 RNNs on the other hand have a layer that uses the current output of the network for the 
 next time step. With this, RNNs can use their internal state as memory and 
-are therefore able to process the the temporal correlation of the time series. 
+are therefore able to process the temporal correlation of the time series. 
 That's why it makes sense to look at how RNNs perform on our dataset.
 
 DeepAR is an autoregressive recurrent neural network proposed by 
 \Textcite{Salinas2017} for the prediction of time series. It models 
-known distribution like the normal distribution or the Student's \(t\)-distribution. 
+a known distribution like the normal distribution or the Student's \(t\)-distribution. 
 
 \Textcite{Gasthaus2019} builds on top of that: they proposed \gls{sqfrnn}, 
 a model that works just like DeepAR but doesn't use a predetermined output 

@@ -4,20 +4,22 @@
 In this chapter, we motivate why the models were selected and 
 describe their basic functionality as well as their advantages.
 
-Quantile Random Forests have proven to be a very competitive 
+Quantile Regression Forests have proven to be a very competitive 
 and powerful quantile regression method for high-dimensional datasets. 
-There is a lot of literature that discuss which configurations and hyperparameter 
-choices function well for Quantile Random Forests. Therefore, they do not only perform 
+Quantile Regression Forests were used by three of the top five contestants 
+in the solar energy track in the GEFCom2014 challenge (cf. \Textcite{Hong2016}, Table 11). 
+There are also multiple libraries that implement Quantile Regression Forests.
+Therefore, they do not only perform 
 well but they are also simple to implement as a benchmark.
-This is the reason why we use it to compare the other two models 
-against it.
+This is the reason why we use it as a competitive benchmark model.
 Nearest Neighbor Quantile Regression is the method utilized by the first place 
 in the GEFCom14 challenge. NNQF uses a similar strategy but requires much less 
-computation power in order to predict its output. 
+computation power in order to predict its output (cf. \Textcite{Ordiano2019}, p. 22). 
 SQF-RNN uses autoregressive input with an RNN structure and provides flexible 
-conditional output distributions through spline quantile functions. 
+conditional output distributions through spline quantile functions (cf. \Textcite{Gasthaus2019}, p. 4). 
 \Textcite{Gasthaus2019} already shows that it works well on large solar energy 
 forecasting datasets.
+\todo{citations like this? (cf. \Textcite{Gasthaus2019}, p. 5)}
 
 In order to describe the model in the following subsections, we will introduce the necessary notation here:
 \begin{itemize}

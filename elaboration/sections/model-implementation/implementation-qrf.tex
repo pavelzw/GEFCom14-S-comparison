@@ -36,17 +36,16 @@ the optimization results in an improvement of around \(10\%\).
     \toprule \noalign{\smallskip}
     \tableheads Hyperparameter & \tableheads Optimization space & \tableheads Value \\ 
     \midrule
-    Number of trees                             & \(\set{50, 100, 150, 200}\)  & \(100\)                 \\
-    Splitting criterion                         & --                           & mean squared error      \\
-    Splitting strategy                          & --                           & best split              \\
+    Number of trees                             & \(\set{50, 100, 150, 200}\)    & \(100\)            \\
+    Splitting criterion                         & --                             & mean squared error \\
+    Splitting strategy                          & --                             & best split         \\
     Maximum number of features for split        & \(\set{1, 2, 3, 
-                                                  \text{number of features}}\) & number of features      \\
+                                                  \text{number of features}}\)   & \(3\)              \\
     Maximum depth                               & \(\set{5, 10, 20, 30, 40, 50, 
-                                                  \text{any size}}\)           & any size                \\
-    Minimum number of samples required to split & \(\set{2, 4, 6, 8, 10}\)     & \(2\)                   \\
-    Minimum number of samples per leaf          & \(\set{1, 2, 4, 8}\)         & \(1\)                   \\
-    Maximum number of leaves                    & \(\set{50, 100, 200, 300, 
-                                                  \text{n}}\)                  & number of points, \(n\) \\
+                                                  \text{any size}}\)             & \(10\)             \\
+    Minimum number of samples required to split & \(\set{2, 4, 6, 8, 10}\)       & \(4\)              \\
+    Minimum number of samples per leaf          & \(\set{1, 2, 4, 8}\)           & \(8\)              \\
+    Maximum number of leaves                    & \(\set{50, 100, 200, 300, n}\) & \(50\)             \\
     \bottomrule
     \end{tabular}
 \end{table}

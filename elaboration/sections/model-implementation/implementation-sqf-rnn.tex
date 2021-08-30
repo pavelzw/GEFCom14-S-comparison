@@ -55,7 +55,8 @@ For the training part, the usual hyperparameters like the number of epochs, batc
 learning rate, learning rate decay, patience, gradient clip and weight decay can be tuned.
 The parameters after tuning and their corresponding optimization spaces 
 are shown in Table \ref{table:sqf-rnn-hyperparameters}.
-\todo{any interesting/systematic effects?}
+The resulting losses were all in the range \([0.02, 0.025]\) but the best loss 
+was already achieved by the default configuration. No noticable performance improvement is visible.
 
 \begin{table}[h!]%
     \caption{SQF-RNN Hyperparameters}
@@ -77,8 +78,9 @@ are shown in Table \ref{table:sqf-rnn-hyperparameters}.
     Number of spline pieces & \(\set{2, 3, 4, 5}\)       & \(3\) \\
     Number of epochs        & --                         & \(7\) \\
     Batch size              & --                         & \(32\) \\
-    Learning rate           & --                         & \(0.001\) \\
-    Learning rate decay     & --                         & \(0.5\) \\
+    Learning rate           & \(\set{0.0005, 0.001, 0.01, 
+                              0.05, 0.1, 0.2, 0.5}\)     & \(0.001\) \\
+    Learning rate decay     & \(\set{0.3, 0.5, 0.7}\)    & \(0.5\) \\
     Patience                & --                         & \(10\) \\
     Gradient clip           & --                         & \(10\) \\
     Weight decay            & --                         & \(10^{-8}\) \\

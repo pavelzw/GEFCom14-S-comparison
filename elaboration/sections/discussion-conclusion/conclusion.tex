@@ -1,7 +1,33 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Repeat the problem and its relevance, as well as the contribution (plus quantitative results). 
-Look back at what you have written in the introduction.
+This section wraps up the previously collected results of this thesis and 
+puts them into a broader context. 
 
-Provide an outlook for further research steps.
+In this thesis, we looked at three different approaches to probabilistic forecasting 
+for solar energy generation and compared them on the GEFCom2014 dataset. 
+The results of the thesis are that the QRF and the NNQF model perform similar without 
+hyperparameter optimization and that the QRF model gains more performance after the hyperparameter 
+optimization. The SQF-RNN model performs better during the summer months than the other two models. 
+
+The QRF and NNQF model are both underdispersed during the night. This can be dealt with by simply forecasting \(0\). 
+Nonparametric models are not always the easiest solution. Sometimes it makes sense to just predict the obvious 
+instead of training a complex model.
+
+The discrepancy between the results of the SQF-RNN model and the DeepAR model show us that 
+nonparametric models perform better than parametric ones in a context where we don't know the actual probability distribution. 
+The pinball loss crowned the QRF model the winner while the energy score marked the SQF-RNN model as winner. 
+Different scoring functions emphasize different properties of a forecast -- just because one forecast has a 
+better score than another forecast doesn't mean that it is better than the other in every aspect.
+
+Another point to note is that different models perform differently due to different features being 
+prioritized: the QRF and NNQF model both prioritize approximately the same features and therefore 
+yield similar results. The SQF-RNN model prioritizes other features and performs in some months better 
+and in other months worse than the other two models. A model's performance is highly dependent on the input features.
+Therefore, it is important to investigate feature selection in detail and to look which explaining features promise the best results. 
+Future work could investigate feature selection and preprocessing in more detail. 
+
+As discussed in section \ref{sec:discussion}, the SQF-RNN model does not perform as well as expected 
+because the competition does not allow the previous time data to be used as an input value. 
+Future work could examine how well the SQF-RNN and DeepAR model perform after fixing this issue, 
+i.e., enabling \(\SI{24}{\hour}\) ahead forecasts with previous target data. 

@@ -1,11 +1,40 @@
 \section{CRPS}
 \label{ch:crps}
 
+\renewcommand{\d}{\mathrm{d}}
+
 The \gls{crps} is one of the most common 
 scoring rules. It is defined as follows: 
 
-\[ \CRPS(P, y) = \int_{-\infty}^\infty \left( P(y) - \mathds{1} \{y \leq x\} \right)^2 dx. \]
-It can be proven that the CRPS can also be written as 
-\[ \CRPS(P, y) = 2 \int_0^1 l_\alpha(P^{-1}(\alpha), y) d\alpha, \]
-where \(l_\alpha\) is the pinball loss: 
-\todo{proof?}
+\[ \CRPS(F, y) = \int_{-\infty}^\infty \left( F(y) - \mathds{1} \{y \leq x\} \right)^2 \d x, \]
+where \(F\) is the CDF of the probabilistic forecast.
+We can show that the CRPS can also be written as 
+\[ \CRPS(F, y) = 2 \int_0^1 L_\alpha(F^{-1}(\alpha), y) \d \alpha, \]
+where \(L_\alpha\) is the pinball loss.
+\begin{proof}
+    The CRPS can be written as the integral over elementary scoring functions for quantile forecasts: 
+    \[ \CRPS(F, y) = 2 \int_0^1 \int_{-\infty}^\infty \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d \eta \d \alpha, \]
+    where 
+    \[ \mathrm{s}_{\alpha, \eta}(q, y) = \begin{cases}
+        1-\alpha, &y\leq \eta < q, \\
+        \alpha, &q\leq \eta < y \\
+        0, &\text{otherwise}.
+    \end{cases} \]
+
+    Let \(\eta < y\). 
+    \[ 2 \int_0^1 \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d\alpha = 2 \int_0^{F(\eta)} \alpha \d \alpha = F(\eta)^2 = (F(\eta) - \mathds{1}_{\set{y \leq \eta}})^2. \]
+    Let \(\eta \geq y\).
+    \[ 2 \int_0^1 \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d\alpha = 2 \int_{F(\eta)}^1 (1-\alpha) \d\alpha = \left[ - (1-\alpha)^2 \right]_{F(\eta)}^1 = (F(\eta) - \mathds{1}_{\set{y \leq \eta}})^2. \]
+    Therefore, we get 
+    \begin{align*}
+        \CRPS(F, y) &= \int_{-\infty}^\infty (F(\eta) - \mathds{1}_{\set{y\leq x}})^2 \d \eta \\
+        &= \int_{-\infty}^\infty 2 \int_0^1 \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d \alpha \d \eta \\
+        &= 2\int_0^1 \int_{-\infty}^\infty \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d \eta \d \alpha  \tag{Tonelli}.
+    \end{align*}
+    Thus, we are finished after we conclude \(\int_{-\infty}^\infty \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d \eta = L_\alpha(F^{-1}(\alpha), y)\).
+
+    Let \(F^{-1}(\alpha) < y\). 
+    \[ \int_{-\infty}^\infty \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d \eta = \int_{F^{-1}(\alpha)}^y \alpha \d \eta = \alpha (y - F^{-1}(\alpha)) = L_\alpha(F^{-1}(\alpha), y). \]
+    Let \(F^{-1}(\alpha) \geq y\). 
+    \[ \int_{-\infty}^\infty \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d \eta = \int_y^{F^{-1}(\alpha)} (1-\alpha) \d \eta = (1-\alpha) (F^{-1}(\alpha) - y) = L_\alpha(F^{-1}(\alpha), y). \]
+\end{proof}

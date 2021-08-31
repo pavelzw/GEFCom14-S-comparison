@@ -64,8 +64,7 @@ While the DeepAR model is trained by maximizing the likelihood function
 of the parametric distribution \(\P(y_t | \theta_t)\), 
 the SQF-RNN model is trained by minimizing the CRPS scoring rule 
 \(\mathrm{CRPS}(\P(\cdot | \theta_t), y_t)\) (see \ref{ch:crps}) 
-which can be computed effectively for spline-based quantile functions.
-\todo{Maybe calculation of spline CRPS?}
+which can be computed effectively for spline-based quantile functions (cf. \Textcite{Gasthaus2019} supplementary PDF).
 
 A linear spline with \(L\) pieces is of the form 
 \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+, 
@@ -83,4 +82,4 @@ By setting \(b_l = \beta_l - \beta_{l-1}\) and \(b_0 = \beta_0\) with \(\beta_l 
 \(m_l = \sum_{j=0}^l b_j = \beta_l \geq 0\) is ensured.
 Therefore, the spline can be modeled with the parameter 
 \(\theta = (\gamma, \beta, \delta)\), \(\gamma \in \R, \beta \in [0,\infty)^{L}, 
-\delta \in \set{ \delta \in [0,1]^L: \sum_{j=1}^L \delta_j = 1 }\).
+\delta \in \set{ \delta \in [0,1]^L: \sum_{j=1}^L \delta_j = 1 }\). 

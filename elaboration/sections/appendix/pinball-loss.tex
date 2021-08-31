@@ -1,11 +1,12 @@
 \section{Pinball loss}
 \label{sec:pinball-loss}
 
-The pinball loss \(L\) is defined as: 
-\[ L(q_p, y) = \begin{cases}
-    (1-p)(q_p - y), &\text{if } y < q_p, \\
-    p(y - q_p), &\text{if } y \geq q_p,
+The pinball loss \(L_\alpha\) is defined as: 
+\[ L_\alpha(q_\alpha, y) = \begin{cases}
+    (1-\alpha)(q_\alpha - y), &\text{if } y < q_\alpha, \\
+    \alpha(y - q_\alpha), &\text{if } y \geq q_\alpha,
 \end{cases} \]
-where \(p \in \set{0.01, \ldots, 0.99}\) and \(y\) is the observed target.
+where \(\alpha \in \set{0.01, \ldots, 0.99}\) and \(y\) is the observed target.
 
 [...] show that the pinball loss is a proper scoring rule.
+\todo{citation}

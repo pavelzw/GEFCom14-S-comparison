@@ -1,12 +1,29 @@
 \section{Motivation}
 \label{sec:motivation}
 
-Energy forecasting has become increasingly important in the recent 
-because of higher energy consumption and a higher demand for renewable energies. 
-Solar energy power generation can be characterized through weather variables like 
-precipitation, solar radiation and cloud cover. 
-That's why \Textcite{Hong2016} hosted a forecasting competition in 2014. 
+% paragraph 1: 
+% why is energy forecasting important (with citations)
+% highlight solar forecasting as being of particular interest & 1-2 challenges
 
+Energy forecasting has become increasingly important in the recent years 
+because of a higher energy consumption and a higher demand 
+for renewable energies. 
+\Textcite{Hong2016} state that energy supply, demand and prices are becoming increasingly 
+volatile and unpredictable. 
+Solar power forecasting in particular is an interesting field since it can be modeled through predictor variables 
+like surface solar radiation, total cloud cover and precipitation. 
+As material cost becomes lower and efficiency becomes higher, solar energy generation is becoming more and more important. 
+\Textcite{Hong2016} describe the following common challenges for solar power forecasting.
+Data cleansing is important since the real-world data for solar forecasting is not always clean. 
+Different probabilistic forecasting methodologies can be used. One challenge is to find the most effective method at generating probabilistic forecasts. 
+Combining multiple forecasts into one forecast often leads to a more robust point forecasts -- how can we do that for probabilistic ones?
+
+% paragraph 2: 
+% motivate the importance of probabilistic solar forecasting
+% solar forecasting is immature in comparison to other types
+
+Because modeling the uncertainty of a forecast is relevant for planning the energy household of the electric grid, 
+probabilistic forecasts make sense instead of only point forecast. 
 \Textcite{Hong2016} state that wind power forecasting is 
 more mature than solar energy forecasting. This is because 
 wind power forecasing is the closest to meteorological forecasting, 
@@ -16,14 +33,29 @@ namely renewable energy generation, it is neither in the
 point forecasting nor in the probabilistic forecasting domain as mature 
 as wind power forecasting. 
 
-Because modeling the uncertainty of a forecast is relevant for planning 
-the energy household of the electric grid, probabilistic forecasts 
-make sense instead of only point forecasts. 
+% paragraph 3: 
+% motivate deep learning for probabilistic solar forecasting
+% motivate nonparametric deep learning for probabilistic solar forecasting
+% highlight how there is no comparison yet
 
-This is the reason why we will be comparing three different nonparametric 
-machine learning models to tackle the probabilistic solar energy forecasting 
-problem. 
-The three models that we take a look at are 
+Because of the large amount of data that is being used for solar power forecasting, it makes sense to look at 
+deep learning models fore probabilistic solar forecasting. 
+Deep learning often provides good results for complex problems with a lot of data to process. 
+There are two types of forecasts: parametric ones and nonparametric ones. 
+Parametric learning often yields good results if the underlying probability distribution class is known, e.g. \(\mathcal{N}(\mu, \sigma^2)\). 
+Then, the parameters of the distribution are estimated. 
+Nonparametric learning doesn't make these assumptions. 
+The advantage here is that this type of learning is applicable to problems where the underlying 
+probability distribution class is unknown -- like in solar energy forecasting. 
+
+
+% paragraph 4:
+% explain what you do in this thesis
+% introduce models compared
+% introduce data set
+
+This is the reason why we will be comparing three different nonparametric machine learning models to tackle the probabilistic solar energy forecasting problem. 
+The three models we take a look at are 
 \begin{enumerate}
     \item Quantile Regression Forests proposed by \Textcite{Meinshausen2006},
     \item Nearest Neighbor Quantile Filters proposed by \Textcite{Ordiano2019} and
@@ -32,3 +64,4 @@ The three models that we take a look at are
 All of these models are so called distributional regression methods, meaning 
 they predict a probabilistic distribution and try to minimize a loss function 
 given the distribution and the target data.
+We evaluate the models on the GEFCom2014 dataset and compare how they perform in different metrics like the pinball loss, the energy score and PIT histograms. 

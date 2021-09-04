@@ -5,7 +5,16 @@
 \begin{center}
   \begin{minipage}{12cm}
     \begin{sloppypar}
-		As the share of electricity from regenerative sources is growing constantly, the weather becomes an increasingly important factor in the analysis of electricity markets. Hence, this thesis uses local weather data to predict electricity spot prices. More precisely, we include wind speed and temperature from individual German weather stations into time series and statistical learning models. However, as the available weather information is vast and renewable power is not generated everywhere, we use random forests and Bayesian structural time series to perform a feature selection. Overall, we manage to improve our forecasting accuracy of the EPEX electricity prices by up to \SI{7.69}{\percent} in terms of root mean squared error and up to \SI{8.19}{\percent} in terms of mean absolute error.
+      As the share of electricity from regenerative sources is growing constantly, 
+      it makes sense to predict the power generation of these sources. 
+      In order to model the uncertainty of a forecast, one often predicts the probability 
+      distribution of the corresponding random variable. There are many different nonparametric machine learning approaches 
+      to the solar power generation forecasting problem. Hence, this thesis compares three approaches 
+      in order to predict solar power generation, namely Quantile Random Forests, Nearest Neighbor Quantile Filters and 
+      Spline Quantile Functions RNN. The performance of the models is evaluated on the Global Energy Forecasting Competition 2014 
+      dataset. 
+      We see that the Quantile Regression Forests manage to get the best score of \(0.01873\) following 
+      the Nestest Neighbor Quantile Filters model with a score of \(0.0194\) and the Spline Quantile Functions RNN model with a score of \(0.02041\). 
     \end{sloppypar}
   \end{minipage}
 \end{center}

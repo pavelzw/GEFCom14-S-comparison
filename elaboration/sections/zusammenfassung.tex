@@ -5,7 +5,15 @@
 \begin{center}
   \begin{minipage}{12cm}
     \begin{sloppypar}
-			Der Strom, welcher aus erneuerbaren Energien gewonnen wird, gewinnt zunehmend an Bedeutung in der Europ{\"a}ischen Union. Damit einhergehend ist ein steigender Einfluss des lokalen Wetters auf die Stromerzeugung und somit auch auf die Strommarktb{\"o}rse. Diese Arbeit befasst sich deshalb mit der Vorhersage des Strom Spot Marktes unter Zuhilfenahme von lokalen Wetterinformationen. Genauer gesagt werden Windgeschwindigkeit und Temperatur von verschiedenen deutschen Wetterstationen in Zeitreihenmodelle und Modelle aus dem Bereich des statistischen Lernens aufgenommen. Die vorhandenen Wetterinformationen sind jedoch zahlreich und geografisch gesehen wird nicht {\"u}berall Leistung aus erneuerbaren Energien gewonnen. Deshalb verwenden wir in dieser Arbeit Random Forests und \emph{Bayesian structural time series} zur Identifikation der f{\"u}r die Vorhersage relevanten Stationen. Insgesamt k{\"o}nnen wir die Vorhersagegenauigkeit des EPEX Strompreises um bis zu \SI{7.69}{\percent} hinsichtlich des mittleren quadratischen Fehlers und bis zu \SI{8.19}{\percent} hinsichtlich des mittleren absoluten Fehlers verbessern.
+      Mit der steigenden Bedeutung von regenerativen Energiequellen ergibt es immer mehr Sinn, 
+      sich mit der Vorhersage von regenerativer Energieerzeugung zu beschäftigen. 
+      Um die Unsicherheit in Vorhersagen zu modellieren, sagt man häufig die Wahrscheinlichkeitsverteilung der 
+      Zufallsvariable vorher. Es gibt einige verschiedene nichtparametrische Machine Learning Herangehensweisen 
+      für das Solarenergieerzeugungsproblem. Deshalb vergleicht diese Arbeit drei verschiedene Möglichkeiten, Solarenergie 
+      vorherzusagen, nämlich Quantile Random Forests, Nearest Neighbor Quantile Filters sowie Spline Quantile Functions RNN. 
+      Die Leistung der Modelle werden durch deren Leistung im Global Energy Forecasting Competition 2014 Datensatz verglichen. 
+      Wir sehen, dass Quantile Regression Forests den besten Score von \(0,01873\) erzielen. Nearest Neighbor Quantile Filters 
+      erreicht einen Score von \(0,0194\) und Spline Quantile Functions RNN erreichen einen Score von \(0,02041\).
     \end{sloppypar}
   \end{minipage}
 \end{center}

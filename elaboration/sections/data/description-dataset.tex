@@ -1,4 +1,4 @@
-\section{The GEFCom2014 dataset}
+\section{The GEFCom2014 Dataset}
 \label{sec:gefcom-dataset}
 
 In order to compare different energy forecasting methods, 
@@ -28,8 +28,8 @@ European Centre for Medium-Range Weather Forecasts (ECMWF) are provided.
 They are shown in Table \ref{table:predictors}.
 Power measurements are also provided, but only over the training period. 
 
-In order to become familiar with the data, from the 15 available tasks from April 2013 to June 2014, 
-only the last twelve counted towards the final score. 
+In order to become familiar with the data, only the last twelve of the 15 available tasks 
+from April 2013 to June 2014 counted towards the final score.
 The final score was calculated using a linear increasing weighted mean over the scores from the different tasks: 
 The first task got weight \(1/78\), the second \(2/78\), etc. 
 in order to promote models that improve over time. The division by \(78\) is so that the 
@@ -67,7 +67,7 @@ we will take the mean over the \(12\) different losses.
 \end{tabularx}
 \end{table}
 
-\subsection{Error measure}
+\subsection{Error Measure}
 
 To evaluate the different forecast competitors in GEFCom2014, 
 the pinball loss was used -- mainly because of the ease of implementation 

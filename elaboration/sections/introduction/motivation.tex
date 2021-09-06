@@ -16,20 +16,20 @@ As material cost becomes lower and efficiency becomes higher, solar energy gener
 \Textcite{Hong2016} describe the following common challenges for solar power forecasting.
 Data cleansing is important since the real-world data for solar forecasting is not always clean. 
 Different probabilistic forecasting methodologies can be used. One challenge is to find the most effective method at generating probabilistic forecasts. 
-Combining multiple forecasts into one forecast often leads to a more robust point forecasts -- how can we do that for probabilistic ones?
+Combining multiple forecasts into one forecast often leads to more robust point forecasts -- how can we do that for probabilistic ones?
 
 % paragraph 2: 
 % motivate the importance of probabilistic solar forecasting
 % solar forecasting is immature in comparison to other types
 
 Because modeling the uncertainty of a forecast is relevant for planning the energy household of the electric grid, 
-probabilistic forecasts make sense instead of only point forecast. 
+probabilistic forecasts make sense instead of only point forecasts. 
 \Textcite{Hong2016} state that wind power forecasting is 
 more mature than solar energy forecasting. This is because 
 wind power forecasing is the closest to meteorological forecasting, 
 where probabilistic forecasting is well-established and commonly accepted.
-Although solar power forecasting has the same subdomain as wind forecasting, 
-namely renewable energy generation, it is neither in the 
+Solar power forecasting has the same subdomain as wind forecasting, namely renewable energy generation. 
+Nevertheless, it is neither in the 
 point forecasting nor in the probabilistic forecasting domain as mature 
 as wind power forecasting. 
 
@@ -62,6 +62,7 @@ The three models we take a look at are
     \item Spline Quantile Functions RNN proposed by \Textcite{Gasthaus2019}.
 \end{enumerate}
 All of these models are so called distributional regression methods, meaning 
-they predict a probabilistic distribution and try to minimize a loss function 
+they predict a probability distribution and try to minimize a loss function 
 given the distribution and the target data.
-We evaluate the models on the GEFCom2014 dataset and compare how they perform in different metrics like the pinball loss, the energy score and PIT histograms. 
+We evaluate the models on the GEFCom2014 dataset and compare how they perform 
+in different metrics like the pinball loss (cf. \ref{sec:pinball-loss}), the energy score and PIT histograms. 

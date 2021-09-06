@@ -19,14 +19,14 @@ for creating pipelines for time series forecasting.
 
 pyWATTS can create different stages for each subtask of a pipeline like 
 data pre- and postprocessing, model training, model testing and 
-rendering predictions into images, a schematic of the pipeline 
+rendering predictions into images. A schematic of the pipeline 
 can be found in Figure \ref{fig:pywatts-schematic}. Wrappers for scikit-learn 
 modules are already implemented so the creation of a pipeline 
 for scikit-learn models is relatively straightforward. 
-For other neural network models, one can simply create a class that inherit the 
+For other neural network models, one can simply create a class that inherits the 
 \texttt{BaseWrapper} class. The \texttt{fit}- and \texttt{transform}-methods 
 need to be implemented to train the model and make predictions with it. 
-Simple transformations like for example the NNQF preprocessing step can be 
+Simple transformations like the NNQF preprocessing step can be 
 wrapped by a \texttt{FunctionModule} and inserted into the pipeline.
 For each stage in the pipeline, one can output the data of the model 
 with callbacks like the \texttt{CSVCallback} to save \texttt{csv}-files or 

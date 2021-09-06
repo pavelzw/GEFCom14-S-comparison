@@ -1,12 +1,12 @@
-\section{Data preprocessing}
+\section{Data Preprocessing}
 \label{sec:data-preprocessing}
 
 From all predictors in Table \ref{table:predictors}, only SSRD, STRD, TSR, TP and TCC are used 
 because they are the most relevant predictors: SSRD, STRD and TSR can model the hypothetical maximum power 
-output while TCC is relevant because it correlated with how much sun light actually reaches the solar stations. 
+output while TCC is relevant because it correlates with how much sun light actually reaches the solar stations. 
 Total precipitation is also important in the winter months since the solar stations can be covered with snow and no sun light gets through.
 Since the Variables SSRD, STRD and TSR are all provided as accumulated fields, they first need to be decumulated.
-This can be done by subtracting the value before the current value from the current value, for each day separately: 
+This can be done by subtracting the previous value from the current value for each day: 
 \[ \tilde{x}_i = \begin{cases}
     x_i - x_{i-1}, &i \mod 24 \neq 0, \\
     x_i, &\text{otherwise}.
@@ -16,7 +16,7 @@ A machine learning algorithm works better with the decumulated field since the d
 with the power output of the solar plant.
 
 Since machine learning models often work better with normalized data, it makes sense to normalize the predictors 
-so that they take values in \([0,1]\) instead of \([0,\infty)\). 
+so that they take values in \([0,1]\) instead of \([0,\infty)\). We can do that by dividing every value by the maximum of the values. 
 
 \begin{figure}[h]%
     \centering

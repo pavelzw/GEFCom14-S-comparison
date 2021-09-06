@@ -2,7 +2,7 @@
 \label{sec:implementation-qrf}
 
 A Python implementation for Quantile Regression Forests can 
-be found in the doubt\footnote{\url{https://github.com/saattrupdan/doubt}} package.
+be found in the doubt package\footnote{\url{https://github.com/saattrupdan/doubt}}.
 
 First, the data is read from the \texttt{.csv} files. 
 Afterwards, the cumulated columns (SSRD, STRD, TSR) are decumulated and then normalized 
@@ -21,7 +21,7 @@ We can also change the shape of the trees:
 the maximum depth, minimum number of samples required to split a node, the minimum number of samples per leaf and 
 the maximum number of leaf nodes can all be adjusted.
 The parameters after tuning as well as the optimization space 
-are shown in Table \ref{table:qrf-hyperparameters}.
+are shown in Table \ref{table:qrf-hyperparameters}; the dash indicates that we don't optimize over this value.
 Most of the losses are in the range \([0.18, 0.24]\). 
 The default configuration resulted in a loss of \(0.2\) so 
 the optimization results in an improvement of around \(10\%\).
@@ -34,7 +34,7 @@ the optimization results in an improvement of around \(10\%\).
     \footnotesize
     \begin{tabular}{lll}
     \toprule \noalign{\smallskip}
-    \tableheads Hyperparameter & \tableheads Optimization space & \tableheads Value \\ 
+    \tableheads Hyperparameter & \tableheads Optimization space & \tableheads Final value \\ 
     \midrule
     Number of trees                             & \(\set{50, 100, 150, 200}\)    & \(100\)            \\
     Splitting criterion                         & --                             & mean squared error \\

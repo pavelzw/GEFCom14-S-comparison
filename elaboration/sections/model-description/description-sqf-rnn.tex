@@ -1,11 +1,11 @@
 \section{Spline Quantile Function RNNs}
 \label{sec:sqf-rnn}
 
-Normal neural networks don't use the temporal correlation of a time series. 
+Conventional neural networks don't use the temporal correlation of a time series. 
 RNNs on the other hand have a layer that uses the current output of the network for the 
 next time step. With this, RNNs can use their internal state as memory and 
 are therefore able to process the temporal correlation of the time series. 
-That's why it makes sense to look at how RNNs perform on our dataset.
+That's why it makes sense to look at the performance of RNNs on our dataset.
 
 DeepAR is an autoregressive recurrent neural network proposed by 
 \Textcite{Salinas2017} for the prediction of time series. It models 
@@ -13,7 +13,7 @@ a known distribution like the normal distribution or the Student's \(t\)-distrib
 
 \Textcite{Gasthaus2019} builds on top of that: they proposed \gls{sqfrnn}, 
 a model that works just like DeepAR but doesn't use a predetermined output 
-distribution. Instead they model the conditional distribution 
+distribution. Instead, they model the conditional distribution 
 by spline quantile functions. 
 
 This flexibility and the fact that DeepAR uses autoregressive input with an RNN structure 
@@ -28,7 +28,7 @@ as well as the parameters \(\theta_t = \theta(\boldsymbol{h}_t, \Theta)\) for th
 \(\P(y_t | \theta_t)\). 
 Here, the function \(h(\cdot)\) is a multi-layer RNN with 
 Long short-term memory (LSTM, a type of RNN) cells and \(\theta(\cdot)\) is a projection layer, 
-i.e. a linear map from a high dimensional space into a lower dimesnional space. 
+i.e. a linear map from a high dimensional space into a lower dimensional space. 
 The quantiles are then used to calculate the loss and train the model parameters \(\Theta\).
 The process is illustrated in Figure \ref{fig:deepar-training}. 
 
@@ -64,7 +64,7 @@ While the DeepAR model is trained by maximizing the likelihood function
 of the parametric distribution \(\P(y_t | \theta_t)\), 
 the SQF-RNN model is trained by minimizing the CRPS scoring rule 
 \(\mathrm{CRPS}(\P(\cdot | \theta_t), y_t)\) (see \ref{ch:crps}) 
-which can be computed effectively for spline-based quantile functions (cf. \Textcite{Gasthaus2019} supplementary PDF).
+which can be computed efficiently for spline-based quantile functions (cf. \Textcite{Gasthaus2019} supplementary PDF).
 
 A linear spline with \(L\) pieces is of the form 
 \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+, 
@@ -72,13 +72,13 @@ A linear spline with \(L\) pieces is of the form
 Because the quantile function is a monotone function, 
 a monotone spline is needed. That's why we need to create constraints 
 for \(b_l\) and \(d_l\).
-\(d_l < d_{l+1}\) results in ordered knot positions. To achieve this 
+The constraint \(d_l < d_{l+1}\) results in ordered knot positions. To achieve this 
 in the neural network, we set \(d_0 = 0\) and \(d_l = \sum_{j=1}^l \delta_j\), 
 where \(\delta_j \geq 0\) and \(\sum_{j=1}^L \delta_j = 1\) since the domain 
 of the quantile function is \([0, 1]\). 
 The second property is monotonicity: the slope \(m_l\) between two knots is given by 
 \(m_l = \sum_{j=0}^l b_j\). The constraint \(m_l \geq 0 \forall l\) solves that.
-By setting \(b_l = \beta_l - \beta_{l-1}\) and \(b_0 = \beta_0\) with \(\beta_l \geq 0 \forall l\), 
+By setting \(b_l = \beta_l - \beta_{l-1}\) and \(b_0 = \beta_0\) with \(\beta_l \geq 0\;\forall l\), 
 \(m_l = \sum_{j=0}^l b_j = \beta_l \geq 0\) is ensured.
 Therefore, the spline can be modeled with the parameter 
 \(\theta = (\gamma, \beta, \delta)\), \(\gamma \in \R, \beta \in [0,\infty)^{L}, 

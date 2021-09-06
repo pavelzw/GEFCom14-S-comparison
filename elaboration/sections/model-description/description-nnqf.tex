@@ -10,13 +10,13 @@ Then, a regression model like an artificial neural network can
 train on this modified data set and learn the quantile function.
 
 The preprocessing of the NNQF method includes multiple steps. 
-Firstly, we search the \(k\) nearest neighbors 
+First, we search the \(k\) nearest neighbors 
 for every \(x_i\).
 The distance metric can be any distance metric on \(\R^D\), 
-the euclidean metric is used often.
+the euclidean metric is commonly used.
 Let \(J \subset \set{1, \ldots, n}\) be the indices of 
 those nearest neighbors. 
-The probabilistic distribution of \(y_i\) can be approximated 
+The probability distribution of \(y_i\) can be approximated 
 by calculating the empirical quantile \(\tilde{y}_{(q),i}\) of 
 \(\set{y_j \;|\; j\in J}\) for each \(q \in \set{0.01, \ldots, 0.99}\). 
 
@@ -46,7 +46,7 @@ This method has three main advantages:
     \item The technique for the quantile regression is not specified, 
     any technique can be used,
     \item the calculation of the nearest neighbors and the modified 
-    training set only needs to be done once, you can save time when 
+    training set only needs to be done once; you can save time when 
     using multiple quantile regressions. 
     \item The original dataset does not need to be saved afterwards, 
     we only need the weights of the regression model for predicting.

@@ -29,8 +29,8 @@ When comparing the SQF-RNN and the DeepAR model with
 the Student's \(t\)-distribution in Figure \ref{fig:pinball-loss} and 
 Figure \ref{fig:energy-score}, we can see that the DeepAR model 
 always performs worse than the SQF-RNN model. 
-Here we can see that the nonparametric approach is better than assuming 
-that the target variable ist distributed by an arbitrary distribution. 
+The nonparametric approach is better than assuming 
+that the target variable follows an arbitrary distribution. 
 
 As discussed in chapter \ref{ch:evaluation}, 
 the QRF model's predictions are capped 
@@ -43,9 +43,9 @@ The other two models don't suffer from this because they use
 neural networks to predict the target distribution.
 
 The PIT histograms tell us if the forecasting method is probabilistically 
-calibrated or if it is probabilistically calibrated or 
-if it is over- or underdispersed. 
-Figure \ref{fig:pit} indicate that the QRF and NNQF model are 
+calibrated or if it is over- or underdispersed. If the forecast is not neutrally dispersed, 
+it cannot be probabilistically calibrated.
+Figure \ref{fig:pit} indicates that the QRF and NNQF model are 
 probabilistically calibrated while the PIT histograms of SQF-RNN 
 and DeepAR model are skewed and thus their predictive distribution is 
 biased in their location.
@@ -72,8 +72,8 @@ The competition wants to mimic real time solar energy forecasting with
 a \(\SI{24}{\hour}\) forecast horizon. In this scenario, the energy data of 
 the previous days would be available. Since the competition leader want to 
 prevent overfitting the data, the target variables are not available for 
-the entire month. This is one reason why the SQF-RNN model doesn't perform 
-as expected. 
+the entire month. Since the SQF-RNN model uses the previous time points for the prediction, 
+this is one reason why it doesn't perform as expected. 
 It is the most complicated of the three but has the worst results. 
 In order to compare the model fairly with the other competitors, 
 we implemented it under competition conditions. A more realistic approach would be 

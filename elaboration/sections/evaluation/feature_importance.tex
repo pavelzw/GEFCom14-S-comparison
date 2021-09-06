@@ -1,12 +1,14 @@
 \section{Feature Importance}
 \label{sec:feature-importance}
 
+
+
 One way to determine the importance of a feature for a model is called 
-permutation feature importance. Here, the model is trained like usual but for the prediction 
-step, we don't use the normal test data, but a modified dataset where one feature is 
-shuffled. Like that, the model cannot use the information of this feature properly 
-and will most likely perform worse. The performance on the shuffled dataset is 
-then divided by the performance on the regular test set. A value close to \(1\) 
+permutation feature importance. Here, the model is trained like usual but during the prediction step, 
+we use a modified version of the test data where one feature is shuffled. 
+This way, the model cannot use the information of this feature properly 
+and will most likely perform worse. The loss on the shuffled dataset is 
+then divided by the loss on the regular test set. A value close to \(1\) 
 indicates that the feature is not that important because the model doesn't perform 
 much worse than before. The higher the quotient, the more important the feature is for the model.
 Since our time series heavily depends on the time of day, it makes sense 
@@ -24,8 +26,10 @@ for SQF-RNN.
     \caption[Feature importance]{Feature importance. 
     The table shows the permutation feature importance quotients. 
     The permutation feature importance quotient is 
-    the performance of the model with shuffled feature 
-    divided by the performance of the model without shuffled features. 
-    A higher value indicates a more important feature.}
+    the loss of the model with shuffled feature 
+    divided by the loss of the model without shuffled feature. 
+    A higher value indicates a more important feature.
+    Since only the SQF-RNN model uses the previous points for the prediction, 
+    we can only calculate the feature importance of the previous points for this model.}
     \label{fig:feature-importance}
 \end{figure}

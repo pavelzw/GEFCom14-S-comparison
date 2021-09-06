@@ -8,7 +8,7 @@ hyperparameter optimization and that the QRF model improves after the hyperparam
 optimization. The SQF-RNN model performs better during the summer months than the other two models. 
 
 The QRF and NNQF model are both underdispersed during the night. This can be dealt with by simply forecasting \(0\). 
-Nonparametric models are not always the easiest solution. Sometimes it makes sense to just predict the obvious 
+Nonparametric models are not always the easiest solution. Therefore, it makes sense to sometimes just predict the obvious 
 instead of training a complex model.
 
 The discrepancy between the results of the SQF-RNN model and the DeepAR model show us that 
@@ -21,7 +21,7 @@ Another point to note is that different models perform differently due to differ
 prioritized: the QRF and NNQF model both prioritize approximately the same features and therefore 
 yield similar results. The SQF-RNN model prioritizes other features and performs in some months better 
 and in other months worse than the other two models. A model's performance is highly dependent on the input features.
-Therefore, it is important to investigate feature selection in detail and to look which explaining features promise the best results. 
+Therefore, it is important to investigate feature selection in detail and to examine which explaining features promise the best results. 
 Future work could investigate feature selection and preprocessing in more detail. 
 
 As discussed in section \ref{sec:discussion}, the SQF-RNN model does not perform as well as expected 

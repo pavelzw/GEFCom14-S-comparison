@@ -27,7 +27,6 @@ predictor data of the previous \(H\) time points.
 \Textcite{Ordiano2019} use separate neural networks with \(6\) or \(10\) hidden nodes for each quantile, 
 which is computationally more expensive than training one neural network with 
 one hidden layer with \(50\) nodes for \(99\) outputs. 
-\todo{Both methods perform approximately the same in evaluation chapter; add numbers to show that} 
 
 Since implementing a model in pyWATTS with a variable number of neural networks is currently 
 not supported natively, we will use a single neural network to approximate the quantiles.
@@ -41,8 +40,6 @@ In order to avoid quantile crossing, \Textcite{Ordiano2019} postprocess the cond
 In this thesis, we use another approach: \\
 We sort all estimated conditional quantiles \(\set{ f(x; \theta_{(q)}) \;|\; q\in \set{0.01, \ldots, 0.99} }\) 
 and set \(\hat{y}_{(q)}\) as the \((q\cdot 100)\)-th entry of the sorted list. 
-\todo{This results in a noticable performance improvement 
-in comparison to taking the maximum. add numbers to show noticable improvement! \(\leadsto\) in evaluation chapter}
 
 After that, the pinball loss is calculated the same way as in the QRF case.
 

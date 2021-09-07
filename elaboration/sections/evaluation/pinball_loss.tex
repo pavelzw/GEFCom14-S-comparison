@@ -57,3 +57,15 @@ Another thing to note is that the DeepAR model always performs worse than the SQ
     This graph plots the losses of the models for each month of the dataset competition.}
     \label{fig:pinball-loss}
 \end{figure}
+
+As described in section \ref{sec:implementation-nnqf}, 
+we only use one neural network with more hidden nodes instead of 
+separate neural networks for each node. 
+The pinball loss for training the model with \(99\) different neural networks 
+is \(0.01998\), so the version with one neural network performs approximately the 
+same while being noticably faster. 
+Another modification to the original algorithm proposed by \Textcite{Ordiano2019} 
+is sorting the predicted quantiles instead of taking the maximum as described in 
+section \ref{sec:implementation-nnqf}. The avergae pinball loss over all tasks for the second is 
+\(0.02742\), so sorting the quantiles instead of taking the maximum of the previous quantile 
+results in a noticable performance improvement.

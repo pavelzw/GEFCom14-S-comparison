@@ -1,0 +1,23 @@
+\subsection{Pinball Loss}
+\label{sec:pinball-loss-explanation}
+
+To evaluate the different forecast competitors in GEFCom2014, 
+the pinball loss was used -- mainly because of the ease of implementation 
+and because the pinball loss is a proper scoring rule (see \ref{sec:proper-scoring-rules}).
+For each time period over the forecast horizon, the participants need to 
+provide the quantiles \(q_{0.01}, \ldots, q_{0.99}\). 
+Hereby, \(q_0 = -\infty\) and \(q_1 = \infty\) are the natural lower and upper bounds. 
+Those quantiles are then evaluated with the pinball loss.
+
+The pinball loss \(L_\alpha\) is defined as follows: 
+\[ L_\alpha(q_\alpha, y) = \begin{cases}
+    (1-\alpha)(q_\alpha - y), &\text{if } y < q_\alpha, \\
+    \alpha(y - q_\alpha), &\text{if } y \geq q_\alpha,
+\end{cases} \]
+where \(\alpha \in \set{0.01, \ldots, 0.99}\) and \(y\) is the observed target.
+
+When we take the \(\alpha\)-quantile from our distribution, the pinball loss becomes a proper scoring rule, i.e., \((F, y) \mapsto L_\alpha(q_\alpha(F), y)\) is proper. 
+
+The overall score per task is the average over all time points, zones and quantiles.
+The models are then compared with a benchmark which is a basic point forecast 
+that was created using a na\"{i}ve model.

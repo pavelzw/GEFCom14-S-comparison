@@ -1,16 +1,8 @@
 \section{Energy Score}
 
-The energy score is a proper scoring rule that is used for 
-evaluating multi dimensional forecasts. A time series \((y_t)_t\) 
-can be evaluated in this fashion by looking at a sequence of \(H\) 
-points, i.e. \((y_t, \ldots, y_{t-H+1})_t \in \R^H\). 
-The scoring rule is defined as follows:
-\[ \mathrm{S}(P, y) = \mathbb{E}_P ||Y-y||_2 - \frac{1}{2} \mathbb{E}_P ||Y-Y'||_2, \]
-where \(Y'\) is an i.i.d. copy of \(Y\), so it is drawn independently with the same distribution \(P\).
-
-This scoring rule takes the time series attributes, namely the 
-correlation of adjacent data points, into account while 
-the pinball loss only evaluates the score pointwise.
+As mentioned in section \ref{sec:energy-score-explanation}, the energy score is used to 
+evaluate multivariate data and can be used to put 
+the time series attributes of a forecast into account in comparison to the pinball loss.
 
 The results of the energy score are shown in Figure \ref{fig:energy-score}. 
 We can observe that the SQF-RNN model performs better than or at least similar 

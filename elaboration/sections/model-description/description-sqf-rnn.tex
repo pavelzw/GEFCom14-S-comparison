@@ -1,26 +1,28 @@
 \section{Spline Quantile Function RNNs}
 \label{sec:sqf-rnn}
 
-Conventional neural networks don't use the temporal correlation of a time series. 
+Conventional neural networks do not use the temporal correlation of a time series and treat every data point as a separate input. 
 RNNs on the other hand have a layer that uses the current output of the network for the 
 next time step. With this, RNNs can use their internal state as memory and 
 are therefore able to process the temporal correlation of the time series. 
-That's why it makes sense to look at the performance of RNNs on our dataset.
+This motivates the use of RNNs on our dataset.
 
 DeepAR is an autoregressive recurrent neural network proposed by 
 \Textcite{Salinas2017} for the prediction of time series. It models 
-a known distribution like the normal distribution or the Student's \(t\)-distribution. 
+a known distribution like the normal distribution or the Student's \(t\)-distribution 
+and thus produces parametric probabilistic forecasts. 
 
-\Textcite{Gasthaus2019} builds on top of that: they proposed \gls{sqfrnn}, 
-a model that works just like DeepAR but doesn't use a predetermined output 
+\Textcite{Gasthaus2019} build on top of that: they propose \gls{sqfrnn}, 
+a model that works like DeepAR but does not use a predetermined output 
 distribution. Instead, they model the conditional distribution 
 by spline quantile functions. 
 
 This flexibility and the fact that DeepAR uses autoregressive input with an RNN structure 
-motivates the usage of this model instead of other models that don't 
-have autoregressive input or an RNN structure like QRF or NNQF.
+motivates the usage of this model instead of other models that do not incorporate 
+autoregressive input or an RNN structure like QRF or NNQF.
 
-Let \(\Theta\) be the model parameters, \(\boldsymbol{h}_t\) the network output of 
+To introduce the SQF-RNN model in more detail, 
+let \(\Theta\) be the model parameters, \(\boldsymbol{h}_t\) the network output of 
 time step \(t\) and \(\theta_t\) the parameters of the conditional distribution \(\P(y_t | \theta_t)\).
 The model works as follows:
 Compute the network output \(\boldsymbol{h}_t = h(\boldsymbol{h}_{t-1}, x_t, y_{t-1}, \Theta)\) 
@@ -64,7 +66,7 @@ While the DeepAR model is trained by maximizing the likelihood function
 of the parametric distribution \(\P(y_t | \theta_t)\), 
 the SQF-RNN model is trained by minimizing the CRPS scoring rule 
 \(\mathrm{CRPS}(\P(\cdot | \theta_t), y_t)\) (see \ref{ch:crps}) 
-which can be computed efficiently for spline-based quantile functions (cf. \Textcite{Gasthaus2019} supplementary PDF).
+which can be computed efficiently for spline-based quantile functions (cf. \Textcite{Gasthaus2019} supplementary material).
 
 A linear spline with \(L\) pieces is of the form 
 \[ s(x; \gamma, b, d) = \gamma + \sum_{l=0}^L b_l (x - d_l)_+, 

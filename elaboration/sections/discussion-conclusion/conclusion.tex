@@ -1,7 +1,7 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-In this thesis, we look at three different approaches to probabilistic forecasting 
+In this thesis, we compare three different approaches to probabilistic forecasting 
 for solar energy generation and compare them on the GEFCom2014 dataset. 
 Results show that the QRF and the NNQF model perform similar without 
 hyperparameter optimization and that the QRF model improves after the hyperparameter 
@@ -11,11 +11,11 @@ The QRF and NNQF model are both underdispersed during the night. This can be dea
 Nonparametric models are not always the easiest solution. Therefore, it makes sense to sometimes just predict the obvious 
 instead of training a complex model.
 
-The discrepancy between the results of the SQF-RNN model and the DeepAR model show us that 
-nonparametric models perform better than parametric ones in a context where we don't know the actual probability distribution. 
+The discrepancy between the results of the SQF-RNN model and the DeepAR model show that 
+nonparametric models can perform better than parametric ones in a context where we do not know the actual probability distribution. 
 The pinball loss crowned the QRF model the winner while the energy score marked the SQF-RNN model as winner. 
 Different scoring functions emphasize different properties of a forecast -- just because one forecast has a 
-better score than another forecast doesn't mean that it is better than the other in every aspect.
+better score than another forecast does not mean that it is better than the other in every aspect.
 
 Another point to note is that different models perform differently due to different features being 
 prioritized: the QRF and NNQF model both prioritize approximately the same features and therefore 

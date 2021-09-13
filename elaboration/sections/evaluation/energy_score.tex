@@ -1,12 +1,12 @@
 \section{Energy Score}
 
 As mentioned in section \ref{sec:energy-score-explanation}, the energy score is used to 
-evaluate multivariate data and can be used to put 
-the time series attributes of a forecast into account in comparison to the pinball loss.
+evaluate multivariate probabilistic forecasts and can be used to take 
+the time series attributes of a forecast into account in contrast to the pinball loss.
 
 The results of the energy score are shown in Figure \ref{fig:energy-score}. 
 We can observe that the SQF-RNN model performs better than or at least similar 
-to the NNQF and QRF models in every month with July and August as exception. 
+to the NNQF and QRF models in every month except for July and August. 
 Another thing to note is that the DeepAR model always performs worse than the SQF-RNN model. 
 
 \begin{figure}[ht]
@@ -17,5 +17,5 @@ Another thing to note is that the DeepAR model always performs worse than the SQ
     \label{fig:energy-score}
 \end{figure}
 
-QRF returns a mean score of \(0.36759\), NNQF a mean score of \(0.36736\), 
-SQF-RNN a mean score of \(0.36644\) and DeepAR a mean score of \(0.44235\).
+QRF returns a mean score of \(0.368\), NNQF a mean score of \(0.367\), 
+SQF-RNN a mean score of \(0.366\) and DeepAR a mean score of \(0.442\).

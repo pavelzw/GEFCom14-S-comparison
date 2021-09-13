@@ -1,11 +1,9 @@
 \section{Feature Importance}
 \label{sec:feature-importance}
 
-
-
 One way to determine the importance of a feature for a model is called 
 permutation feature importance. Here, the model is trained like usual but during the prediction step, 
-we use a modified version of the test data where one feature is shuffled. 
+we use a modified version of the test data where one feature is randomly permuted over all forecast cases. 
 This way, the model cannot use the information of this feature properly 
 and will most likely perform worse. The loss on the shuffled dataset is 
 then divided by the loss on the regular test set. A value close to \(1\) 

@@ -6,7 +6,7 @@ and have since then proven to be a powerful method for high-dimensional quantile
 regression and time series forecasting. 
 The method works in a similar way as Random Forests which are introduced by \Textcite{Breiman2001}
 with the main difference 
-being that we don't take the mean over the trees but take different quantiles 
+being that the predictor is not the mean over the trees but takes the form of different quantiles 
 from the trees.
 
 The performance of this algorithm is very competitive in comparison with other 
@@ -20,7 +20,8 @@ continuity and monotonicity of the \gls{cdf}.
 Quantile Regression Forests work as follows (cf. \Textcite{Meinshausen2006}):
 \begin{enumerate}
     \item Grow \(k\) trees \(\func{T_1, \ldots, T_k}{\R^D}{\R}\) like in a Random Forest from the training data.
-    \item For a given \(x\in\R^D\), calculate the outputs \( \tilde{y}_i = T_i(x) \) for all \(i \in \set{1, \ldots, k}\).
+    \item For a given \(x\in\R^D\), calculate the outputs \( \tilde{y}_i = T_i(x) \) for all \(i \in \set{1, \ldots, k}\), 
+    where \(T_i(x)\) is the output of the \(i\)-th tree when \(x\) is used as input.
     \item Calculate the empirical quantiles \(y_{(0.01)}, \ldots, y_{(0.99)}\) from 
     \(\set{\tilde{y}_1, \ldots, \tilde{y}_k}\).
 \end{enumerate}

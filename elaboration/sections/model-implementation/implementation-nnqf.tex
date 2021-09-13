@@ -1,11 +1,11 @@
 \section{Nearest Neighbor Quantile Filters}
 \label{sec:implementation-nnqf}
 
-The basic steps for the quantile filters are provided by \Textcite{Ordiano2019} 
+Implementations of the basic steps for the quantile filters are provided by \Textcite{Ordiano2019} 
 on GitHub\footnote{\url{https://github.com/JorgeAngel/nnqf_filter}}. 
 
 Since the NNQF method is only a preprocessing step for the target values, 
-we still need to decide which model we want to use for fitting the 
+we still need to decide on a model for fitting the 
 conditional distribution function. 
 \Textcite{Ordiano2019} tried fitting each of the \(99\) quantiles 
 with a polynomial of maximum degree \(1\) to \(4\) or a multi layer perceptron 
@@ -19,7 +19,6 @@ All in all, we want to fit a function \(\func{f_q}{\R^{D\times H}}{\R}\),
 where \( f(x_n, \ldots, x_{n-H+1}; \theta_{(q)})\) is the conditional 
 \(q\)-quantile of the target value \(Y_n\) and \(\theta_{(q)}\) are the weights 
 of the regression model for the \(q\)-quantile.
-
 In order to achieve this lagging, pyWATTS contains a \texttt{Sampler} class
 that transforms the data so that each time point contains the 
 predictor data of the previous \(H\) time points.
@@ -37,7 +36,7 @@ In order to avoid quantile crossing, \Textcite{Ordiano2019} postprocess the cond
     \max\set{ f(x; \theta_{(q)}), f(x; \theta_{(q-0.01)}) }, &\text{else.}
 \end{cases}\]
 
-In this thesis, we use another approach: \\
+In this thesis, we use another approach: 
 We sort all estimated conditional quantiles \(\set{ f(x; \theta_{(q)}) \;|\; q\in \set{0.01, \ldots, 0.99} }\) 
 and set \(\hat{y}_{(q)}\) as the \((q\cdot 100)\)-th entry of the sorted list. 
 
@@ -47,7 +46,7 @@ In the NNQF model, the only hyperparameters for the preprocessing part are
 the metric that is used for calculating the distances, 
 the number of neighbors that should be considered and 
 the number of lags \(H\). 
-The other hyperparameters depend on the regression model. 
+The other hyperparameters effect the regression model. 
 In the case of the multi layer perceptron, the usual hyperparameters like 
 hidden layer sizes, activation function, solver and learning rate can be tuned. 
 To improve stability, we also use ensemble training at the expense of training and evaluation time.

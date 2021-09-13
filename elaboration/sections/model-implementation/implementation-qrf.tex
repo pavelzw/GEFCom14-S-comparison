@@ -6,7 +6,7 @@ be found in the doubt package\footnote{\url{https://github.com/saattrupdan/doubt
 
 First, the data is read from the \texttt{.csv} files. 
 Afterwards, the cumulated columns (SSRD, STRD, TSR) are decumulated and then normalized 
-like described in Section \ref{sec:data-preprocessing}.
+as described in Section \ref{sec:data-preprocessing}.
 Then, the \texttt{QuantileRegressionForest} is wrapped into a pipeline stage in order for 
 it to be trained.
 After training and prediction, the results are evaluated 

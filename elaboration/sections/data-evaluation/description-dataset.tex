@@ -7,7 +7,7 @@ a probabilistic energy forecasting competition with four tracks:
 electric load, electric price, wind power and solar power forecasting. 
 The competition attracted 581 participants from 61 countries. 
 
-The Global Energy Forecasting Competition took place the first time in 2012. 
+The Global Energy Forecasting Competition took place for the first time in 2012. 
 In the 2014 competition, they upgraded the competition with three features: 
 \begin{enumerate}
     \item instead of point forecasts, probabilistic forecasts were used;
@@ -21,20 +21,20 @@ In this track, the task is to predict the power generation of three
 solar power plants (the so called zones) in Australia. 
 The prediction is on a rolling basis for \(\SI{24}{\hour}\) ahead. 
 The forecasts are to be issued at midnight each day for the next \(24\) hours. 
-\(15\) tasks are provided for the challenge. In each one, the participants need to 
+\(15\) tasks are provided for the challenge on a rolling basis. In each one, the participants need to 
 provide one month of forecasts, so \(28\)-\(31\) days.
 For the forecasts, different prediction variables from the 
 European Centre for Medium-Range Weather Forecasts (ECMWF) are provided. 
 They are shown in Table \ref{table:predictors}.
 Power measurements are also provided, but only over the training period. 
 
-In order to become familiar with the data, only the last twelve of the 15 available tasks 
+In order to allow participants to become familiar with the data, only the last twelve of the 15 available tasks 
 from April 2013 to June 2014 counted towards the final score.
 The final score was calculated using a linear increasing weighted mean over the scores from the different tasks: 
 The first task got weight \(1/78\), the second \(2/78\), etc. 
 in order to promote models that improve over time. The division by \(78\) is so that the 
 weights sum to \(1\).
-Since we will evaluate the models on the dataset as a whole instead of on a monthly different basis, 
+Since we will evaluate the models on the dataset as a whole instead of on a monthly basis, 
 we will take the mean over the \(12\) different losses.
 
 \begin{table}[ht]

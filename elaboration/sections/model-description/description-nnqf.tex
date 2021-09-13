@@ -1,16 +1,16 @@
 \section{Nearest Neighbor Quantile Filters}
 \label{sec:nnqf}
 
-\Textcite{Ordiano2019} proposed a method for probabilistic 
+\Textcite{Ordiano2019} propose a method for probabilistic 
 energy forecasting using quantile regression based on a \gls{nnqf}. 
 The method works as follows: first, the training set is modified 
 by using the Nearest Neigbor Quantile Filters so that 
 the training data directly represents a probabilistic distribution. 
 Then, a regression model like an artificial neural network can 
-train on this modified data set and learn the quantile function.
+be trained on this modified data set and learn the quantile function.
 
 The preprocessing of the NNQF method includes multiple steps. 
-First, we search the \(k\) nearest neighbors 
+First, we search for the \(k\) nearest neighbors 
 for every \(x_i\).
 The distance metric can be any distance metric on \(\R^D\), 
 the euclidean metric is commonly used.
@@ -21,17 +21,17 @@ by calculating the empirical quantile \(\tilde{y}_{(q),i}\) of
 \(\set{y_j \;|\; j\in J}\) for each \(q \in \set{0.01, \ldots, 0.99}\). 
 
 After repeating this procedure for each entry in the time series, 
-we get vectors 
+we obtain vectors 
 \[ \tilde{y}_{(q)} = \begin{pmatrix}
     \tilde{y}_{(q), 1} \\ 
     \vdots \\
     \tilde{y}_{(q), n}
 \end{pmatrix} \]
-that form the modified training set combined with the 
-predictors \(X = (x_1, \ldots, x_n)\).
+that form the modified training set combined with the corresponding 
+predictors \((x_1, \ldots, x_n)\).
 
 Because we work with a time series, adjacent points are correlated. 
-That's the reason why we use lag features: 
+Therefore, we use lag features as additional inputs in the second step: 
 instead of only \(x_i\), we are using \(x_i, \ldots, x_{i-H+1}\) to 
 predict the target data. \(H\) is called lag size.
 
@@ -44,10 +44,10 @@ artificial neural networks.
 This method has three main advantages: 
 \begin{enumerate}
     \item The technique for the quantile regression is not specified, 
-    any technique can be used,
-    \item the calculation of the nearest neighbors and the modified 
-    training set only needs to be done once; you can save time when 
-    using multiple quantile regressions. 
+    any technique can be used.
+    \item The calculation of the nearest neighbors and the modified 
+    training set only needs to be done once; thus saving time when 
+    performing quantile regression for multiple quantiles. 
     \item The original dataset does not need to be saved afterwards, 
     we only need the weights of the regression model for predicting.
 \end{enumerate}

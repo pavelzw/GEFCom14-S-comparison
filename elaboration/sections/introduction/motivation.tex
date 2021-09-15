@@ -5,36 +5,34 @@
 % why is energy forecasting important (with citations)
 % highlight solar forecasting as being of particular interest & 1-2 challenges
 
-Energy forecasting has become increasingly important in the recent years 
-because of a higher energy consumption and a higher demand 
-for renewable energies. 
-\Textcite{Hong2016} state that energy supply, demand and prices are becoming increasingly 
-volatile and unpredictable. 
-Solar power forecasting in particular is an interesting field since it can be modeled through predictor variables 
+In the last decade, climate change has become an increasingly urgent problem. 
+In order to reduce the amount of CO2 emitted due to energy production, 
+the transition towards renewable energy sources is important. 
+The photovoltaic share in the energy mix has seen continuous growth in 
+the past years (\Textcite{Snapshot2016}). 
+
+Solar energy production fluctuates strongly as variables such as the weather change. 
+\Textcite{Meer2018} claim that accurate forecasting of power generation is needed to properly 
+integrate the renewable energy sources into the energy generation mix. 
+In terms of forecasting methods, solar power is 
+an interesting problem since it can be modeled through predictor variables 
 like surface solar radiation, total cloud cover and precipitation 
 for which high-quality forecasts from numerical weather prediction models are readily available. 
-As material cost becomes lower and efficiency increases, solar energy generation is becoming more and more important. 
 
 % paragraph 2: 
 % motivate the importance of probabilistic solar forecasting
 % solar forecasting is immature in comparison to other types
 
-Because modeling the uncertainty of a forecast is relevant for planning the energy household of the electric grid, 
-probabilistic forecasts make sense instead of only point forecasts. 
-\textcite{Meer2018} claim that accurate probabilistic forecasting of power generation is needed to properly 
-integrate the renewable energy sources into the energy generation mix. 
 Energy forecasting has traditionally focused on point forecasts 
-but nowerdays, there is a substantial interest in probabilistic forecasts (\Textcite{Meer2018}).
-Different probabilistic forecasting methodologies can be used. 
-One challenge is to find the most effective method at generating probabilistic forecasts. 
+but nowadays, there is a substantial interest in probabilistic forecasts.
+Because modeling the uncertainty of a forecast is relevant for planning the energy household of the electric grid, 
+probabilistic forecasts make sense instead of only point forecasts (\Textcite{Meer2018}). 
+One challenge is to find the most effective method from all different probabilistic forecasting methodologies. 
 \Textcite{Hong2016} state that wind power forecasting is 
-more mature than solar energy forecasting. This is because 
-wind power forecasing is the closest to meteorological forecasting, 
-where probabilistic forecasting is well-established and commonly accepted.
-Solar power forecasting has the same subdomain as wind forecasting, namely renewable energy generation. 
-Nevertheless, it is neither in the 
-point forecasting nor in the probabilistic forecasting domain as mature 
-as wind power forecasting. 
+more mature than solar energy forecasting.
+This is most likely due to 
+wind power forecasting being the closest to meteorological forecasting, 
+where probabilistic forecasting is well-established and commonly accepted. 
 
 % paragraph 3: 
 % motivate deep learning for probabilistic solar forecasting
@@ -44,7 +42,7 @@ as wind power forecasting.
 Because of the large amount of data that is being used for solar power forecasting, it makes sense to look at 
 deep learning models for probabilistic solar forecasting. 
 Deep learning often provides good results for complex problems with a lot of data to process. 
-Generally, probabilistic forecasts can be distinguished into two types of forecasts: parametric ones and nonparametric ones. 
+Generally, probabilistic forecasts can be distinguished into two types of forecasts: parametric, and nonparametric ones. 
 Parametric learning assumes an underlying probability distribution, e.g., \(\mathcal{N}(\mu, \sigma^2)\). Here, the parameters 
 of the distribution are estimated. 
 Nonparametric learning does not make these assumptions. 
@@ -56,12 +54,12 @@ probability distribution class is unknown or difficult to specify -- like in sol
 % introduce models compared
 % introduce data set
 
-This is the reason why we compare three different nonparametric machine learning models 
-to tackle the probabilistic solar energy forecasting problem. 
+For this reason, we compare three different nonparametric machine learning models 
+that tackle the probabilistic solar energy forecasting problem. 
 The three models we take a look at are 
 \begin{enumerate}
-    \item Quantile Regression Forests proposed by \Textcite{Meinshausen2006},
-    \item Nearest Neighbor Quantile Filters proposed by \Textcite{Ordiano2019} and
+    \item Quantile Regression Forests (QRF) proposed by \Textcite{Meinshausen2006},
+    \item Nearest Neighbor Quantile Filters (NNQF) proposed by \Textcite{Ordiano2019} and
     \item Spline Quantile Functions Recurrent Neural Network (SQF-RNN) proposed by \Textcite{Gasthaus2019}.
 \end{enumerate}
 All of these models are so called distributional regression methods, meaning 

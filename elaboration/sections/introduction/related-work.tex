@@ -3,29 +3,30 @@
 
 This section covers related work concerning solar energy forecasting as well as 
 the different models that we investigate. 
-\Textcite{Hong2016} discuss the importance of solar energy, wind energy, electric load 
-and electric price forecasting. They summarize the recent research progress on probabilistic 
-energy forecasting and introduce the Global Energy Forecasting Competition 2014.
-\Textcite{Meer2018} analyze the state of the art in probabilistic solar energy forecasting 
-and assess different approaches in terms of performance. 
-\Textcite{Hong2020} offer a view of the entire field of energy forecasting, summarize research 
-trends and offer an outlook into the future of energy forecasting.
-\Textcite{Meinshausen2006} proposes the Quantile Random Forests method. He describes 
-how it works, gives numerical examples that underline its predictive performance
-and provides proofs for some of the model's properties like consistency. 
-\Textcite{Ordiano2019} introduce the Nearest Neighbors Quantile Filters (NNQF) method. 
+To get a broad overview of energy forecasting, 
+\Textcite{Hong2020} offer a review of the entire field. 
+They summarize research trends and offer an outlook into the future of energy forecasting. 
+In 2014, \Textcite{Hong2016} hosted the Global Energy Forecasting Competition where 
+solutions for the solar energy, wind energy, electric load and electric price forecasting 
+problems were submitted. 
+In this thesis, we evaluate different models on the solar energy problem 
+of the previously mentioned competition. We will compare the following four models 
+and discuss their suitability for solar power generation forecasting. 
+The Quantile Random Forests method is proposed by \Textcite{Meinshausen2006}. 
+In this work, its function is described 
+and numerical examples that underline its predictive performance are given 
+as well as proofs for some of the model's properties like consistency. 
+Nearest Neighbors Quantile Filters are introduced by \Textcite{Ordiano2019}. 
 They explain the advantages and test the model's performance on the GEFCom2014 dataset. 
 We will also try out the model on the GEFCom2014 dataset and evaluate 
 it in multiple kinds of manners.
-\Textcite{Salinas2017} introduce the DeepAR model -- a model for probabilistic forecasting 
-with autoregressive recurrent neural networks. They evaluate the model on several 
+The DeepAR model is proposed by \Textcite{Salinas2017}. 
+It is a model for probabilistic forecasting using autoregressive recurrent neural networks. 
+They evaluate the model on several 
 real-world data sets and show that this model has accuracy improvements of around 
-\(15\%\) compared to other state-of-the-art methods.
+\(15\%\) compared to other state-of-the-art methods. 
 \Textcite{Gasthaus2019} propose the SQF-RNN model, an extension of the DeepAR model 
 that is supposed to be a more flexible method for probabilistic forecasting 
 by modeling the quantile function with splines instead of a fixed distribution class.
 They empirically demonstrate its effectiveness by evaluating the model on several real-world 
 data sets and comparing it with the DeepAR model.
-
-In this thesis, we compare these models and discuss 
-their suitability for solar power generation forecasting.

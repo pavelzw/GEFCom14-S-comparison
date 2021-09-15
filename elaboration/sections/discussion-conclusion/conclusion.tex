@@ -28,3 +28,28 @@ As discussed in section \ref{sec:discussion}, the SQF-RNN model does not perform
 because the competition does not allow the previous time data to be used as an input value. 
 Future work could examine how well the SQF-RNN and DeepAR model perform after fixing this issue, 
 i.e., enabling \(\SI{24}{\hour}\) ahead forecasts with previous target data. 
+
+Future work could examine how the models behave on other tasks. 
+\Textcite{Gasthaus2019} use different datasets for solar energy forecasting with more 
+simultaneous time series but fewer predictors. 
+The SQF-RNN model performs very well on this dataset; future work could implement the other two models 
+on this dataset and compare it with the SQF-RNN and DeepAR model.
+
+Other variants for multivariate time series forecasting have been proposed like a model 
+for forecasting multivariate probabilistic time series via conditioned normalizing flows 
+by \Textcite{Rasul2020}. We tried out the model on the GEFCom2014 dataset, but it did not yield 
+successfull results. The reason for that is probably a similar one as for the SQF-RNN model: 
+in the GEFCom2014 dataset, there are too few simultaneous solar plants to forecast. 
+Future work could try to compare the model from \Textcite{Rasul2020} with the SQF-RNN and DeepAR model 
+on a dataset that works better for these models. 
+
+When we simulate the competition with our models, we see that 
+the the QRF model reaches \(15\)th, 
+the NNQF model reaches \(16\)th, the SQF-RNN model reaches \(18\)th 
+and the DeepAR model reaches \(20\)th place from \(24\) places in the competition. 
+The first place in the competition uses Gradient Boosting and \(k\)-Nearest Neighbor techniques 
+and the second place uses Quantile Regression Forests and Gradient Boosting Decision Trees. 
+The first place also used offsite information while the second place differentiated the variables 
+for the accumulated fields in the preprocessing step as well as provided time of day and year data. 
+Future work could try to yield better results for QRF and NNQF by preprocessing the data and providing 
+external information as predictors. 

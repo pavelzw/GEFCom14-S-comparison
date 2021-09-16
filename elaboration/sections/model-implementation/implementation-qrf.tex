@@ -15,7 +15,10 @@ using the pinball loss scoring rule for each time step and zone.
 The hyperparameters of Quantile Regression Forests are very similar to the ones 
 of conventional Random Forests. We can choose the number of trees in the forest, 
 the splitting criterion (mean squared error or mean absolute error), 
-the splitting strategy (best split or best random split) 
+the splitting strategy (best split or best random split
+\footnote{The best random split selects the best split of all features while best random split 
+randomly selects features, calculates their performance and selects the best split 
+among these randomly selected features.}) 
 and the number of features to consider when looking for the best split. 
 We can also change the shape of the trees: 
 the maximum depth, minimum number of samples required to split a node, the minimum number of samples per leaf and 

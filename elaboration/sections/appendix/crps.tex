@@ -17,9 +17,15 @@ where \(L_\alpha\) is the pinball loss.
     where 
     \[ \mathrm{s}_{\alpha, \eta}(q, y) = \begin{cases}
         1-\alpha, &y\leq \eta < q, \\
-        \alpha, &q\leq \eta < y \\
+        \alpha, &q\leq \eta < y, \\
         0, &\text{otherwise}.
     \end{cases} \]
+    \Textcite{Ehm2016} state that elementary scoring functions are used to establish forecast 
+    dominance over a class of scoring functions: if a forecast \(F_1\) has a lower score than 
+    another forecast \(F_2\) for all elementary scoring functions of a certain class, 
+    \(F_1\) dominates \(F_2\) with respect to the class \(\mathcal{P}\) 
+    that is induced by these elementary scoring functions. We can check the dominance 
+    with respect to the elementary scoring functions with so-called Murphy diagrams.
 
     Let \(\eta < y\). 
     \[ 2 \int_0^1 \mathrm{s}_{\alpha, \eta}(F^{-1}(\alpha), y) \d\alpha = 2 \int_0^{F(\eta)} \alpha \d \alpha = F(\eta)^2 = (F(\eta) - \mathds{1}_{\set{y \leq \eta}})^2. \]

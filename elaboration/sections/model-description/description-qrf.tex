@@ -20,10 +20,9 @@ continuity and monotonicity of the \gls{cdf}.
 Quantile Regression Forests work as follows (cf. \Textcite{Meinshausen2006}):
 \begin{enumerate}
     \item Grow \(k\) trees \(\func{T_1, \ldots, T_k}{\R^D}{\R}\) like in a Random Forest from the training data.
-    \item For a given \(x\in\R^D\), calculate the outputs \( \tilde{y}_i = T_i(x) \) for all \(i \in \set{1, \ldots, k}\), 
-    where \(T_i(x)\) is the output of the \(i\)-th tree when \(x\) is used as input.
-    \item Calculate the empirical quantiles \(y_{(0.01)}, \ldots, y_{(0.99)}\) from 
-    \(\set{\tilde{y}_1, \ldots, \tilde{y}_k}\).
+    \item For a given \(x\in\R^D\), calculate the distributional outputs \( \tilde{y}_i = T_i(x) \) for all \(i \in \set{1, \ldots, k}\), 
+    where \(T_i(x)\) is the distributional output of the \(i\)-th tree when \(x\) is used as input.
+    \item Calculate the empirical quantiles \(y_{(0.01)}, \ldots, y_{(0.99)}\) from the 
+    combined forecast distribution, which can be obtained by averaging over all distributions 
+    \(\tilde{y}_1, \ldots, \tilde{y}_k\).
 \end{enumerate}
-
-The empirical quantiles \(y_{(0.01)}, \ldots, y_{(0.99)}\) now form the predictive distribution.
